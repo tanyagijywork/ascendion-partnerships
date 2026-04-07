@@ -245,23 +245,25 @@
     }
     .rec-card-title { font-size: 20px; font-weight: 600; line-height: 26px; color: #000; }
     .rec-card-desc { font-size: 16px; font-weight: 400; line-height: 24px; color: var(--neutral-600); }
+    .rec-card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: auto; padding-top: 16px;
+    }
     .rec-card-know-more {
       display: inline-flex; align-items: center; gap: 8px;
       font-size: 16px; font-weight: 500; color: var(--primary-500);
-      padding: 8px 0; transition: gap 0.15s;
-      align-self: flex-start;
+      transition: gap 0.15s;
     }
     .rec-card-know-more:hover { gap: 12px; }
-    /* Share icon — absolute, bottom-right of card, matching Figma */
+    /* Share icon — filled purple square, bottom-right of card body */
     .rec-card-share {
-      position: absolute; right: 12px; bottom: -6px;
-      width: 34px; height: 34px;
+      width: 40px; height: 40px; border-radius: 8px;
+      background: var(--primary-500); color: #fff;
       display: flex; align-items: center; justify-content: center;
-      color: var(--neutral-400); cursor: pointer;
-      transition: color 0.15s;
-      background: none; border: none;
+      cursor: pointer; border: none; flex-shrink: 0;
+      transition: background 0.15s;
     }
-    .rec-card-share:hover { color: var(--primary-500); }
+    .rec-card-share:hover { background: var(--primary-900); }
 
     /* Empty state */
     .cards-empty {
@@ -710,9 +712,11 @@
             <h3 class="rec-card-title">${r.title}</h3>
             <p class="rec-card-desc">${r.desc}</p>
           </div>
-          <a href="#" class="rec-card-know-more">Know More ${arrowSVG}</a>
+          <div class="rec-card-footer">
+            <a href="#" class="rec-card-know-more">Know More ${arrowSVG}</a>
+            <button class="rec-card-share" aria-label="Share" title="Share">${shareSVG}</button>
+          </div>
         </div>
-        <button class="rec-card-share" aria-label="Share" title="Share">${shareSVG}</button>
       `;
 
       card.querySelector('.rec-card-share').addEventListener('click', (e) => {
