@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ascendion – Powering AI-Driven Partnership with Microsoft</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Design Tokens ─────────────────────────────────────────────── */
+    :root {
+      --bg-subtle:   #f4f4f0;
+      --bg-white:    #ffffff;
+      --text-primary:   #000000;
+      --text-secondary: #4b4b4b;
+      --accent:      #6464d7;
+      --border-sep:  #e3e2df;
+      --border-label:#999999;
+      --disabled:    #808080;
+      --neutral-300: #aaaaaa;
+      --font-display:'PP Neue Machina', 'Space Grotesk', Georgia, serif;
+      --font-body:   'Inter', -apple-system, sans-serif;
+      --margin: 80px;
+      --nav-h: 158px; /* 86 + 72 */
+    }
+
+    /* ─── Reset ──────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--text-primary); background: var(--bg-white); overflow-x: hidden; }
+    img  { display: block; }
+    a    { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ─── Utility ────────────────────────────────────────────────────── */
+    .section-rule {
+      display: flex; align-items: center; gap: 16px;
+    }
+    .section-rule::before,
+    .section-rule::after {
+      content: ''; flex: 1; height: 1px; background: var(--border-label);
+    }
+    .section-rule span {
+      font-family: var(--font-body); font-weight: 600; font-size: 16px;
+      line-height: 18px; letter-spacing: 0.96px; text-transform: uppercase;
+      color: var(--accent); white-space: nowrap;
+    }
+
+    .arrow-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px; border-radius: 100px;
+      border: 1px solid var(--text-primary); background: transparent;
+      transition: background .2s, border-color .2s;
+    }
+    .arrow-btn svg { width: 16px; height: 16px; }
+    .arrow-btn.disabled { border-color: var(--disabled); opacity: .5; cursor: not-allowed; }
+    .arrow-btn:not(.disabled):hover { background: var(--text-primary); }
+    .arrow-btn:not(.disabled):hover svg path { stroke: white; }
+
+    .text-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--accent); font-weight: 500; font-size: 16px;
+      padding: 8px 0; cursor: pointer;
+    }
+    .text-btn svg { width: 16px; height: 16px; }
+    .text-btn:hover { text-decoration: underline; }
+
+    .dots { display: flex; gap: 8px; align-items: center; }
+    .dots span {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--border-sep);
+    }
+    .dots span.active { background: var(--text-primary); }
+
+    /* ─── STICKY SITE HEADER ─────────────────────────────────────────── */
+    .site-header {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--bg-subtle);
+    }
+
+    /* Main nav */
+    .main-nav {
+      height: 86px; padding: 0 var(--margin);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      height: 48px; display: flex; align-items: center;
+    }
+    .nav-logo svg { height: 100%; }
+    .logo-wordmark {
+      font-family: var(--font-display); font-size: 28px; font-weight: 700;
+      letter-spacing: -.5px; color: var(--text-primary);
+    }
+    .nav-menu { display: flex; align-items: center; gap: 16px; }
+    .nav-link {
+      display: flex; align-items: center; gap: 8px;
+      font-weight: 500; font-size: 16px; line-height: 18px;
+      color: var(--text-primary); white-space: nowrap; cursor: pointer;
+    }
+    .nav-link.accent { color: var(--accent); }
+    .nav-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .nav-link .sup { font-size: 10px; vertical-align: super; }
+    .get-in-touch {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--text-primary); color: white;
+      padding: 16px 10px 16px 20px; border-radius: 2px;
+      font-weight: 500; font-size: 16px; line-height: 18px;
+      cursor: pointer; white-space: nowrap; transition: background .2s;
+    }
+    .get-in-touch:hover { background: #222; }
+    .get-in-touch svg { width: 16px; height: 16px; }
+
+    /* Sub-nav / page nav */
+    .page-nav-bar {
+      border-top: 1px solid var(--border-sep);
+      border-bottom: 1px solid var(--border-sep);
+      padding: 0 var(--margin);
+    }
+    .page-nav {
+      display: flex; align-items: stretch; height: 72px; gap: 0;
+    }
+    .page-nav-item {
+      display: flex; align-items: center; padding: 0 8px;
+      font-size: 14px; line-height: 16px; color: var(--text-secondary);
+      cursor: pointer; white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: color .2s, border-color .2s;
+    }
+    .page-nav-item:hover { color: var(--text-primary); }
+    .page-nav-item.active { border-bottom-color: var(--accent); color: var(--text-secondary); }
+
+    /* ─── HERO ───────────────────────────────────────────────────────── */
+    .hero {
+      position: relative; height: 768px;
+      display: flex; align-items: center; gap: 20px;
+      padding: 0 var(--margin); background: var(--bg-white); overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(105deg, #f9f9f6 50%, #e8e8ff 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 32px;
+      width: 614px; flex-shrink: 0; padding-top: 120px; height: 100%;
+    }
+    .hero-breadcrumb { font-size: 16px; line-height: 24px; color: var(--text-secondary); }
+    .hero-breadcrumb strong { color: var(--text-primary); font-weight: 400; }
+    .microsoft-logo-area {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .ms-logo {
+      display: inline-flex; align-items: center; gap: 18px;
+      padding: 0;
+      width: fit-content;
+    }
+    .ms-logo-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr; gap: 8px;
+      width: 44px; height: 44px; flex-shrink: 0;
+    }
+    .ms-logo-grid span:nth-child(1) { background: #f25022; }
+    .ms-logo-grid span:nth-child(2) { background: #7fba00; }
+    .ms-logo-grid span:nth-child(3) { background: #00a4ef; }
+    .ms-logo-grid span:nth-child(4) { background: #ffb900; }
+    .ms-logo-text {
+      font-family: var(--font-body); font-weight: 300; font-size: 28px;
+      line-height: 1; color: #333; letter-spacing: -.3px;
+    }
+    .hero-title {
+      font-family: var(--font-display); font-size: 72px; line-height: 80px;
+      font-weight: 400; color: var(--text-primary);
+    }
+    .hero-photo {
+      position: relative; z-index: 1;
+      flex: 1; height: 630px; border-radius: 8px; overflow: hidden;
+      align-self: center;
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-photo-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #ddddf5 0%, #b5b5ea 100%);
+    }
+
+    /* ─── BI PIN (intro) ─────────────────────────────────────────────── */
+    .bi-pin-intro {
+      background: var(--bg-subtle);
+      padding: 80px var(--margin);
+    }
+    .bi-pin-intro-inner {
+      max-width: 1280px; display: flex; gap: 60px; align-items: flex-start;
+    }
+    .bi-pin-intro-left {
+      flex: 1; font-family: var(--font-display); font-size: 32px;
+      line-height: 40px; font-weight: 400; color: var(--text-primary);
+    }
+    .bi-pin-intro-right {
+      flex: 1; font-size: 20px; line-height: 26px;
+      color: var(--text-secondary); font-weight: 400;
+    }
+    .bi-pin-intro-right p + p { margin-top: 26px; }
+
+    /* ─── CAPABILITIES ───────────────────────────────────────────────── */
+    .capabilities-section {
+      background: var(--bg-white);
+      padding: 80px var(--margin);
+      display: flex; flex-direction: column; gap: 40px;
+    }
+    .cap-header {
+      display: flex; align-items: flex-start; gap: 60px;
+    }
+    .cap-header-title {
+      font-family: var(--font-display); font-size: 40px; line-height: 48px;
+      font-weight: 400; flex-shrink: 0; white-space: pre-line;
+    }
+    .cap-header-desc {
+      flex: 1; font-size: 16px; line-height: 24px; color: var(--text-secondary);
+    }
+
+    /* Tabs */
+    .cap-tabs {
+      display: flex; align-items: flex-end; border-bottom: 1px solid var(--border-sep);
+    }
+    .cap-tab {
+      padding: 0 0 12px 0; margin-right: 0;
+      font-size: 16px; line-height: 18px; color: var(--text-secondary);
+      cursor: pointer; border-bottom: 3px solid transparent;
+      margin-bottom: -1px; white-space: nowrap;
+      transition: color .2s, border-color .2s;
+    }
+    .cap-tab.active {
+      color: var(--text-primary); font-weight: 600;
+      border-bottom-color: var(--accent);
+      padding-left: 24px;
+    }
+    .cap-tab:not(.active) { padding-left: 24px; }
+    .cap-tab:hover:not(.active) { color: var(--text-primary); }
+
+    /* Tab content */
+    .cap-panel { display: none; }
+    .cap-panel.active { display: flex; gap: 60px; align-items: flex-start; }
+    .cap-panel-text { width: 600px; flex-shrink: 0; display: flex; flex-direction: column; gap: 28px; }
+    .cap-panel-title {
+      font-family: var(--font-display); font-size: 40px; line-height: 48px;
+      font-weight: 400; color: var(--text-primary);
+    }
+    .cap-panel-body { font-size: 16px; line-height: 24px; color: var(--text-secondary); }
+    .cap-panel-image {
+      flex: 1; height: 684px; border-radius: 8px; overflow: hidden;
+    }
+    .cap-panel-image img { width: 100%; height: 100%; object-fit: cover; }
+    .cap-panel-image-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #e8e8f8 0%, #c5c5ea 100%);
+    }
+
+    /* Data & Insights panel accordion */
+    .cap-accordion { display: flex; flex-direction: column; margin-top: 8px; }
+    .cap-acc-item {
+      border-top: 1px solid var(--border-sep);
+      padding: 20px 0;
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .cap-acc-dash {
+      color: var(--accent); font-size: 16px; line-height: 24px;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .cap-acc-body { display: flex; flex-direction: column; gap: 10px; }
+    .cap-acc-title {
+      font-weight: 600; font-size: 16px; line-height: 22px;
+      color: var(--accent); text-decoration: underline;
+      text-underline-offset: 3px; cursor: pointer;
+    }
+    .cap-acc-title:hover { opacity: .8; }
+    .cap-acc-desc {
+      font-size: 16px; line-height: 24px; color: var(--text-secondary);
+    }
+
+    /* Fabric Featured Partner badge (right panel image) */
+    .fabric-partner-img {
+      width: 100%; height: 100%; border-radius: 8px; overflow: hidden;
+      position: relative; background: #f0f0ec;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .fabric-partner-img img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    }
+    .fabric-badge {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+    }
+    .fabric-hex {
+      width: 220px; height: 220px; background: #1a7f64;
+      clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; padding: 24px;
+    }
+    .fabric-hex-icon {
+      width: 60px; height: 60px;
+      background: linear-gradient(135deg, #00c4b4, #68efad);
+      clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+    }
+    .fabric-hex-text {
+      color: white; font-weight: 700; font-size: 13px;
+      text-align: center; line-height: 1.3; letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+    .fabric-ms-logo {
+      margin-top: 12px; display: flex; align-items: center; gap: 8px;
+    }
+    .fabric-ms-logo-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr; gap: 2px;
+      width: 24px; height: 24px;
+    }
+    .fabric-ms-logo-grid span:nth-child(1) { background: #f25022; }
+    .fabric-ms-logo-grid span:nth-child(2) { background: #7fba00; }
+    .fabric-ms-logo-grid span:nth-child(3) { background: #00a4ef; }
+    .fabric-ms-logo-grid span:nth-child(4) { background: #ffb900; }
+    .fabric-ms-text {
+      font-size: 16px; color: #333; font-weight: 400;
+    }
+    /* Geometric lines background for data panel image */
+    .data-panel-bg {
+      position: absolute; inset: 0; overflow: hidden; border-radius: 8px;
+    }
+    .data-panel-bg::before {
+      content: '';
+      position: absolute; inset: -50%;
+      background-image:
+        repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(0,0,0,.05) 40px, rgba(0,0,0,.05) 41px),
+        repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(0,0,0,.05) 40px, rgba(0,0,0,.05) 41px);
+    }
+
+    /* ─── SOLUTIONS (sticky left + scroll right) ─────────────────────── */
+    .solutions-section {
+      background: var(--bg-subtle);
+      padding: 80px var(--margin) 48px;
+      display: flex; flex-direction: column; gap: 32px;
+    }
+    .solutions-inner {
+      display: flex; align-items: flex-start; justify-content: space-between;
+    }
+
+    /* Sticky left column */
+    .solutions-left {
+      width: 560px; flex-shrink: 0;
+      position: sticky;
+      top: var(--nav-h); /* stays below the fixed header */
+      align-self: flex-start;
+    }
+    .solutions-left-title {
+      font-family: var(--font-display); font-size: 40px; line-height: 48px;
+      font-weight: 400; color: var(--text-primary);
+    }
+
+    /* Scrolling right column */
+    .solutions-right {
+      width: 635px; flex-shrink: 0;
+      display: flex; flex-direction: column; gap: 32px;
+    }
+
+    /* Individual solution card */
+    .solution-card {
+      background: var(--bg-white); padding: 32px;
+      display: flex; flex-direction: column; gap: 28px;
+    }
+    .solution-num {
+      font-family: var(--font-display); font-size: 48px; line-height: 56px;
+      font-weight: 400; color: var(--accent);
+    }
+    .solution-name {
+      font-family: var(--font-display); font-size: 40px; line-height: 48px;
+      font-weight: 400; color: var(--text-primary);
+    }
+    .solution-body { font-size: 16px; line-height: 24px; color: var(--text-secondary); }
+    .solution-body p + p { margin-top: 24px; }
+    .solution-sub-title {
+      font-weight: 600; font-size: 20px; line-height: 26px;
+      color: var(--text-secondary); margin-bottom: 12px;
+    }
+    .solution-list { display: flex; flex-direction: column; }
+    .solution-list-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 16px 0; border-top: 1px solid var(--border-sep);
+    }
+    .solution-list-item .dash {
+      color: var(--accent); font-size: 16px; line-height: 24px; flex-shrink: 0;
+    }
+    .solution-list-item p { font-size: 16px; line-height: 24px; color: var(--text-secondary); }
+
+    /* ─── WHY ASCENDION ──────────────────────────────────────────────── */
+    .why-section {
+      background: var(--bg-white);
+      padding: 80px var(--margin);
+      display: flex; flex-direction: column; gap: 40px;
+    }
+    .why-grid {
+      display: flex; gap: 20px; overflow: hidden;
+    }
+    .why-card {
+      background: var(--bg-white); padding: 32px;
+      width: 400px; flex-shrink: 0;
+      display: flex; flex-direction: column; gap: 42px;
+      border-top: 3px solid transparent;
+      transition: background .25s ease, border-top-color .25s ease;
+      cursor: default;
+    }
+    .why-card:hover {
+      background: linear-gradient(180deg, #eaeaff 0%, rgba(234,234,255,0) 100%);
+      border-top-color: var(--accent);
+    }
+    
+    .why-icon {
+      width: 60px; height: 60px;
+      background: var(--bg-subtle); border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .why-icon svg { width: 32px; height: 32px; }
+    .why-card-title {
+      font-weight: 600; font-size: 24px; line-height: 56px;
+      color: var(--text-primary);
+    }
+    .why-card-desc {
+      font-size: 16px; line-height: 24px; color: var(--text-secondary); width: 260px;
+    }
+    .carousel-controls {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    /* ─── CLIENT OUTCOMES ────────────────────────────────────────────── */
+    .outcomes-section {
+      background: var(--bg-subtle);
+      padding: 80px var(--margin);
+      display: flex; flex-direction: column; gap: 40px;
+    }
+    .outcomes-grid {
+      display: flex; gap: 40px; align-items: flex-start;
+    }
+    .outcome-card {
+      background: var(--bg-white); border-radius: 6px; overflow: hidden;
+      width: 400px; flex-shrink: 0; display: flex; flex-direction: column;
+    }
+    .outcome-img {
+      height: 225px; background: var(--neutral-300);
+      display: flex; align-items: flex-start; gap: 10px; padding: 16px;
+      position: relative; overflow: hidden;
+    }
+    .outcome-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .tag {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 8px; border-radius: 2px; font-size: 16px; line-height: 18px;
+      white-space: nowrap; position: relative; z-index: 1;
+    }
+    .tag.industry { background: var(--accent); color: white; }
+    .tag.capability { background: white; color: var(--accent); }
+    .outcome-body {
+      padding: 18px 24px; display: flex; flex-direction: column;
+      justify-content: space-between; height: 220px;
+    }
+    .outcome-stat {
+      font-weight: 600; font-size: 24px; line-height: 28px; color: var(--text-primary);
+    }
+    .outcome-desc {
+      font-size: 16px; line-height: 24px; color: var(--text-secondary);
+      width: 336px; margin-top: 8px;
+    }
+
+    /* ─── INSIGHTS ───────────────────────────────────────────────────── */
+    .insights-section {
+      background: var(--bg-subtle);
+      padding: 80px var(--margin);
+      display: flex; flex-direction: column; gap: 32px;
+    }
+    .insights-tabs {
+      display: flex; align-items: flex-end;
+      border-bottom: 1px solid var(--border-sep);
+    }
+    .ins-tab {
+      padding: 0 0 12px 0; font-size: 16px; line-height: 18px;
+      color: var(--text-secondary); cursor: pointer;
+      border-bottom: 3px solid transparent; margin-bottom: -1px;
+      white-space: nowrap; transition: color .2s, border-color .2s;
+    }
+    .ins-tab.active {
+      color: var(--text-primary); font-weight: 600;
+      border-bottom-color: var(--accent);
+    }
+    .ins-tab:not(.active) { padding-left: 24px; }
+    .ins-tab:hover:not(.active) { color: var(--text-primary); }
+
+    .insights-grid {
+      display: flex; gap: 40px; align-items: flex-start;
+    }
+    .insight-card {
+      background: var(--bg-white); border-radius: 6px; overflow: hidden;
+      width: 400px; flex-shrink: 0; display: flex; flex-direction: column;
+    }
+    .insight-img {
+      height: 225px; background: var(--neutral-300);
+    }
+    .insight-body {
+      padding: 18px 24px; display: flex; flex-direction: column;
+      justify-content: space-between; height: 220px;
+    }
+    .insight-title {
+      font-weight: 600; font-size: 20px; line-height: 26px;
+      color: var(--text-primary); width: 340px;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────────────────── */
+    .footer { background: #fff; padding: 80px 0 0; }
+    .footer .container { padding: 0 var(--margin); }
+    .footer-cols { display: grid; grid-template-columns: 2fr 2fr 1.5fr 1.5fr auto; gap: auto; padding-bottom: 64px; }
+    .footer-col-head { font-family: var(--font-primary); font-size: 16px; font-weight: 700; color: #000; margin-bottom: 16px; }
+    .footer-links { display: flex; flex-direction: column; gap: 16px; border-top: 0.5px solid #e3e2df; border-bottom: 0.5px solid #e3e2df; padding: 16px 0; }
+    .footer-link { font-family: var(--font-primary); font-size: 16px; font-weight: 500; line-height: 1.4; color: #000; transition: color 0.15s; }
+    .footer-link:hover { color: var(--primary-500); }
+    .footer-link sup { font-size: 9px; vertical-align: super; color: inherit; }
+    .footer-social { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; padding-top: 40px; }
+    .footer-social-link { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; background: var(--primary-500); transition: opacity 0.15s, transform 0.15s; }
+    .footer-social-link:hover { opacity: 0.85; transform: translateY(-2px); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--neutral-200); padding: 24px 0 32px; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 14px; color: #000; }
+    .footer-legal { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .footer-legal-link { font-size: 14px; color: #000; transition: color 0.15s; }
+    .footer-legal-link:hover { color: var(--primary-500); }
+    .footer-sep { font-size: 14px; color: var(--neutral-400); }
+
+    /* ─── SVG icons inline ───────────────────────────────────────────── */
+    .icon-arrow-right { display:inline-block; }
+
+    /* ─── Divider ────────────────────────────────────────────────────── */
+    .page-divider { height: 1px; background: var(--border-sep); }
+
+    /* ─── Green teal separator ───────────────────────────────────────── */
+    .green-separator {
+      height: 3px;
+      background: linear-gradient(90deg,
+        #1a2e2a 0%,
+        #0d5c4a 15%,
+        #00c49a 40%,
+        #00e5b4 50%,
+        #00c49a 60%,
+        #0d5c4a 85%,
+        #1a2e2a 100%
+      );
+      width: 100%;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .footer .container { padding: 0 40px; }
+      .footer-cols {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        padding-bottom: 64px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .footer {
+        padding: 60px 0 0;
+      }
+      .footer .container { padding: 0 20px; }
+      .footer-cols {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding-bottom: 48px;
+      }
+      .footer-bottom {
+        padding: 24px 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        border-top: 1px solid var(--neutral-200);
+      }
+      .footer-legal {
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+      .footer-social {
+        padding-top: 24px;
+      }
+      .footer-col-head {
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+      .footer-link {
+        font-size: 14px;
+      }
+      .footer-copy {
+        font-size: 12px;
+      }
+      .footer-legal-link {
+        font-size: 12px;
+      }
+      .footer-sep {
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .footer {
+        padding: 40px 0 0;
+      }
+      .footer .container { padding: 0 16px; }
+      .footer-cols {
+        gap: 24px;
+        padding-bottom: 32px;
+      }
+      .footer-col-head {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .footer-links {
+        gap: 12px;
+        padding: 12px 0;
+      }
+      .footer-link {
+        font-size: 13px;
+      }
+      .footer-social {
+        gap: 10px;
+      }
+      .footer-bottom {
+        padding: 16px 0;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  STICKY HEADER                                                      -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<header class="site-header">
+
+  <!-- Main Navbar -->
+  <nav class="main-nav">
+    <div class="nav-logo">
+      <span class="logo-wordmark">Ascendion</span>
+    </div>
+    <div class="nav-menu">
+      <!-- AAVA link (accent) -->
+      <a class="nav-link accent" href="#">
+        AAVA<span class="sup">TM</span>
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 12L12 4M12 4H5M12 4V11" stroke="#6464d7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a class="nav-link" href="#">
+        What We Do
+        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a class="nav-link" href="#">
+        Who We Serve
+        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a class="nav-link" href="#">
+        How We Deliver
+        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a class="nav-link" href="#">
+        Insights &amp; Impact
+        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a class="nav-link" href="#">
+        Careers
+        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a class="get-in-touch" href="#">
+        Get in Touch
+        <svg viewBox="0 0 16 16" fill="none">
+          <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Page Sub-nav -->
+  <div class="page-nav-bar">
+    <nav class="page-nav">
+      <a class="page-nav-item active" href="#overview">Overview</a>
+      <a class="page-nav-item" href="#capabilities">Capabilities</a>
+      <a class="page-nav-item" href="#solutions">Solutions</a>
+      <a class="page-nav-item" href="#why-ascendion">Why Ascendion</a>
+      <a class="page-nav-item" href="#client-outcomes">Client Outcomes</a>
+      <a class="page-nav-item" href="#insights">Insights</a>
+    </nav>
+  </div>
+
+</header>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  HERO                                                               -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section class="hero" id="overview">
+  <div class="hero-bg"></div>
+
+  <div class="hero-content">
+    <p class="hero-breadcrumb">Home &nbsp;&rsaquo;&nbsp; How We Deliver &nbsp;&rsaquo;&nbsp; Partnership &nbsp;&rsaquo;&nbsp; <strong>Microsoft</strong></p>
+    <div class="microsoft-logo-area">
+      <div class="ms-logo">
+        <div class="ms-logo-grid">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <span class="ms-logo-text">Microsoft</span>
+      </div>
+      <h1 class="hero-title">Powering AI-Driven Partnership with Microsoft</h1>
+    </div>
+  </div>
+
+  <div class="hero-photo">
+    <img
+      src="http://localhost:3845/assets/e2ffa528cdd84bac9eeff2734fbe71688ccbf74c.png"
+      alt="Microsoft partnership"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+    />
+    <div class="hero-photo-placeholder" style="display:none;"></div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  BI PIN – INTRO TEXT                                                -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section class="bi-pin-intro">
+  <div class="bi-pin-intro-inner">
+    <p class="bi-pin-intro-left">As a trusted Microsoft Partner and one of the top Frontier Firms, Ascendion combines the power of Azure Cloud and agentic AI to unlock growth through deep expertise in Data and AI, and Business Applications.</p>
+    <div class="bi-pin-intro-right">
+      <p>Our strategic partnership accelerates organizations to modernize application development, enhance code quality, and adopt cutting-edge agentic AI technology. Our AAVA<sup>TM</sup> platform, available on Azure Marketplace, offers businesses a powerful path to accelerate their digital transformation with Microsoft technology. AAVA solutions seamlessly integrate with Microsoft Copilot to deliver contextual insights and automated workflows.</p>
+      <p>By leveraging Azure AI and data services, AAVA enhances Copilot's capabilities for intelligent decision-making and accelerates business process automation.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  CAPABILITIES                                                       -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section class="capabilities-section" id="capabilities">
+
+  <div class="section-rule"><span>Capabilities</span></div>
+
+  <div class="cap-header">
+    <h2 class="cap-header-title">Accelerate Software&#10;Development</h2>
+    <p class="cap-header-desc">By combining our AAVA platform and GitHub Copilot, we deliver AI-powered engineering that accelerates modernization and time to market, boosts accuracy, and drives cloud transformation for enterprise clients.</p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="cap-tabs">
+    <button class="cap-tab active" onclick="switchCapTab(this, 'cap-app-mod')">Application Modernization</button>
+    <button class="cap-tab" onclick="switchCapTab(this, 'cap-data')">Unlock Business Value with Data and Insights</button>
+  </div>
+
+  <!-- Panel: Application Modernization -->
+  <div class="cap-panel active" id="cap-app-mod">
+    <div class="cap-panel-text">
+      <h3 class="cap-panel-title">Application Modernization</h3>
+      <p class="cap-panel-body">With AAVA-led Application Modernization, Ascendion helps organizations evolve from monolithic architectures to microservices, from legacy systems to containerized, cloud-native environments. Powered by intelligent automation and engineering intelligence, we streamline refactoring, re-platforming, and re-architecting for the cloud. Across the modernization journey, we drive agility, scalability, speed, and security, delivering faster releases, cost efficiency, and enhanced developer productivity.</p>
+    </div>
+    <div class="cap-panel-image">
+      <img
+        src="http://localhost:3845/assets/5401d14ac765494aa39a6acca15fe0986d917093.png"
+        alt="Application Modernization"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+      />
+      <div class="cap-panel-image-placeholder" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- Panel: Data & Insights -->
+  <div class="cap-panel" id="cap-data">
+    <div class="cap-panel-text">
+      <h3 class="cap-panel-title">Unlock Business Value with Data and Insights</h3>
+      <p class="cap-panel-body">As a Microsoft Fabric Feature Partner, we offer Lakehouse deployments via our AAVA-led Data Engineering domain. We create scalable, real-time data intelligence platforms. By translating requirements to Fabric Medallion architecture and automating data pipelines, we improve data quality, scalability, and insight delivery.</p>
+
+      <div class="cap-accordion">
+        <!-- Item 1 -->
+        <div class="cap-acc-item">
+          <span class="cap-acc-dash">—</span>
+          <div class="cap-acc-body">
+            <span class="cap-acc-title">AAVA Data Modernization Studio</span>
+            <p class="cap-acc-desc">AAVA Data Modernization Studio (DMS) is Ascendion's GenAI-powered automation to accelerate data migration from legacy systems to modern cloud architectures on Microsoft Fabric, cutting time to market by 50%. DMS automates assessment, conversion, and validation processes to reduce manual effort and risks during data modernization.</p>
+          </div>
+        </div>
+        <!-- Item 2 -->
+        <div class="cap-acc-item">
+          <span class="cap-acc-dash">—</span>
+          <div class="cap-acc-body">
+            <span class="cap-acc-title">AAVA Insight Modernization Studio</span>
+            <p class="cap-acc-desc">Our AAVA Insight Modernization Studio leverages AI-driven automation to transform reporting and business intelligence, enabling faster, more accurate decision-making. Built for Microsoft Power BI, Azure Synapse, and Fabric, it streamlines metadata extraction and report analysis.</p>
+          </div>
+        </div>
+        <!-- Item 3 -->
+        <div class="cap-acc-item">
+          <span class="cap-acc-dash">—</span>
+          <div class="cap-acc-body">
+            <span class="cap-acc-title">Ascendion Data Onboard Express</span>
+            <p class="cap-acc-desc">Unlock rapid data onboarding into your data lakes and cloud data warehouses with Ascendion's AAVA Data Onboard Express (DeX) and AI-powered insight generation. With seamless integration across major data platforms and BI tools, businesses achieve up to 40% faster insights delivery, 80% improved productivity with low-code platforms, and a 20% reduction in TCO—all while accelerating prototyping with AI-driven recommendations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Fabric Featured Partner image -->
+    <div class="cap-panel-image" style="position:relative;">
+      <img
+        src="../../Assets/Images/Problem Image.png"
+        alt="Microsoft Fabric Featured Partner"
+        style="width:100%;height:100%;object-fit:contain;border-radius:8px;"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+      />
+      <!-- Fallback: CSS-built Fabric Featured Partner badge -->
+      <div class="fabric-partner-img" style="display:none;">
+        <div class="data-panel-bg"></div>
+        <div class="fabric-badge">
+          <div class="fabric-hex">
+            <div class="fabric-hex-icon"></div>
+            <span class="fabric-hex-text">Fabric Featured<br>Partner</span>
+          </div>
+          <div class="fabric-ms-logo">
+            <div class="fabric-ms-logo-grid">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <span class="fabric-ms-text">Microsoft</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  SOLUTIONS  — Sticky Left + Scrolling Right                        -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="page-divider"></div>
+<section class="solutions-section" id="solutions">
+
+  <div class="section-rule"><span>Solutions</span></div>
+
+  <div class="solutions-inner">
+
+    <!-- ── Sticky Left ── -->
+    <div class="solutions-left">
+      <h2 class="solutions-left-title">Intelligent Business Solutions</h2>
+    </div>
+
+    <!-- ── Scrolling Right ── -->
+    <div class="solutions-right">
+
+      <!-- 01 -->
+      <div class="solution-card">
+        <p class="solution-num">01</p>
+        <p class="solution-name">Customer Data Platform</p>
+        <div class="solution-body">
+          <p>Part of Microsoft AI Business Solutions, Dynamics 365 empowers every team with intelligent agents and AI-driven support to drive success. Our certified experts deliver Dynamics 365 solutions that redefine customer and operational experiences. We integrate Dynamics 365 with AI-driven automation and analytics to accelerate efficiency, innovation, and growth. Our expertise spans across industries, enabling enterprises to modernize their operations, enhance customer engagement, and make data-driven decisions with confidence.</p>
+          <p>AAVA Healthcare Data and Analytics Solution: Our solution revolutionizes healthcare data management by integrating disparate sources, enabling AI-driven insights, and ensuring security and compliance. Designed for seamless deployment on Azure Cloud, it accelerates time-to-value with pre-built healthcare templates for patient readmission risk prediction, personalized medicine, and operational efficiency.</p>
+          <p>With CDP integration for Dynamics 365 Customer Insights, organizations can unlock 50% faster modernization and 60% cost savings by reducing manual efforts—making data AI-ready for transformative healthcare outcomes.</p>
+        </div>
+      </div>
+
+      <!-- 02 -->
+      <div class="solution-card">
+        <p class="solution-num">02</p>
+        <p class="solution-name">SCAN Implementation &amp; Automation</p>
+        <div class="solution-body">
+          <p class="solution-sub-title">Intelligent Workflows for Enterprise Operations</p>
+          <p>Our SCAN (Smart, Connected, Automated, Nimble) approach delivers AI-enhanced workflows that streamline operations, automate tasks, and optimize resources. From supply chain automation to financial workflow optimization, our solutions enable faster decision-making and improved productivity.</p>
+        </div>
+      </div>
+
+      <!-- 03 -->
+      <div class="solution-card">
+        <p class="solution-num">03</p>
+        <p class="solution-name">CRM &amp; ERP Transformation</p>
+        <div class="solution-body">
+          <p class="solution-sub-title">Seamless Customer Engagement and Business Process Automation</p>
+          <p>We modernize CRM and ERP systems to create seamless customer engagement and business process automation, creating a unified platform that connects sales, marketing, customer service, and operations. With Dynamics 365, organizations can:</p>
+          <div class="solution-list">
+            <div class="solution-list-item">
+              <span class="dash">—</span>
+              <p>Deliver personalized customer experiences using real-time insights</p>
+            </div>
+            <div class="solution-list-item">
+              <span class="dash">—</span>
+              <p>Automate end-to-end processes to reduce manual effort and errors</p>
+            </div>
+            <div class="solution-list-item">
+              <span class="dash">—</span>
+              <p>Enhance collaboration with a single source of truth for data</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 -->
+      <div class="solution-card">
+        <p class="solution-num">04</p>
+        <p class="solution-name">AI-Driven Insights</p>
+        <div class="solution-body">
+          <p class="solution-sub-title">Harnessing Dynamics 365 Copilot for Predictive Analytics and Automation</p>
+          <p>We integrate AI into Dynamics 365 to provide predictive analytics and intelligent automation. Actionable insights drive smarter decision-making, improve forecasting accuracy, and uncover hidden opportunities. Key benefits include:</p>
+          <div class="solution-list">
+            <div class="solution-list-item">
+              <span class="dash">—</span>
+              <p>Forecast trends and customer behaviors with AI-driven insights</p>
+            </div>
+            <div class="solution-list-item">
+              <span class="dash">—</span>
+              <p>Automate routine tasks, freeing teams for strategic initiatives</p>
+            </div>
+            <div class="solution-list-item">
+              <span class="dash">—</span>
+              <p>Improve efficiency by identifying and addressing inefficiencies in real time</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /solutions-right -->
+  </div><!-- /solutions-inner -->
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  WHY ASCENDION                                                      -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section class="why-section" id="why-ascendion">
+
+  <div class="section-rule"><span>Why Ascendion?</span></div>
+
+  <div style="display:flex;flex-direction:column;gap:32px;">
+    <div class="why-grid">
+
+      <!-- Card 1 -->
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M16 4L28 10V22L16 28L4 22V10L16 4Z" stroke="#6464d7" stroke-width="1.5"/>
+            <path d="M16 4V28M4 10L28 22M28 10L4 22" stroke="#6464d7" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div>
+          <p class="why-card-title">AI-First Approach</p>
+          <p class="why-card-desc">Infusing AI across DevOps, data, and app development for intelligent automation</p>
+        </div>
+      </div>
+
+      <!-- Card 2 (featured/highlighted) -->
+      <div class="why-card featured">
+        <div class="why-icon" style="background:rgba(100,100,215,.1);">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M8 24L24 8M16 6C10.477 6 6 10.477 6 16s4.477 10 10 10 10-4.477 10-10S21.523 6 16 6z" stroke="#6464d7" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="why-card-title">Enterprise-Grade Execution</p>
+          <p class="why-card-desc">Trusted by Fortune 500 companies for high-performance software engineering</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" stroke="#6464d7" stroke-width="1.5"/>
+            <path d="M12 16l3 3 5-5" stroke="#6464d7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="why-card-title">50+ Fortune 500 Clients</p>
+          <p class="why-card-desc">Proven success in enterprise cloud adoption</p>
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- Carousel controls -->
+    <div class="carousel-controls">
+      <div class="dots">
+        <span class="active"></span><span></span><span></span>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="arrow-btn disabled" aria-label="Previous" style="transform:rotate(180deg);">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="arrow-btn" aria-label="Next">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  CLIENT OUTCOMES                                                    -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section class="outcomes-section" id="client-outcomes">
+
+  <div class="section-rule"><span>Client Outcomes</span></div>
+
+  <div class="outcomes-grid">
+
+    <div class="outcome-card">
+      <div class="outcome-img">
+        <span class="tag industry">Banking</span>
+        <span class="tag capability">App Modernization</span>
+      </div>
+      <div class="outcome-body">
+        <div>
+          <p class="outcome-stat">45% Cost Savings</p>
+          <p class="outcome-desc">Over 45% Cost Savings through Legacy Modernization for a Leading Online Bank</p>
+        </div>
+        <span class="text-btn">
+          Read More
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#6464d7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <div class="outcome-img">
+        <span class="tag industry">Health Tech</span>
+        <span class="tag capability">Agentic AI</span>
+      </div>
+      <div class="outcome-body">
+        <div>
+          <p class="outcome-stat">45% Cost Savings</p>
+          <p class="outcome-desc">Health Tech Firm Experiences 50% Faster Migration With Agentic AI Automation</p>
+        </div>
+        <span class="text-btn">
+          Read More
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#6464d7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="outcome-card">
+      <div class="outcome-img">
+        <span class="tag industry">Healthcare</span>
+        <span class="tag capability">Cloud Integration</span>
+      </div>
+      <div class="outcome-body">
+        <div>
+          <p class="outcome-stat">60% Faster Onboarding</p>
+          <p class="outcome-desc">Medicare Firm Enjoys 60% Faster Onboarding With Cloud Integration</p>
+        </div>
+        <span class="text-btn">
+          Read More
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#6464d7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="carousel-controls">
+    <div class="dots">
+      <span class="active"></span><span></span><span></span>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="arrow-btn disabled" aria-label="Previous" style="transform:rotate(180deg);">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="arrow-btn" aria-label="Next">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- Green teal separator line -->
+<div class="green-separator"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  INSIGHTS & RESOURCES                                               -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section class="insights-section" id="insights">
+
+  <div class="section-rule"><span>INSIGHTS</span></div>
+
+  <div style="display:flex;flex-direction:column;gap:40px;">
+    <!-- Tabs -->
+    <div class="insights-tabs">
+      <button class="ins-tab active" onclick="switchInsTab(this, 'ins-articles')">Articles</button>
+      <button class="ins-tab" onclick="switchInsTab(this, 'ins-press')">Press &amp; News</button>
+      <button class="ins-tab" onclick="switchInsTab(this, 'ins-reports')">Reports &amp; Awards</button>
+      <button class="ins-tab" onclick="switchInsTab(this, 'ins-podcast')">Podcast</button>
+    </div>
+
+    <!-- Articles panel -->
+    <div id="ins-articles">
+      <div class="insights-grid" style="margin-bottom:16px;">
+        <div class="insight-card">
+          <div class="insight-img"></div>
+          <div class="insight-body">
+            <p class="insight-title">Accelerating the data modernization journey from Teradata to Azure</p>
+            <span class="text-btn">
+              Read Article
+              <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#6464d7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-img"></div>
+          <div class="insight-body">
+            <p class="insight-title">AAVA GenAI Platform Now Available in the Microsoft Azure Marketplace</p>
+            <span class="text-btn">
+              Read Article
+              <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#6464d7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-img"></div>
+          <div class="insight-body">
+            <p class="insight-title">Translytical apps: The next evolution in analytics</p>
+            <span class="text-btn">
+              Read Article
+              <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#6464d7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-controls">
+        <div class="dots">
+          <span class="active"></span><span></span><span></span>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="arrow-btn disabled" aria-label="Previous" style="transform:rotate(180deg);">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#808080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="arrow-btn" aria-label="Next">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other panels (hidden) -->
+    <div id="ins-press" style="display:none;">
+      <p style="color:var(--text-secondary);font-size:16px;">Press &amp; News articles coming soon.</p>
+    </div>
+    <div id="ins-reports" style="display:none;">
+      <p style="color:var(--text-secondary);font-size:16px;">Reports &amp; Awards coming soon.</p>
+    </div>
+    <div id="ins-podcast" style="display:none;">
+      <p style="color:var(--text-secondary);font-size:16px;">Podcast episodes coming soon.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  FOOTER                                                             -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<footer class="footer">
+    <div class="container">
+      <div class="footer-cols">
+        <div>
+          <div class="footer-col-head">What We Do</div>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">Applied AI</a></li>
+            <li><a href="#" class="footer-link">GCC<sup>AI</sup></a></li>
+            <li><a href="#" class="footer-link">Product<sup>AI</sup></a></li>
+            <li><a href="#" class="footer-link">Data &amp; Insights<sup>AI</sup></a></li>
+            <li><a href="#" class="footer-link">Salesforce Implementation</a></li>
+            <li><a href="#" class="footer-link">Quality Engineering<sup>AI</sup></a></li>
+            <li><a href="#" class="footer-link">Experience<sup>AI</sup></a></li>
+            <li><a href="#" class="footer-link">Operations<sup>AI</sup></a></li>
+            <li><a href="#" class="footer-link">AI Workforce Transformation</a></li>
+            <li><a href="#" class="footer-link">Enterprise Platform</a></li>
+            <li><a href="#" class="footer-link">Platform Engineering<sup>AI</sup></a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Industries</div>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">Banking &amp; Financial Services</a></li>
+            <li><a href="#" class="footer-link">Communications, Media and Entertainment</a></li>
+            <li><a href="#" class="footer-link">Healthcare &amp; Life Sciences</a></li>
+            <li><a href="#" class="footer-link">Retail and Consumer Goods</a></li>
+            <li><a href="#" class="footer-link">High-tech</a></li>
+            <li><a href="#" class="footer-link">Travel and Hospitality</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Who We Are</div>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">Leadership</a></li>
+            <li><a href="#" class="footer-link">Analyst Recognition</a></li>
+            <li><a href="#" class="footer-link">Certifications</a></li>
+            <li><a href="#" class="footer-link">Locations</a></li>
+            <li><a href="#" class="footer-link">ESG</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Quick Links</div>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">Insights and impact</a></li>
+            <li><a href="#" class="footer-link">Careers India</a></li>
+            <li><a href="#" class="footer-link">Careers North America</a></li>
+            <li><a href="#" class="footer-link">Careers Europe</a></li>
+            <li><a href="#" class="footer-link">Careers Asia Pacific</a></li>
+            <li><a href="#" class="footer-link">Global Delivery Hubs</a></li>
+            <li><a href="#" class="footer-link">Contact us</a></li>
+          </ul>
+        </div>
+        <div style="padding-top:40px">
+          <div class="footer-social">
+            <a href="#" class="footer-social-link footer-social-link--linkedin" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="#" class="footer-social-link footer-social-link--youtube" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="#" class="footer-social-link footer-social-link--instagram" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">Copyright 2026, ASCENDION. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="#" class="footer-legal-link">Privacy Policy</a>
+          <span class="footer-sep">|</span>
+          <a href="#" class="footer-legal-link">Terms of Use</a>
+          <span class="footer-sep">|</span>
+          <a href="#" class="footer-legal-link">Accessibility Disclosure</a>
+          <span class="footer-sep">|</span>
+          <a href="#" class="footer-legal-link">AI-enhanced Content Notice</a>
+          <span class="footer-sep">|</span>
+          <a href="#" class="footer-legal-link">Security Disclosure Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--  JAVASCRIPT                                                         -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<script>
+  /* ── Capabilities tab switcher ─────────────────────────── */
+  function switchCapTab(btn, panelId) {
+    document.querySelectorAll('.cap-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.cap-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(panelId).classList.add('active');
+  }
+
+  /* ── Insights tab switcher ─────────────────────────────── */
+  function switchInsTab(btn, panelId) {
+    document.querySelectorAll('.ins-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('[id^="ins-"]').forEach(p => p.style.display = 'none');
+    btn.classList.add('active');
+    document.getElementById(panelId).style.display = 'block';
+  }
+
+  /* ── Page sub-nav active state on scroll ──────────────── */
+  const sections = [
+    { id: 'overview',        nav: 'Overview' },
+    { id: 'capabilities',    nav: 'Capabilities' },
+    { id: 'solutions',       nav: 'Solutions' },
+    { id: 'why-ascendion',   nav: 'Why Ascendion' },
+    { id: 'client-outcomes', nav: 'Client Outcomes' },
+    { id: 'insights',        nav: 'Insights' },
+  ];
+
+  const navLinks = document.querySelectorAll('.page-nav-item');
+  const NAV_H = 158;
+
+  function onScroll() {
+    const scrollY = window.scrollY;
+    let active = 0;
+    sections.forEach((s, i) => {
+      const el = document.getElementById(s.id);
+      if (el && el.offsetTop - NAV_H - 32 <= scrollY) active = i;
+    });
+    navLinks.forEach((l, i) => l.classList.toggle('active', i === active));
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+</body>
+</html>
