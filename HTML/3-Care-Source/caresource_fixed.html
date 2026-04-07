@@ -73,8 +73,7 @@
       font-size: 40px; line-height: 48px; font-weight: 400;
       color: var(--neutral-900);
       margin-bottom: 0;
-      border-bottom: 3px solid var(--primary-500);
-      padding-bottom: 16px;
+
     }
     .body-copy-text { font-size: 18px; line-height: 30px; color: var(--text-secondary); }
 
@@ -131,6 +130,52 @@
     .rv.d2 { transition-delay: 0.2s; }
     .rv.d3 { transition-delay: 0.3s; }
     .rv.d4 { transition-delay: 0.4s; }
+
+    /* ══════════════════════════
+       SUB-NAV
+    ══════════════════════════ */
+    .sub-nav {
+      position: sticky;
+      top: 86px;
+      z-index: 190;
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--neutral-200);
+      max-height: 0;
+      overflow: hidden;
+      pointer-events: none;
+      transition: max-height 0.35s ease;
+    }
+    .sub-nav.visible {
+      max-height: 60px;
+      pointer-events: auto;
+    }
+    .sub-nav-inner {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .sub-nav-inner::-webkit-scrollbar { display: none; }
+    .sub-nav-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 24px;
+      height: 52px;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--neutral-600);
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      text-decoration: none;
+    }
+    .sub-nav-link:hover { color: #000; }
+    .sub-nav-link.active {
+      color: #000;
+      font-weight: 500;
+      border-bottom-color: var(--primary-500);
+    }
 
     /* ══════════════════════════
        HERO — LIGHT, FIGMA 1540:5896
@@ -286,6 +331,7 @@
     @media (max-width: 1200px) { :root { --px: 60px; } }
     @media (max-width: 900px) {
       :root { --px: 32px; --py: 60px; }
+      .sub-nav { top: 64px; }
       .nav { height: 64px; }
       .uc-grid { grid-template-columns: 1fr; gap: 40px; }
       .uc-grid--reverse .uc-text { order: 1; }
@@ -344,10 +390,23 @@
     </div>
   </header>
 
+  <!-- ── SUB-NAV ─────────────────────────────────────────── -->
+  <nav class="sub-nav" id="subNav" aria-label="Page sections">
+    <div class="container">
+      <div class="sub-nav-inner">
+        <a href="#hero" class="sub-nav-link active">Overview</a>
+        <a href="#use-case-1" class="sub-nav-link">Use Case 01</a>
+        <a href="#use-case-2" class="sub-nav-link">Use Case 02</a>
+        <a href="#use-case-3" class="sub-nav-link">Use Case 03</a>
+        <a href="#use-case-4" class="sub-nav-link">Use Case 04</a>
+      </div>
+    </div>
+  </nav>
+
   <!-- ══════════════════════════════
        SECTION 1 — HERO (DARK) — left-aligned split
   ══════════════════════════════ -->
-  <section class="hero" id="hero">
+  <section class="hero" id="hero" data-subnav-trigger>
     <!-- Grid line pattern background -->
     <div class="hero-grid-bg" aria-hidden="true"></div>
     <div class="container">
@@ -365,7 +424,9 @@
 
           <!-- Logo lockup — under breadcrumb, left-aligned -->
           <div class="hero-logos hero-anim d1">
-            <img src="../../Assets/Logos/ascendion caresource.png" alt="Ascendion × CareSource" style="height:36px; display:block;" />
+            <img src="../../Assets/Logos/Ascendion_Primary_Logo.jpg" alt="Ascendion" style="height:32px; display:block;" />
+            <div class="hero-logo-div"></div>
+            <img src="../../Assets/Logos/caresource logo.png" alt="CareSource" style="height:32px; display:block;" />
           </div>
 
           <h1 class="hero-title hero-anim d2">
@@ -693,6 +754,33 @@
       { threshold: 0.1, rootMargin: '0px 0px -48px 0px' }
     );
     rvEls.forEach(el => observer.observe(el));
-  </script>
+  
+  // ─── SUB-NAV: show after hero scrolls out ──────────────────
+  const subNav   = document.getElementById('subNav');
+  const heroEl   = document.querySelector('[data-subnav-trigger]');
+  const subLinks = document.querySelectorAll('.sub-nav-link');
+
+  if (subNav && heroEl) {
+    const heroObserver = new IntersectionObserver(([entry]) => {
+      subNav.classList.toggle('visible', !entry.isIntersecting);
+    }, { threshold: 0, rootMargin: '-86px 0px 0px 0px' });
+    heroObserver.observe(heroEl);
+  }
+
+  // ─── SUB-NAV: active link on scroll ────────────────────────
+  const ucSections = document.querySelectorAll('section[id]');
+  const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        subLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.25 });
+  ucSections.forEach(s => sectionObserver.observe(s));
+
+</script>
 </body>
 </html>
