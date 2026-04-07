@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partnerships — Ascendion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET ─────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: #000; background: #fff; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── DESIGN TOKENS ─────────────────── */
+    :root {
+      /* Primitives — from Figma Ascendion-2.0 UI Kit */
+      --primary-500: #6464d7;
+      --primary-900: #5a37af;
+      --primary-100: #968cfa;
+      --accent-100:  #2ddcaa;
+      --accent-500:  #009673;
+      --accent-900:  #006450;
+      --neutral-0:   #ffffff;
+      --neutral-100: #f4f4f4;
+      --neutral-200: #e3e2df;
+      --neutral-300: #aaaaaa;
+      --neutral-400: #999999;
+      --neutral-500: #808080;
+      --neutral-600: #4b4b4b;
+      --neutral-700: #333333;
+      --neutral-800: #1a1a1a;
+      --neutral-900: #000000;
+
+      /* Semantics */
+      --bg-default:      #ffffff;
+      --bg-subtle:       #f4f4f4;
+      --bg-dark:         #000000;
+      --bg-dark-subtle:  #1a1a1a;
+      --text-primary:    #000000;
+      --text-secondary:  #333333;
+      --text-inv:        #ffffff;
+      --text-inv-2:      #e3e2df;
+      --text-highlight:  #6464d7;
+      --text-hi-inv:     #2ddcaa;
+      --text-disabled:   #4b4b4b;
+      --border:          #999999;
+      --border-sep:      #e3e2df;
+
+      /* Fonts */
+      --font-display: 'PP Neue Machina', sans-serif;
+      --font-primary: 'Inter', sans-serif;
+      --font-mono:    'Roboto Mono', monospace;
+
+      /* Layout */
+      --px: 80px;
+      --py: 80px;
+    }
+
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('../assets/fonts/PPNeueMachina-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-display: swap;
+    }
+
+    /* ─── LAYOUT ────────────────────────── */
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding-left: var(--px);
+      padding-right: var(--px);
+    }
+    section { padding-top: var(--py); padding-bottom: var(--py); }
+    .s-head { margin-bottom: 56px; }
+
+    /* ─── LABEL ─────────────────────────── */
+    .lbl {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-100);
+      margin-bottom: 24px;
+    }
+    .lbl--dark { color: var(--primary-500); }
+    .lbl::before, .lbl::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.3;
+    }
+
+    /* ─── BUTTONS ───────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-primary);
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      border-radius: 2px;
+      padding: 14px 20px;
+      line-height: 1;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      text-decoration: none;
+    }
+    .btn__icon { display: inline-flex; align-items: center; justify-content: center; transition: transform 0.2s ease; flex-shrink: 0; }
+    .btn:hover .btn__icon { transform: translateX(3px); }
+    .btn-primary { background: #000; color: #fff; border: none; }
+    .btn-primary .btn__icon { color: #2DDCAA; }
+    .btn-primary:hover { background: var(--neutral-800); }
+    .btn-ghost { background: transparent; color: #000; border: 1px solid #000; }
+    .btn-ghost .btn__icon { color: var(--primary-500); }
+    .btn-ghost:hover { background: var(--neutral-100); }
+    .btn-ghost-inv { background: transparent; color: #fff; border: 1px solid #fff; }
+    .btn-ghost-inv .btn__icon { color: var(--accent-100); }
+    .btn-ghost-inv:hover { background: rgba(255,255,255,0.08); }
+    .btn-inverse { background: var(--accent-100); color: #000; border: none; }
+    .btn-inverse .btn__icon { color: #000; }
+    .btn-inverse:hover { background: var(--accent-500); }
+    .btn-text { background: none; color: var(--primary-500); padding: 0; }
+    .btn-text:hover { color: var(--primary-900); }
+    .btn-text-inv { background: none; color: var(--accent-100); padding: 0; }
+    .btn-text-inv:hover { color: var(--accent-500); }
+    .btn-sm { font-size: 14px; padding: 10px 16px; }
+
+    /* ─── SCROLL REVEAL ─────────────────── */
+    .rv { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out; }
+    .rv.in { opacity: 1; transform: translateY(0); }
+    .rv.d1 { transition-delay: 0.1s; }
+    .rv.d2 { transition-delay: 0.2s; }
+    .rv.d3 { transition-delay: 0.3s; }
+    .rv.d4 { transition-delay: 0.4s; }
+
+    /* ─── ARROW SVG SNIPPET ─────────────── */
+    .arrow-svg { display: inline-block; flex-shrink: 0; }
+
+    /* ══════════════════════════════════════
+       SECONDARY SUB-NAV
+    ══════════════════════════════════════ */
+    .sub-nav {
+      position: sticky;
+      top: 86px;
+      z-index: 190;
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--neutral-200);
+      /* No blank space when hidden — collapses to zero height */
+      max-height: 0;
+      overflow: hidden;
+      pointer-events: none;
+      transition: max-height 0.35s ease;
+    }
+    .sub-nav.visible {
+      max-height: 60px;
+      pointer-events: auto;
+    }
+    .sub-nav-inner {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .sub-nav-inner::-webkit-scrollbar { display: none; }
+    .sub-nav-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 24px;
+      height: 52px;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--neutral-600);
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      text-decoration: none;
+    }
+    .sub-nav-link:hover { color: #000; }
+    .sub-nav-link.active {
+      color: #000;
+      font-weight: 500;
+      border-bottom-color: var(--primary-500);
+    }
+
+    /* ══════════════════════════════════════
+       NAV
+    ══════════════════════════════════════ */
+    .nav {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--bg-subtle);
+      height: 86px;
+      display: flex; align-items: center;
+      transition: box-shadow 0.2s;
+    }
+    .nav.scrolled { box-shadow: 0 1px 0 var(--neutral-200); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .nav-logo { display: flex; flex-direction: column; }
+    .nav-logo-text { font-family: var(--font-primary); font-size: 18px; font-weight: 800; letter-spacing: -0.03em; color: #000; }
+    .nav-logo-tagline { display: block; font-size: 11px; font-weight: 400; color: var(--neutral-600); letter-spacing: 0; line-height: 1.2; margin-top: 2px; }
+    .nav-menu { display: flex; align-items: center; gap: 4px; }
+    .nav-links { display: flex; align-items: center; gap: 4px; margin-right: 24px; }
+    .nav-link { display: inline-flex; align-items: center; gap: 4px; font-size: 16px; font-weight: 400; color: #000; padding: 6px 10px; border-radius: 2px; transition: color 0.15s; }
+    .nav-link:hover { color: var(--primary-900); }
+    .nav-link.active { color: var(--primary-500); }
+    .nav-link--aava { color: var(--primary-500); font-weight: 500; }
+    .nav-link--aava:hover { color: var(--primary-900); }
+    .nav-link--aava sup { font-size: 10px; vertical-align: super; }
+    .nav-chevron { width: 12px; height: 12px; opacity: 0.5; }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: #000; transition: transform 0.3s, opacity 0.3s; }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-drawer { display: none; position: fixed; top: 86px; left: 0; right: 0; bottom: 0; background: var(--bg-subtle); z-index: 199; padding: 32px 24px; flex-direction: column; gap: 8px; overflow-y: auto; }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer .nav-link { font-size: 20px; padding: 12px 0; border-bottom: 1px solid var(--neutral-200); }
+    .nav-drawer .btn { margin-top: 24px; align-self: flex-start; }
+
+    /* ══════════════════════════════════════
+       HERO — Figma node 1540:5880
+    ══════════════════════════════════════ */
+    .hero {
+      background: #ffffff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* CSS grid line pattern */
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right,  rgba(0,0,0,0.055) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,0.055) 1px, transparent 1px);
+      background-size: 72px 72px;
+      pointer-events: none;
+    }
+
+    /* Two-column inner layout */
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 var(--px);
+    }
+
+    /* Left column — breadcrumb + H1, vertically centred */
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 20px;
+      width: 630px;
+      flex-shrink: 0;
+      min-height: 244px;
+    }
+
+    .hero-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 16px;
+      font-weight: 400;
+      color: #000;
+      font-family: var(--font-primary);
+    }
+    .hero-breadcrumb a { color: #000; transition: color 0.15s; }
+    .hero-breadcrumb a:hover { color: var(--primary-500); }
+    .hero-breadcrumb-sep { color: #000; }
+    .hero-breadcrumb-current { color: #000; }
+
+    .hero-h1 {
+      font-family: var(--font-display);
+      font-size: 72px;
+      font-weight: 400;
+      line-height: 80px;
+      color: #000;
+    }
+
+    /* Right column — hero photo */
+    .hero-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .hero-photo {
+      width: 100%;
+      height: 360px;
+      border-radius: 8px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ══════════════════════════════════════
+       INTRO SECTION
+    ══════════════════════════════════════ */
+    .intro-section {
+      background: #f4f4f0;
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+    .intro-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .intro-h2 {
+      font-family: var(--font-display);
+      font-size: 40px;
+      line-height: 48px;
+      font-weight: 400;
+      color: #000;
+    }
+    .intro-body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .intro-p { font-size: 20px; line-height: 30px; color: var(--neutral-600); }
+    .intro-p strong { color: #000; font-weight: 400; }
+
+    /* ══════════════════════════════════════
+       DESIGN OPTION SWITCHER
+    ══════════════════════════════════════ */
+    .options-section {
+      background: var(--bg-subtle);
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+    .options-switcher {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 64px;
+      flex-wrap: wrap;
+    }
+    .opt-btn {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      border-radius: 2px;
+      border: 1px solid var(--neutral-300);
+      background: transparent;
+      color: var(--neutral-600);
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .opt-btn:hover { border-color: var(--primary-500); color: var(--primary-500); }
+    .opt-btn.active { background: var(--primary-500); border-color: var(--primary-500); color: #fff; }
+
+    /* Hide/show panels */
+    .opt-panel { display: none; }
+    .opt-panel.active { display: block; }
+
+    /* ══════════════════════════════════════
+       SHARED LOGO STYLES
+    ══════════════════════════════════════ */
+    .partner-logo-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .partner-logo-wrap svg { display: block; }
+
+    /* ══════════════════════════════════════
+       OPTION A — 4-COL LOGO CARDS
+    ══════════════════════════════════════ */
+    .opt-a-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .opt-a-card {
+      background: var(--bg-default);
+      border: 1px solid var(--border-sep);
+      border-radius: 2px;
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: default;
+    }
+    .opt-a-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: transparent;
+      transition: background 0.3s;
+    }
+    .opt-a-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.07); }
+    .opt-a-card:hover::after { background: var(--primary-500); }
+
+    .opt-a-logo {
+      height: 56px;
+      display: flex;
+      align-items: center;
+    }
+    .opt-a-logo img, .opt-b-card-logo img { height: 40px; width: auto; object-fit: contain; max-width: 140px; }
+    .opt-c-chip-logo img { height: 18px; width: auto; object-fit: contain; }
+    .opt-c-detail-logo img { height: 52px; width: auto; object-fit: contain; max-width: 200px; }
+    .opt-a-name {
+      font-family: var(--font-display);
+      font-size: 20px;
+      line-height: 26px;
+      font-weight: 400;
+      color: #000;
+    }
+    .opt-a-desc {
+      font-size: 14px;
+      line-height: 22px;
+      color: var(--neutral-600);
+      flex: 1;
+    }
+    .opt-a-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      padding: 12px 20px;
+      background: #ffffff;
+      color: #000;
+      border: 1.5px solid #000;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0;
+      transition: border-color 0.18s, color 0.18s;
+      align-self: flex-start;
+    }
+    .opt-a-cta svg { color: var(--primary-500); flex-shrink: 0; }
+    .opt-a-cta:hover { border-color: var(--primary-500); color: var(--primary-500); }
+
+    /* ══════════════════════════════════════
+       OPTION B — CATEGORY SIDEBAR + CARD GRID
+    ══════════════════════════════════════ */
+    .opt-b-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* Sidebar */
+    .opt-b-sidebar { padding-top: 0; }
+    .opt-b-cat-btn {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      padding: 14px 16px;
+      background: none;
+      border: none;
+      border-left: 3px solid transparent;
+      cursor: pointer;
+      font-family: var(--font-primary);
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--neutral-500);
+      text-align: left;
+      transition: color 0.18s, background 0.18s;
+    }
+    .opt-b-cat-btn:hover { background: #f4f4f0; }
+    .opt-b-cat-btn.active {
+      border-left-color: var(--primary-500);
+      background: none;
+      color: #000;
+    }
+    .opt-b-cat-num {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--neutral-500);
+      min-width: 24px;
+    }
+    .opt-b-cat-btn.active .opt-b-cat-num { color: var(--primary-500); }
+    .opt-b-cat-dash { display: none; }
+    .opt-b-cat-label { font-weight: 400; }
+    .opt-b-cat-btn.active .opt-b-cat-label { font-weight: 700; color: #000; }
+    .opt-b-cat-line { display: none; }
+
+    /* Card grid */
+    .opt-b-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .opt-b-card {
+      background: #f4f4f4;
+      border-radius: 8px;
+      padding: 28px 22px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .opt-b-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.07); }
+    .opt-b-card-logo { height: 44px; display: flex; align-items: center; margin-bottom: 18px; }
+    .opt-b-card-name { font-size: 18px; font-weight: 600; color: #000; line-height: 24px; margin-bottom: 10px; }
+    .opt-b-card-desc { font-size: 14px; line-height: 22px; color: var(--neutral-600); flex: 1; margin-bottom: 20px; }
+    .opt-b-card-footer { margin-top: auto; display: flex; flex-direction: column; gap: 10px; }
+    .opt-b-learn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #000;
+      transition: color 0.15s;
+    }
+    .opt-b-learn:hover { color: var(--primary-500); }
+    .opt-b-card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      background: #ffffff;
+      color: #000;
+      border: 1.5px solid #000;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0;
+      transition: border-color 0.18s, color 0.18s;
+      align-self: flex-start;
+    }
+    .opt-b-card-cta svg { color: var(--primary-500); flex-shrink: 0; }
+    .opt-b-card-cta:hover { border-color: var(--primary-500); color: var(--primary-500); }
+
+    /* ══════════════════════════════════════
+       OPTION C — LOGO ROW + DETAIL PANEL
+    ══════════════════════════════════════ */
+    .opt-c-wrap { }
+
+    .opt-c-logo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .opt-c-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border: 1px solid var(--border-sep);
+      border-radius: 2px;
+      background: var(--bg-default);
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .opt-c-chip:hover { border-color: var(--primary-500); }
+    .opt-c-chip.active { background: var(--primary-500); border-color: var(--primary-500); }
+    .opt-c-chip.active .opt-c-chip-name { color: #fff; }
+    .opt-c-chip.active svg text, .opt-c-chip.active svg path, .opt-c-chip.active svg rect, .opt-c-chip.active svg circle { fill: #fff !important; }
+
+    .opt-c-chip-logo {
+      width: 32px; height: 24px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .opt-c-chip-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: #000;
+      white-space: nowrap;
+    }
+
+    .opt-c-detail {
+      background: var(--bg-default);
+      border: 1px solid var(--border-sep);
+      border-radius: 2px;
+      padding: 56px 64px;
+      display: flex;
+      gap: 64px;
+      align-items: flex-start;
+      min-height: 280px;
+      position: relative;
+      overflow: hidden;
+    }
+    .opt-c-detail::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--primary-500);
+    }
+    .opt-c-detail-logo {
+      width: 160px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: var(--bg-subtle);
+      border-radius: 2px;
+    }
+    .opt-c-detail-body { flex: 1; }
+    .opt-c-detail-name {
+      font-family: var(--font-display);
+      font-size: 40px;
+      line-height: 48px;
+      font-weight: 400;
+      color: #000;
+      margin-bottom: 20px;
+    }
+    .opt-c-detail-desc {
+      font-size: 20px;
+      line-height: 26px;
+      color: var(--neutral-700);
+      max-width: 680px;
+    }
+    .opt-c-detail-num {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary-500);
+      margin-bottom: 16px;
+    }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    .footer { background: #fff; padding: 80px 0 0; }
+    .footer-cols { display: grid; grid-template-columns: 2fr 2fr 1.5fr 1.5fr auto; gap: 64px; padding-bottom: 64px; }
+    .footer-col-head { font-family: var(--font-primary); font-size: 16px; font-weight: 700; color: #000; margin-bottom: 16px; }
+    .footer-links { display: flex; flex-direction: column; gap: 16px; border-top: 0.5px solid #e3e2df; border-bottom: 0.5px solid #e3e2df; padding: 16px 0; }
+    .footer-link { font-family: var(--font-primary); font-size: 16px; font-weight: 500; line-height: 1.4; color: #000; transition: color 0.15s; }
+    .footer-link:hover { color: var(--primary-500); }
+    .footer-link sup { font-size: 9px; vertical-align: super; color: inherit; }
+    .footer-social { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; padding-top: 40px; }
+    .footer-social-link { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; background: var(--primary-500); transition: opacity 0.15s, transform 0.15s; }
+    .footer-social-link:hover { opacity: 0.85; transform: translateY(-2px); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--neutral-200); padding: 24px 0 32px; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 14px; color: #000; }
+    .footer-legal { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .footer-legal-link { font-size: 14px; color: #000; transition: color 0.15s; }
+    .footer-legal-link:hover { color: var(--primary-500); }
+    .footer-sep { font-size: 14px; color: var(--neutral-400); }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════ */
+    @media (max-width: 1200px) {
+      :root { --px: 60px; }
+      .opt-a-grid { grid-template-columns: repeat(3, 1fr); }
+      .hero-h1 { font-size: 64px; line-height: 72px; }
+    }
+    @media (max-width: 900px) {
+      :root { --px: 32px; --py: 60px; }
+      .hero-inner { flex-direction: column; padding: 0 var(--px); }
+      .hero-left { width: 100%; min-height: auto; padding: 48px 0 32px; gap: 16px; }
+      .hero-h1 { font-size: 48px; line-height: 56px; }
+      .hero-right { width: 100%; padding: 0 0 48px; }
+      .hero-photo { height: 240px; }
+      .sub-nav { top: 64px; }
+      .opt-a-grid { grid-template-columns: repeat(2, 1fr); }
+      .opt-b-trigger { padding: 20px 24px; }
+      .opt-b-panel-inner { padding-left: 24px; margin-left: 24px; margin-right: 24px; }
+      .opt-c-detail { flex-direction: column; padding: 36px; gap: 32px; }
+      .opt-c-detail-logo { width: 100%; }
+      .nav-links { display: none; }
+      .nav-menu > .btn { display: none; }
+      .nav-toggle { display: flex; }
+      .footer-cols { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .intro-h2 { font-size: 32px; line-height: 40px; }
+    }
+    @media (max-width: 600px) {
+      :root { --px: 24px; --py: 48px; }
+      .hero-h1 { font-size: 36px; line-height: 44px; }
+      .opt-a-grid { grid-template-columns: 1fr; }
+      .footer-cols { grid-template-columns: 1fr; gap: 32px; }
+      .opt-c-detail-name { font-size: 28px; line-height: 36px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAV ════════════════════════════════════════════════════ -->
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="/" class="nav-logo" aria-label="Ascendion home">
+        <span class="nav-logo-text">ASCENDION</span>
+        <span class="nav-logo-tagline">Engineering to elevate life</span>
+      </a>
+      <nav class="nav-menu" aria-label="Main">
+        <ul class="nav-links">
+          <li>
+            <a href="#" class="nav-link nav-link--aava">AAVA<sup>™</sup>
+              <svg class="arrow-svg" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12L12 4M12 4H6M12 4v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </li>
+          <li><a href="#" class="nav-link">What We Do <svg class="nav-chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="#" class="nav-link">Who We Serve <svg class="nav-chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="#" class="nav-link active">How We Deliver <svg class="nav-chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="#" class="nav-link">Insights &amp; Impact <svg class="nav-chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="#" class="nav-link">Careers <svg class="nav-chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        </ul>
+        <a href="#" class="btn btn-primary">
+          <span class="btn__label">Get In Touch</span>
+          <span class="btn__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile drawer -->
+  <div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Mobile navigation">
+    <a href="#" class="nav-link nav-link--aava">AAVA<sup>™</sup></a>
+    <a href="#" class="nav-link">What We Do</a>
+    <a href="#" class="nav-link">Who We Serve</a>
+    <a href="#" class="nav-link active">How We Deliver</a>
+    <a href="#" class="nav-link">Insights &amp; Impact</a>
+    <a href="#" class="nav-link">Careers</a>
+    <a href="#" class="btn btn-primary" style="margin-top:24px;">
+      <span class="btn__label">Get In Touch</span>
+      <span class="btn__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+  </div>
+
+  <main>
+
+    <!-- ══ SUB-NAV (hidden until hero scrolls out) ══════════ -->
+    <div class="sub-nav" id="subNav" role="navigation" aria-label="Page sections">
+      <div class="container">
+        <div class="sub-nav-inner">
+          <a href="#section-overview" class="sub-nav-link active">Overview</a>
+          <a href="#section-partners" class="sub-nav-link">Our Partners</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ HERO — 768px, light + grid ══════════════════════ -->
+    <section class="hero" id="heroSection" aria-label="Partnerships hero">
+      <div class="hero-grid-bg" aria-hidden="true"></div>
+      <div class="hero-inner">
+
+        <!-- Left: breadcrumb + H1 -->
+        <div class="hero-left">
+          <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <span class="hero-breadcrumb-sep" aria-hidden="true"> &gt; </span>
+            <a href="#">How We Deliver</a>
+            <span class="hero-breadcrumb-sep" aria-hidden="true"> &gt; </span>
+            <span class="hero-breadcrumb-current">Partnerships</span>
+          </nav>
+          <h1 class="hero-h1">Partnerships</h1>
+        </div>
+
+        <!-- Right: hero photo from Figma -->
+        <div class="hero-right">
+          <img
+            class="hero-photo"
+            src="https://www.figma.com/api/mcp/asset/5b1948c7-dc73-4544-b371-e7b5840cdd76"
+            alt="Partnerships hero — abstract digital network"
+          />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══ INTRO SECTION ═════════════════════════════════════ -->
+    <section class="intro-section" id="section-overview" aria-label="Partnerships overview">
+      <div class="container">
+        <div class="intro-inner">
+          <h2 class="intro-h2 rv">Fostering Collaborative Innovation with Strategic Partnerships</h2>
+          <div class="intro-body">
+            <p class="intro-p rv d1">The future of AI is an ecosystem play; no one can build it alone. Platforms need engineering depth to deliver real outcomes. Services need platform power to operate at scale.</p>
+            <p class="intro-p rv d2">Ascendion partners with leading technology companies to engineer and deliver AI solutions that produce real business impact.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ PARTNERS — 3 DESIGN OPTIONS ═══════════════════════ -->
+    <section class="options-section" id="section-partners" aria-label="Our partners">
+      <div class="container">
+
+        <div class="s-head">
+          <div class="lbl lbl--dark rv">Our Partners</div>
+        </div>
+
+        <!-- Design Option Switcher -->
+        <div class="options-switcher rv d1" role="tablist" aria-label="Partner display options">
+          <button class="opt-btn active" data-option="a" role="tab" aria-selected="true" aria-controls="opt-panel-a">Option A — Card Grid</button>
+          <button class="opt-btn" data-option="b" role="tab" aria-selected="false" aria-controls="opt-panel-b">Option B — Category Grid</button>
+          <button class="opt-btn" data-option="c" role="tab" aria-selected="false" aria-controls="opt-panel-c">Option C — Logo Selector</button>
+        </div>
+
+        <!-- ─────────────────────────────────────────────
+             OPTION A — 4-COLUMN LOGO CARD GRID
+        ───────────────────────────────────────────── -->
+        <div class="opt-panel active" id="opt-panel-a" role="tabpanel">
+          <div class="opt-a-grid">
+
+            <!-- 1. Amazon AWS -->
+            <article class="opt-a-card rv d1">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/aws.png" alt="Amazon AWS">
+              </div>
+              <div class="opt-a-name">Amazon AWS</div>
+              <p class="opt-a-desc">Accelerate digital transformation with Ascendion's collaboration with AWS, specializing in advanced cloud engineering solutions for data, modernization, and AI advancements.</p>
+              <a href="#" class="opt-a-cta">Explore Partnership <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </article>
+
+            <!-- 2. Salesforce -->
+            <article class="opt-a-card rv d2">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/salesforce.png" alt="Salesforce">
+              </div>
+              <div class="opt-a-name">Salesforce</div>
+              <p class="opt-a-desc">Deliver solutions across the Salesforce Customer Success Platform, with expertise in Service Cloud, Communities, FSL, Sales, CPQ, Einstein AI, MuleSoft, and Heroku.</p>
+              <a href="#" class="opt-a-cta">Explore Partnership <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </article>
+
+            <!-- 3. Microsoft -->
+            <article class="opt-a-card rv d3">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/microsoft.png" alt="Microsoft">
+              </div>
+              <div class="opt-a-name">Microsoft</div>
+              <p class="opt-a-desc">Unlock growth through our collaboration with Microsoft in Biz Apps, Data, and AI. Harness Azure Data, AI, and OpenAI services for enhanced capabilities.</p>
+              <a href="#" class="opt-a-cta">Explore Partnership <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </article>
+
+            <!-- 4. Google Cloud -->
+            <article class="opt-a-card rv d4">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/google cloud partner.png" alt="Google Cloud Partner">
+              </div>
+              <div class="opt-a-name">Good Cloud Partner</div>
+              <p class="opt-a-desc">Accelerate GCP adoption using our AI-driven accelerators, transforming legacy data into modern Google Data and AI services through containerized analytical apps.</p>
+            </article>
+
+            <!-- 5. Whiz.ai -->
+            <article class="opt-a-card rv d1">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/whiz ai.png" alt="Whiz.ai">
+              </div>
+              <div class="opt-a-name">Whiz.ai</div>
+              <p class="opt-a-desc">Together with Whiz.ai, we're redefining decision intelligence in life sciences by integrating digital engineering and advanced AI to enhance patient care.</p>
+            </article>
+
+            <!-- 6. Snowflake -->
+            <article class="opt-a-card rv d2">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/snowflake.png" alt="Snowflake">
+              </div>
+              <div class="opt-a-name">Snowflake</div>
+              <p class="opt-a-desc">Maximize Snowflake ROI with Ascendion's engineering services powered by AAVA, leveraging advanced data cloud capabilities for optimized engineering and AI applications.</p>
+            </article>
+
+            <!-- 7. Workato -->
+            <article class="opt-a-card rv d3">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/workato.png" alt="Workato">
+              </div>
+              <div class="opt-a-name">Workato</div>
+              <p class="opt-a-desc">In partnership with Workato, we optimize workflows, improve efficiency, and achieve business goals through our software engineering collaboration.</p>
+            </article>
+
+            <!-- 8. UiPath -->
+            <article class="opt-a-card rv d4">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/ui path partner.png" alt="UiPath Partner">
+              </div>
+              <div class="opt-a-name">UiPath Partner</div>
+              <p class="opt-a-desc">Engage closely with UiPath, a key automation ally, utilizing their solutions to engineer automated processes and drive innovation together.</p>
+            </article>
+
+            <!-- 9. ServiceNow -->
+            <article class="opt-a-card rv d1">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/service now.png" alt="ServiceNow">
+              </div>
+              <div class="opt-a-name">ServiceNow</div>
+              <p class="opt-a-desc">Accelerating AI-powered digital workflows and business transformation, setting new benchmarks for innovation, efficiency, and collaborative success.</p>
+            </article>
+
+            <!-- 10. DataAces -->
+            <article class="opt-a-card rv d2">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/dataaces.png" alt="DataAces">
+              </div>
+              <div class="opt-a-name">DataAces</div>
+              <p class="opt-a-desc">Engineer streamlined data solutions, delivering efficiency and superior outcomes for our clients.</p>
+            </article>
+
+            <!-- 11. Intersystem -->
+            <article class="opt-a-card rv d3">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/InterSystems.png" alt="InterSystems">
+              </div>
+              <div class="opt-a-name">Intersystem</div>
+              <p class="opt-a-desc">Crafting tailored engineering solutions for healthcare, addressing industry-specific challenges with precision and expertise.</p>
+            </article>
+
+            <!-- 12. MuleSoft -->
+            <article class="opt-a-card rv d4">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/MuleSoft.png" alt="MuleSoft">
+              </div>
+              <div class="opt-a-name">Mulesoft</div>
+              <p class="opt-a-desc">In alignment with MuleSoft, we accelerate digital and AI transformations by forging key data integration partnerships to drive corporate progress.</p>
+            </article>
+
+            <!-- 13. AVO / Stability.ai -->
+            <article class="opt-a-card rv d1">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/avo automation.jpeg" alt="AVO automation">
+              </div>
+              <div class="opt-a-name">AVO automation &amp; Stability.ai</div>
+              <p class="opt-a-desc">Harnessing Stability AI's open-source generative technologies and Ascendion's digital expertise to drive inclusive digital advancement and AI-powered quality engineering.</p>
+            </article>
+
+            <!-- 14. Databricks -->
+            <article class="opt-a-card rv d2">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/databricks.png" alt="Databricks">
+              </div>
+              <div class="opt-a-name">Databricks</div>
+              <p class="opt-a-desc">By maximizing the Databricks Unified Data Platform, we optimize data management, computing, AI/ML, data sharing, and governance.</p>
+            </article>
+
+            <!-- 15. Gremlin -->
+            <article class="opt-a-card rv d3">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/gremlin.png" alt="Gremlin">
+              </div>
+              <div class="opt-a-name">Gremlin</div>
+              <p class="opt-a-desc">We employ Chaos Engineering to strengthen service resiliency, elevating SRE, DevOps, Quality, and Platform Engineering practices for better customer outcomes.</p>
+            </article>
+
+            <!-- 16. Hopsworks -->
+            <article class="opt-a-card rv d4">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/hopsworks.png" alt="Hopsworks">
+              </div>
+              <div class="opt-a-name">Hopsworks</div>
+              <p class="opt-a-desc">Deliver cutting-edge AI solutions with streamlined data management and scalable machine learning model deployment.</p>
+            </article>
+
+            <!-- 17. Tricentis -->
+            <article class="opt-a-card rv d1">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/tricentis.png" alt="Tricentis">
+              </div>
+              <div class="opt-a-name">Tricentis</div>
+              <p class="opt-a-desc">Enhance quality engineering by integrating AI/ML platforms. Our purpose-driven quality engineering methodology enriches businesses, advancing the quality of experience (QoE).</p>
+            </article>
+
+            <!-- 18. Ispirer -->
+            <article class="opt-a-card rv d2">
+              <div class="opt-a-logo">
+                <img src="../../Assets/Logos/ispirer.png" alt="Ispirer">
+              </div>
+              <div class="opt-a-name">Ispirer</div>
+              <p class="opt-a-desc">Leverage smart automation for efficient application and cross-database migration.</p>
+            </article>
+
+          </div><!-- /.opt-a-grid -->
+        </div><!-- /#opt-panel-a -->
+
+
+        <!-- ─────────────────────────────────────────────
+             OPTION B — ACCORDION WITH LOGOS
+        ───────────────────────────────────────────── -->
+        <div class="opt-panel" id="opt-panel-b" role="tabpanel">
+          <div class="opt-b-layout">
+            <nav class="opt-b-sidebar" id="optBSidebar" aria-label="Partner categories"></nav>
+            <div class="opt-b-grid" id="optBGrid" aria-live="polite"></div>
+          </div>
+        </div><!-- /#opt-panel-b -->
+
+
+        <!-- ─────────────────────────────────────────────
+             OPTION C — LOGO CHIP SELECTOR + DETAIL PANEL
+        ───────────────────────────────────────────── -->
+        <div class="opt-panel" id="opt-panel-c" role="tabpanel">
+          <div class="opt-c-wrap">
+            <div class="opt-c-logo-row" id="chipRow" role="listbox" aria-label="Select a partner"></div>
+            <div class="opt-c-detail" id="detailPanel" aria-live="polite">
+              <div class="opt-c-detail-logo" id="detailLogo"></div>
+              <div class="opt-c-detail-body">
+                <div class="opt-c-detail-num" id="detailNum"></div>
+                <div class="opt-c-detail-name" id="detailName"></div>
+                <p class="opt-c-detail-desc" id="detailDesc"></p>
+                <div id="detailCta"></div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /#opt-panel-c -->
+
+      </div><!-- /.container -->
+    </section>
+
+  </main>
+
+  <!-- ══ FOOTER ════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-cols">
+        <div>
+          <div class="footer-col-head">What We Do</div>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">Applied AI</a></li>
+            <li><a href="#" class="footer-link">GCC<sup>AI</sup></a></li>
+            <li><a href="#" class="footer-link">Product<sup>AI</sup></a></li>
+            <li><a href="#" class="footer-link">Data &amp; Insights<sup>AI</sup></a></li>
+            <li><a href="#" class="footer-link">Salesforce Implementation</a></li>
+            <li><a href="#" class="footer-link">Quality Engineering<sup>AI</sup></a></li>
+            <li><a href="#" class="footer-link">Experience<sup>AI</sup></a></li>
+            <li><a href="#" class="footer-link">Operations<sup>AI</sup></a></li>
+            <li><a href="#" class="footer-link">AI Workforce Transformation</a></li>
+            <li><a href="#" class="footer-link">Enterprise Platform</a></li>
+            <li><a href="#" class="footer-link">Platform Engineering<sup>AI</sup></a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Industries</div>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">Banking &amp; Financial Services</a></li>
+            <li><a href="#" class="footer-link">Communications, Media and Entertainment</a></li>
+            <li><a href="#" class="footer-link">Healthcare &amp; Life Sciences</a></li>
+            <li><a href="#" class="footer-link">Retail and Consumer Goods</a></li>
+            <li><a href="#" class="footer-link">High-tech</a></li>
+            <li><a href="#" class="footer-link">Travel and Hospitality</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Who We Are</div>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">Leadership</a></li>
+            <li><a href="#" class="footer-link">Analyst Recognition</a></li>
+            <li><a href="#" class="footer-link">Certifications</a></li>
+            <li><a href="#" class="footer-link">Locations</a></li>
+            <li><a href="#" class="footer-link">ESG</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Quick Links</div>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link">Insights and impact</a></li>
+            <li><a href="#" class="footer-link">Careers India</a></li>
+            <li><a href="#" class="footer-link">Careers North America</a></li>
+            <li><a href="#" class="footer-link">Careers Europe</a></li>
+            <li><a href="#" class="footer-link">Careers Asia Pacific</a></li>
+            <li><a href="#" class="footer-link">Global Delivery Hubs</a></li>
+            <li><a href="#" class="footer-link">Contact us</a></li>
+          </ul>
+        </div>
+        <div style="padding-top:40px">
+          <div class="footer-social">
+            <a href="#" class="footer-social-link footer-social-link--linkedin" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="#" class="footer-social-link footer-social-link--youtube" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="#" class="footer-social-link footer-social-link--instagram" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">Copyright 2026, ASCENDION. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="#" class="footer-legal-link">Privacy Policy</a>
+          <span class="footer-sep">|</span>
+          <a href="#" class="footer-legal-link">Terms of Use</a>
+          <span class="footer-sep">|</span>
+          <a href="#" class="footer-legal-link">Accessibility Disclosure</a>
+          <span class="footer-sep">|</span>
+          <a href="#" class="footer-legal-link">AI-enhanced Content Notice</a>
+          <span class="footer-sep">|</span>
+          <a href="#" class="footer-legal-link">Security Disclosure Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // ─── PARTNER DATA ──────────────────────────────────────────
+  const partners = [
+    { id: 'aws',         category: 'cloud',       hasL2: true,  name: 'Amazon AWS',                   color: '#FF9900', logoSvg: `<img src="../../Assets/Logos/aws.png" alt="Amazon AWS" class="partner-logo">`,                      chipSvg: `<img src="../../Assets/Logos/aws.png" alt="Amazon AWS" class="partner-chip-logo">`,                      desc: 'Accelerate digital transformation with Ascendion\'s collaboration with AWS, specializing in advanced cloud engineering solutions for data, modernization, and AI advancements.' },
+    { id: 'salesforce',  category: 'enterprise',  hasL2: true,  name: 'Salesforce',                    color: '#00A1E0', logoSvg: `<img src="../../Assets/Logos/salesforce.png" alt="Salesforce" class="partner-logo">`,              chipSvg: `<img src="../../Assets/Logos/salesforce.png" alt="Salesforce" class="partner-chip-logo">`,              desc: 'Deliver solutions across the Salesforce Customer Success Platform, with expertise in Service Cloud, Communities, Field Service Lightning (FSL), Sales, CPQ, Platform, Einstein AI, MuleSoft, and Heroku.' },
+    { id: 'microsoft',   category: 'cloud',       hasL2: true,  name: 'Microsoft',                     color: '#00A4EF', logoSvg: `<img src="../../Assets/Logos/microsoft.png" alt="Microsoft" class="partner-logo">`,                chipSvg: `<img src="../../Assets/Logos/microsoft.png" alt="Microsoft" class="partner-chip-logo">`,                desc: 'Unlock growth through our collaboration with Microsoft in Biz Apps, Data, and AI. Harness Microsoft technology by integrating Azure Data, AI, and OpenAI services for enhanced capabilities.' },
+    { id: 'gcp',         category: 'cloud',       hasL2: false, name: 'Good Cloud Partner',            color: '#4285F4', logoSvg: `<img src="../../Assets/Logos/google cloud partner.png" alt="Google Cloud Partner" class="partner-logo">`, chipSvg: `<img src="../../Assets/Logos/google cloud partner.png" alt="Google Cloud Partner" class="partner-chip-logo">`, desc: 'Accelerate GCP adoption and scale efficiently using our AI-driven accelerators, transforming your legacy data into modern Google Data and AI services to drive business innovation through containerized analytical apps and solutions.' },
+    { id: 'servicenow',  category: 'enterprise',  hasL2: false, name: 'ServiceNow',                    color: '#81B5A1', logoSvg: `<img src="../../Assets/Logos/service now.png" alt="ServiceNow" class="partner-logo">`,            chipSvg: `<img src="../../Assets/Logos/service now.png" alt="ServiceNow" class="partner-chip-logo">`,            desc: 'Accelerating AI-powered digital workflows and business transformation, setting new benchmarks for innovation, efficiency, and collaborative success.' },
+    { id: 'mulesoft',    category: 'enterprise',  hasL2: false, name: 'Mulesoft',                      color: '#00A0DF', logoSvg: `<img src="../../Assets/Logos/MuleSoft.png" alt="MuleSoft" class="partner-logo">`,                  chipSvg: `<img src="../../Assets/Logos/MuleSoft.png" alt="MuleSoft" class="partner-chip-logo">`,                  desc: 'In alignment with MuleSoft, we accelerate digital and AI transformations by forging key data integration partnerships to drive corporate progress.' },
+    { id: 'workato',     category: 'enterprise',  hasL2: false, name: 'Workato',                       color: '#E54C3D', logoSvg: `<img src="../../Assets/Logos/workato.png" alt="Workato" class="partner-logo">`,                    chipSvg: `<img src="../../Assets/Logos/workato.png" alt="Workato" class="partner-chip-logo">`,                    desc: 'In partnership with Workato, we optimize workflows, improve efficiency, and achieve business goals through our software engineering collaboration.' },
+    { id: 'uipath',      category: 'enterprise',  hasL2: false, name: 'UiPath Partner',                color: '#FA4616', logoSvg: `<img src="../../Assets/Logos/ui path partner.png" alt="UiPath Partner" class="partner-logo">`,    chipSvg: `<img src="../../Assets/Logos/ui path partner.png" alt="UiPath Partner" class="partner-chip-logo">`,    desc: 'Engage closely with UiPath, a key automation ally, utilizing their solutions to engineer automated processes and drive innovation together.' },
+    { id: 'snowflake',   category: 'ai-data',     hasL2: false, name: 'Snowflake',                     color: '#29B5E8', logoSvg: `<img src="../../Assets/Logos/snowflake.png" alt="Snowflake" class="partner-logo">`,                chipSvg: `<img src="../../Assets/Logos/snowflake.png" alt="Snowflake" class="partner-chip-logo">`,                desc: 'Maximize Snowflake ROI with Ascendion\'s engineering services powered by AAVA, our agentic AI-powered platform that leverages advanced data cloud capabilities for optimized engineering, scientific insights, data sharing, and AI applications.' },
+    { id: 'databricks',  category: 'ai-data',     hasL2: false, name: 'Databricks',                    color: '#FF3621', logoSvg: `<img src="../../Assets/Logos/databricks.png" alt="Databricks" class="partner-logo">`,              chipSvg: `<img src="../../Assets/Logos/databricks.png" alt="Databricks" class="partner-chip-logo">`,              desc: 'By maximizing the Databricks Unified Data Platform, we optimize data management, computing, AI/ML, data sharing, and governance.' },
+    { id: 'hopsworks',   category: 'ai-data',     hasL2: false, name: 'Hopsworks',                     color: '#2E4482', logoSvg: `<img src="../../Assets/Logos/hopsworks.png" alt="Hopsworks" class="partner-logo">`,                chipSvg: `<img src="../../Assets/Logos/hopsworks.png" alt="Hopsworks" class="partner-chip-logo">`,                desc: 'Deliver cutting-edge AI solutions with streamlined data management and scalable machine learning model deployment.' },
+    { id: 'whizai',      category: 'ai-data',     hasL2: false, name: 'Whiz.ai',                       color: '#2ddcaa', logoSvg: `<img src="../../Assets/Logos/whiz ai.png" alt="Whiz.ai" class="partner-logo">`,                    chipSvg: `<img src="../../Assets/Logos/whiz ai.png" alt="Whiz.ai" class="partner-chip-logo">`,                    desc: 'Together with Whiz.ai, we\'re redefining decision intelligence in life sciences. By integrating digital engineering and advanced AI, we redefine data-driven insights to enhance patient care through informed and efficient decisions.' },
+    { id: 'dataaces',    category: 'ai-data',     hasL2: false, name: 'DataAces',                      color: '#6464d7', logoSvg: `<img src="../../Assets/Logos/dataaces.png" alt="DataAces" class="partner-logo">`,                  chipSvg: `<img src="../../Assets/Logos/dataaces.png" alt="DataAces" class="partner-chip-logo">`,                  desc: 'Engineer streamlined data solutions, delivering efficiency and superior outcomes for our clients.' },
+    { id: 'intersystem', category: 'ai-data',     hasL2: false, name: 'Intersystem',                   color: '#1a1a72', logoSvg: `<img src="../../Assets/Logos/InterSystems.png" alt="InterSystems" class="partner-logo">`,          chipSvg: `<img src="../../Assets/Logos/InterSystems.png" alt="InterSystems" class="partner-chip-logo">`,          desc: 'Crafting tailored engineering solutions for healthcare, addressing industry-specific challenges with precision and expertise.' },
+    { id: 'avo',         category: 'ai-data',     hasL2: false, name: 'AVO automation & Stability.ai', color: '#333333', logoSvg: `<img src="../../Assets/Logos/avo automation.jpeg" alt="AVO automation" class="partner-logo">`,    chipSvg: `<img src="../../Assets/Logos/avo automation.jpeg" alt="AVO automation" class="partner-chip-logo">`,    desc: 'By harnessing Stability AI\'s open-source generative technologies and Ascendion\'s digital expertise, our partnership drives inclusive digital advancement. We deliver AI-powered quality engineering services for innovation and excellence in our collaborative endeavors.' },
+    { id: 'gremlin',     category: 'engineering', hasL2: false, name: 'Gremlin',                       color: '#E63737', logoSvg: `<img src="../../Assets/Logos/gremlin.png" alt="Gremlin" class="partner-logo">`,                    chipSvg: `<img src="../../Assets/Logos/gremlin.png" alt="Gremlin" class="partner-chip-logo">`,                    desc: 'We employ Chaos Engineering to strengthen service resiliency, elevating SRE, DevOps, Quality, and Platform Engineering practices to enhance customer satisfaction and business outcomes.' },
+    { id: 'tricentis',   category: 'engineering', hasL2: false, name: 'Tricentis',                     color: '#7A45E5', logoSvg: `<img src="../../Assets/Logos/tricentis.png" alt="Tricentis" class="partner-logo">`,                chipSvg: `<img src="../../Assets/Logos/tricentis.png" alt="Tricentis" class="partner-chip-logo">`,                desc: 'Enhance quality engineering by integrating AI/ML platforms. Our purpose-driven quality engineering methodology enriches businesses, advancing the quality of experience (QoE).' },
+    { id: 'ispirer',     category: 'engineering', hasL2: false, name: 'Ispirer',                       color: '#003366', logoSvg: `<img src="../../Assets/Logos/ispirer.png" alt="Ispirer" class="partner-logo">`,                    chipSvg: `<img src="../../Assets/Logos/ispirer.png" alt="Ispirer" class="partner-chip-logo">`,                    desc: 'Leverage smart automation for efficient application and cross-database migration.' },
+  ];
+
+  // ─── NAV SCROLL SHADOW ────────────────────────────────────
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 8); }, { passive: true });
+
+  // ─── SUB-NAV: show after hero scrolls out ─────────────────
+  const subNav    = document.getElementById('subNav');
+  const heroSect  = document.getElementById('heroSection');
+  const subLinks  = document.querySelectorAll('.sub-nav-link');
+
+  const heroObserver = new IntersectionObserver(([entry]) => {
+    subNav.classList.toggle('visible', !entry.isIntersecting);
+  }, { threshold: 0, rootMargin: '-86px 0px 0px 0px' });
+  heroObserver.observe(heroSect);
+
+  // ─── SUB-NAV: active link on scroll ──────────────────────
+  const sections = document.querySelectorAll('section[id]');
+  const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        subLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => sectionObserver.observe(s));
+
+  // ─── MOBILE NAV ───────────────────────────────────────────
+  const toggle = document.getElementById('navToggle');
+  const drawer = document.getElementById('navDrawer');
+  toggle.addEventListener('click', () => {
+    const open = toggle.classList.toggle('open');
+    drawer.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+
+  // ─── SCROLL REVEAL ────────────────────────────────────────
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+  document.querySelectorAll('.rv').forEach(el => revealObserver.observe(el));
+
+  // ─── DESIGN OPTION TABS ───────────────────────────────────
+  const optBtns = document.querySelectorAll('.opt-btn');
+  const optPanels = document.querySelectorAll('.opt-panel');
+  optBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      optBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      optPanels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
+      document.getElementById('opt-panel-' + btn.dataset.option).classList.add('active');
+    });
+  });
+
+  // ─── BUILD OPTION B (CATEGORY SIDEBAR + CARD GRID) ────────
+  const categories = [
+    { id: 'cloud',       num: '01', label: 'Cloud Hyperscalers'  },
+    { id: 'enterprise',  num: '02', label: 'Enterprise Platforms' },
+    { id: 'ai-data',     num: '03', label: 'AI & Data'            },
+    { id: 'engineering', num: '04', label: 'Engineering'          },
+  ];
+  const bSidebar = document.getElementById('optBSidebar');
+  const bGrid    = document.getElementById('optBGrid');
+  let activeCat  = categories[0].id;
+
+  function renderBGrid(catId) {
+    bGrid.innerHTML = '';
+    partners.filter(p => p.category === catId).forEach(p => {
+      const card = document.createElement('article');
+      card.className = 'opt-b-card';
+      card.innerHTML = `
+        <div class="opt-b-card-logo">${p.logoSvg}</div>
+        <div class="opt-b-card-name">${p.name}</div>
+        <p class="opt-b-card-desc">${p.desc}</p>
+        ${p.hasL2 ? `<div class="opt-b-card-footer"><a href="#" class="opt-b-card-cta">Explore Partnership <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>` : ''}
+      `;
+      bGrid.appendChild(card);
+    });
+  }
+
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-b-cat-btn' + (cat.id === activeCat ? ' active' : '');
+    btn.innerHTML = `<span class="opt-b-cat-num">[${cat.num}]</span><span class="opt-b-cat-dash"> — </span><span class="opt-b-cat-label">${cat.label}</span><span class="opt-b-cat-line"></span>`;
+    btn.addEventListener('click', () => {
+      activeCat = cat.id;
+      document.querySelectorAll('.opt-b-cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderBGrid(cat.id);
+    });
+    bSidebar.appendChild(btn);
+  });
+
+  renderBGrid(activeCat);
+
+  // ─── BUILD OPTION C (CHIP SELECTOR + DETAIL) ─────────────
+  const chipRow    = document.getElementById('chipRow');
+  const detailLogo = document.getElementById('detailLogo');
+  const detailNum  = document.getElementById('detailNum');
+  const detailName = document.getElementById('detailName');
+  const detailDesc = document.getElementById('detailDesc');
+  const detailCta  = document.getElementById('detailCta');
+
+  function showPartner(p, idx) {
+    detailLogo.innerHTML = p.logoSvg;
+    detailNum.textContent = `Partner ${String(idx + 1).padStart(2,'0')} / ${partners.length}`;
+    detailName.textContent = p.name;
+    detailDesc.textContent = p.desc;
+    detailCta.innerHTML = p.hasL2
+      ? `<a href="#" class="opt-a-cta" style="margin-top:16px;">Explore Partnership <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>`
+      : '';
+    document.querySelectorAll('.opt-c-chip').forEach(c => {
+      c.classList.toggle('active', c.dataset.id === p.id);
+      c.setAttribute('aria-selected', c.dataset.id === p.id);
+    });
+  }
+
+  partners.forEach((p, i) => {
+    const chip = document.createElement('button');
+    chip.className = 'opt-c-chip';
+    chip.dataset.id = p.id;
+    chip.setAttribute('role','option');
+    chip.setAttribute('aria-selected','false');
+    chip.innerHTML = `<span class="opt-c-chip-logo">${p.chipSvg}</span><span class="opt-c-chip-name">${p.name}</span>`;
+    chip.addEventListener('click', () => showPartner(p, i));
+    chipRow.appendChild(chip);
+  });
+
+  // Show first partner by default
+  showPartner(partners[0], 0);
+  </script>
+
+</body>
+</html>
