@@ -6,6 +6,13 @@
   <title>Ascendion × CareSource — Agentic AI Solutions</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet" />
   <style>
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('../../assets/fonts/PPNeueMachina-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
     :root {
       --primary-500: #6464d7;
       --primary-900: #5a37af;
@@ -28,7 +35,7 @@
       --text-inv:       #ffffff;
       --text-inv-2:     #e3e2df;
       --text-secondary: #333333;
-      --font-display: 'PP Neue Machina', Georgia, serif;
+      --font-display: 'PP Neue Machina', sans-serif;
       --font-primary: 'Inter', sans-serif;
       --font-mono:    'Roboto Mono', monospace;
       --px: 80px;
@@ -183,12 +190,12 @@
     .hero-right { flex: 1; min-width: 0; align-self: stretch; display: flex; align-items: center; }
     .hero-img {
       width: 100%; height: 490px;
-      object-fit: cover; border-radius: 12px; display: block;
+      object-fit: cover; border-radius: 2px; display: block;
     }
     .hero-img-placeholder {
       width: 100%; height: 490px;
       background: linear-gradient(135deg, #e8e8f5 0%, #d0d0ee 100%);
-      border-radius: 12px;
+      border-radius: 2px;
       display: flex; align-items: center; justify-content: center;
       border: 1px solid var(--neutral-200);
       position: relative; overflow: hidden;
