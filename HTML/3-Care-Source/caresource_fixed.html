@@ -198,7 +198,7 @@
       position: relative; z-index: 1;
       display: flex; align-items: center; gap: 20px;
       padding: 0;
-      min-height: 630px;
+      min-height: 530px;
     }
     /* Remove container padding inside hero */
     .hero .container { padding-left: var(--px); padding-right: var(--px); }
@@ -220,11 +220,11 @@
     /* Logo lockup — under breadcrumb, left-aligned */
     .hero-logos {
       display: flex; align-items: center; justify-content: flex-start;
-      gap: 20px; margin-bottom: 0;
+      gap: 20px; margin-bottom: 20px;
     }
     .hero-title {
       font-family: var(--font-display);
-      font-size: 72px; line-height: 80px; font-weight: 400;
+      font-size: 48px; line-height: 56px; font-weight: 400;
       color: #000;
       margin-bottom: 0;
     }
@@ -417,15 +417,7 @@
 
         <!-- LEFT: breadcrumb → logo → title → CTAs -->
         <div class="hero-left">
-          <div class="hero-breadcrumb hero-anim d1">
-            <a href="#">Home</a>
-            <span style="color:#4b4b4b">›</span>
-            <a href="#">Who We Serve</a>
-            <span style="color:#4b4b4b">›</span>
-            <span style="color:#000">CareSource</span>
-          </div>
-
-          <!-- Logo lockup — under breadcrumb, left-aligned -->
+          <!-- Logo lockup — left-aligned -->
           <div class="hero-logos hero-anim d1">
             <img src="../../Assets/Logos/Ascendion_Primary_Logo.jpg" alt="Ascendion" style="height:32px; display:block;" />
             <div class="hero-logo-div"></div>
