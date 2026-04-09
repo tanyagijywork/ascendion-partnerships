@@ -267,8 +267,6 @@
     .uc-grid--reverse .uc-media { order: 1; }
 
     /* Use Case Label — number embedded */
-    .uc-text--stacked { max-width: 700px; margin-bottom: 48px; }
-    .uc-text--stacked .uc-body { margin-bottom: 32px; }
     .uc-label-wrap { margin-bottom: 20px; }
     .uc-label-text { white-space: nowrap; }
 
@@ -466,37 +464,41 @@
   ══════════════════════════════ -->
   <section class="uc-light" id="use-case-1">
     <div class="container">
-      <div class="uc-text uc-text--stacked rv">
-        <h2 class="uc-title uc-title--dark">Answers to User Questions Using Copilot</h2>
-        <p class="uc-body uc-body--dark">Transforming how users interact with support systems, the Copilot Studio Intelligent Agentic AI Assist seamlessly integrates with Microsoft Teams, delivering intelligent support at their fingertips.</p>
-        <a href="#" class="btn btn-primary">
-          <span class="btn__label">Watch Demo</span>
-          <span class="btn__icon" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-        </a>
-      </div>
-      <div class="uc-label-wrap rv">
-        <div class="lbl lbl--dark" style="justify-content:flex-start;">
-          <span class="uc-label-text">Use Case 01</span>
-        </div>
-      </div>
-      <div class="video-block video-block--violet rv d2">
-        <video class="video-el" controls preload="metadata"
-          src="https://ascendion.com/wp-content/uploads/2025/11/Copilot-Interactive-Chat-Bot.mp4#t=0.001">
-        </video>
-        <div class="video-footer video-footer--light">
-          <span class="video-title-text video-title-text--dark">Copilot Interactive Chat Bot</span>
-          <a href="https://ascendion.com/wp-content/uploads/2025/11/Copilot-Interactive-Chat-Bot.mp4" target="_blank" class="btn btn-text">
-            <span class="btn__label">Full Screen</span>
-            <span class="btn__icon">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                <path d="M4 12L12 4M12 4H6M12 4v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <div class="uc-grid">
+        <div class="uc-text rv">
+          <div class="uc-label-wrap">
+            <div class="lbl lbl--dark" style="justify-content:flex-start;">
+              <span class="uc-label-text">Use Case 01</span>
+            </div>
+          </div>
+          <h2 class="uc-title uc-title--dark">Answers to User Questions Using Copilot</h2>
+          <p class="uc-body uc-body--dark">Transforming how users interact with support systems, the Copilot Studio Intelligent Agentic AI Assist seamlessly integrates with Microsoft Teams, delivering intelligent support at their fingertips.</p>
+          <a href="#" class="btn btn-primary">
+            <span class="btn__label">Watch Demo</span>
+            <span class="btn__icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
           </a>
+        </div>
+        <div class="uc-media rv d2">
+          <div class="video-block video-block--violet">
+            <video class="video-el" controls preload="metadata"
+              src="https://ascendion.com/wp-content/uploads/2025/11/Copilot-Interactive-Chat-Bot.mp4#t=0.001">
+            </video>
+            <div class="video-footer video-footer--light">
+              <span class="video-title-text video-title-text--dark">Copilot Interactive Chat Bot</span>
+              <a href="https://ascendion.com/wp-content/uploads/2025/11/Copilot-Interactive-Chat-Bot.mp4" target="_blank" class="btn btn-text">
+                <span class="btn__label">Full Screen</span>
+                <span class="btn__icon">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 12L12 4M12 4H6M12 4v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
