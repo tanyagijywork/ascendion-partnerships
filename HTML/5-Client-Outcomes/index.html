@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unified Data Marketplace Enables 60% Improved CX — Ascendion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('../../Font/PPNeueMachina-PlainRegular.ttf') format('truetype');
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('../../Font/PPNeueMachina-PlainUltrabold.ttf') format('truetype');
+      font-weight: 800;
+      font-display: swap;
+    }
+
+    /* ─── TOKENS ────────────────────────────────────────────────── */
+    :root {
+      --primary-500: #6464d7;
+      --primary-900: #5a37af;
+      --accent-100:  #2ddcaa;
+      --accent-500:  #009673;
+      --neutral-0:   #ffffff;
+      --neutral-100: #f4f4f4;
+      --neutral-200: #e3e2df;
+      --neutral-300: #aaaaaa;
+      --neutral-400: #999999;
+      --neutral-600: #4b4b4b;
+      --neutral-700: #333333;
+      --neutral-800: #1a1a1a;
+      --neutral-900: #000000;
+      --font-display: 'PP Neue Machina', sans-serif;
+      --font-primary: 'Inter', sans-serif;
+      --px: 80px;
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-primary); color: var(--neutral-900); background: #fff; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    img { display: block; max-width: 100%; }
+    sup { font-size: 0.6em; vertical-align: super; }
+
+    /* ─── LAYOUT ─────────────────────────────────────────────────── */
+    .container { max-width: 1440px; margin: 0 auto; padding-left: var(--px); padding-right: var(--px); }
+
+    /* ─── NAV ────────────────────────────────────────────────────── */
+    .nav {
+      position: sticky; top: 0; z-index: 200;
+      background: #fff; border-bottom: 1px solid var(--neutral-200);
+      height: 86px; display: flex; align-items: center;
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .nav-logo { display: flex; flex-direction: column; gap: 2px; }
+    .nav-logo-text { font-family: var(--font-display); font-size: 20px; font-weight: 800; letter-spacing: 0.04em; color: #000; line-height: 1; }
+    .nav-logo-tagline { font-size: 11px; color: var(--neutral-600); letter-spacing: 0.01em; }
+    .nav-menu { display: flex; align-items: center; gap: 4px; }
+    .nav-link { font-size: 14px; font-weight: 400; color: var(--neutral-900); padding: 8px 12px; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+    .nav-link--aava { color: var(--accent-500); font-weight: 600; }
+    .nav-link svg { opacity: 0.5; }
+    .nav-search { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+    .btn-nav {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #000; color: #fff; border-radius: 2px;
+      padding: 10px 20px; font-size: 14px; font-weight: 500;
+      transition: background 0.15s;
+    }
+    .btn-nav:hover { background: var(--neutral-800); }
+    .btn-nav svg { color: var(--accent-100); }
+
+    /* ─── SUB-NAV ────────────────────────────────────────────────── */
+    .sub-nav {
+      position: sticky; top: 86px; z-index: 190;
+      background: #fff; border-bottom: 1px solid var(--neutral-200);
+    }
+    .sub-nav-inner { display: flex; align-items: center; gap: 0; }
+    .sub-nav-link {
+      font-size: 14px; font-weight: 400; color: var(--neutral-600);
+      padding: 16px 20px; border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s; white-space: nowrap;
+    }
+    .sub-nav-link.active { color: #000; font-weight: 500; border-bottom-color: var(--accent-500); }
+    .sub-nav-link:hover { color: #000; }
+
+    /* ─── HERO ───────────────────────────────────────────────────── */
+    .hero {
+      background: #000;
+      position: relative; overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: flex; align-items: flex-start; gap: 48px;
+      padding: 48px 0 0;
+    }
+    .hero-left { flex: 1; padding-bottom: 48px; display: flex; flex-direction: column; gap: 20px; }
+    .hero-breadcrumb {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--neutral-400);
+    }
+    .hero-breadcrumb a { color: var(--neutral-400); transition: color 0.15s; }
+    .hero-breadcrumb a:hover { color: #fff; }
+    .hero-breadcrumb span { color: var(--neutral-600); }
+    .hero-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .hero-tag {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent-100);
+      border: 1px solid rgba(45, 220, 170, 0.3);
+      padding: 4px 10px; border-radius: 2px;
+    }
+    .hero-tag--industry { color: var(--neutral-300); border-color: rgba(170,170,170,0.3); }
+    .hero-h1 {
+      font-family: var(--font-display); font-size: 48px; line-height: 56px;
+      font-weight: 400; color: #fff;
+    }
+    .hero-meta { display: flex; align-items: center; gap: 16px; }
+    .hero-date { font-size: 13px; color: var(--neutral-400); display: flex; align-items: center; gap: 6px; }
+    .hero-date svg { color: var(--accent-500); }
+    .hero-read { font-size: 13px; color: var(--neutral-600); }
+    .hero-right {
+      width: 480px; flex-shrink: 0; align-self: stretch;
+      min-height: 360px;
+    }
+    .hero-img {
+      width: 100%; height: 100%; min-height: 360px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-img-placeholder {
+      width: 100%; height: 100%; min-height: 360px;
+      background: linear-gradient(135deg, #1c1c2e 0%, #252540 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .hero-img-placeholder::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(100,100,215,0.2) 0%, rgba(45,220,170,0.1) 100%);
+    }
+
+    /* ─── CONTENT LAYOUT ─────────────────────────────────────────── */
+    .content-wrap { padding: 64px 0 80px; }
+    .content-cols { display: grid; grid-template-columns: 1fr 320px; gap: 64px; align-items: start; }
+
+    /* ─── KEY STATS PANEL ────────────────────────────────────────── */
+    .key-stats {
+      background: #0d1f1a;
+      border-radius: 2px; padding: 32px; margin-bottom: 48px;
+    }
+    .key-stats-label {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent-100);
+      margin-bottom: 24px; display: flex; align-items: center; gap: 8px;
+    }
+    .key-stats-label::after { content: ''; flex: 1; height: 1px; background: rgba(45,220,170,0.2); }
+    .key-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,0.06); }
+    .key-stat-item {
+      background: transparent; padding: 24px 20px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .key-stat-number {
+      font-family: var(--font-display); font-size: 40px; line-height: 1;
+      font-weight: 400; color: var(--accent-100);
+    }
+    .key-stat-title { font-size: 14px; font-weight: 600; color: #fff; line-height: 1.3; }
+    .key-stat-desc { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+    /* ─── ARTICLE BODY ───────────────────────────────────────────── */
+    .article-body { color: var(--neutral-900); }
+    .article-lead {
+      font-size: 18px; line-height: 28px; font-weight: 400;
+      color: var(--neutral-700); margin-bottom: 40px;
+      border-left: 3px solid var(--accent-500);
+      padding-left: 20px;
+    }
+    .article-section { margin-bottom: 48px; }
+    .article-section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent-500);
+      margin-bottom: 12px; display: flex; align-items: center; gap: 12px;
+    }
+    .article-section-label::after { content: ''; flex: 1; height: 1px; background: var(--neutral-200); }
+    .article-h2 {
+      font-family: var(--font-display); font-size: 28px; line-height: 36px;
+      font-weight: 400; color: #000; margin-bottom: 16px;
+    }
+    .article-p { font-size: 16px; line-height: 26px; color: var(--neutral-700); margin-bottom: 16px; }
+    .article-p:last-child { margin-bottom: 0; }
+
+    /* ─── CALLOUT BLOCK ──────────────────────────────────────────── */
+    .callout {
+      background: var(--neutral-100); border-radius: 2px;
+      padding: 32px; margin: 40px 0;
+    }
+    .callout-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent-500);
+      margin-bottom: 16px; text-align: center;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .callout-label::before, .callout-label::after { content: ''; flex: 1; height: 1px; background: var(--neutral-200); }
+    .callout-title {
+      font-family: var(--font-display); font-size: 24px; line-height: 32px;
+      font-weight: 400; color: #000; margin-bottom: 20px;
+    }
+    .callout-list { display: flex; flex-direction: column; gap: 16px; }
+    .callout-item { display: flex; align-items: flex-start; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--neutral-200); }
+    .callout-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .callout-dash { color: var(--accent-500); font-size: 18px; font-weight: 600; flex-shrink: 0; margin-top: 1px; }
+    .callout-item-body {}
+    .callout-item-title { font-size: 16px; font-weight: 600; color: #000; margin-bottom: 4px; }
+    .callout-item-desc { font-size: 14px; line-height: 22px; color: var(--neutral-600); }
+
+    /* ─── SIDEBAR ────────────────────────────────────────────────── */
+    .sidebar { position: sticky; top: 140px; display: flex; flex-direction: column; gap: 32px; }
+    .sidebar-card {
+      border: 1px solid var(--neutral-200); border-radius: 2px; padding: 24px;
+    }
+    .sidebar-section-title {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--neutral-400);
+      margin-bottom: 16px;
+    }
+    .sidebar-published { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--neutral-700); }
+    .sidebar-published svg { color: var(--accent-500); flex-shrink: 0; }
+
+    .sidebar-meta-list { display: flex; flex-direction: column; gap: 12px; }
+    .sidebar-meta-item { display: flex; flex-direction: column; gap: 2px; }
+    .sidebar-meta-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--neutral-400); }
+    .sidebar-meta-value { font-size: 14px; color: #000; font-weight: 500; }
+
+    .share-row { display: flex; align-items: center; gap: 10px; }
+    .share-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--accent-500); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .share-btn:hover { opacity: 0.85; transform: translateY(-2px); }
+    .share-btn--x { background: #000; }
+    .share-btn--link { background: var(--neutral-700); }
+
+    .all-link {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 14px; font-weight: 500; color: #000;
+      padding: 14px 0; border-top: 1px solid var(--neutral-200);
+      transition: color 0.15s;
+    }
+    .all-link:hover { color: var(--primary-500); }
+    .all-link svg { color: var(--neutral-400); }
+
+    .related-list { display: flex; flex-direction: column; gap: 20px; }
+    .related-item {}
+    .related-date { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--accent-500); margin-bottom: 4px; }
+    .related-date svg { flex-shrink: 0; }
+    .related-industry { font-size: 11px; color: var(--neutral-400); margin-bottom: 4px; }
+    .related-title { font-size: 14px; font-weight: 500; color: #000; line-height: 1.4; transition: color 0.15s; }
+    .related-item:hover .related-title { color: var(--primary-500); }
+
+    /* ─── PREV / NEXT NAV ────────────────────────────────────────── */
+    .article-nav {
+      border-top: 1px solid var(--neutral-200);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 0;
+    }
+    .article-nav-btn {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 500; color: var(--neutral-600);
+      transition: color 0.15s;
+    }
+    .article-nav-btn:hover { color: #000; }
+    .article-nav-btn svg { color: var(--neutral-400); }
+    .article-nav-line { flex: 1; height: 1px; background: var(--neutral-200); margin: 0 32px; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────────── */
+    .footer { background: #fff; padding: 80px 0 0; border-top: 1px solid var(--neutral-200); }
+    .footer-cols { display: grid; grid-template-columns: 2fr 2fr 1.5fr 1.5fr auto; gap: 64px; padding-bottom: 64px; }
+    .footer-col-head { font-size: 16px; font-weight: 700; color: #000; margin-bottom: 16px; }
+    .footer-links { display: flex; flex-direction: column; gap: 16px; border-top: 0.5px solid var(--neutral-200); border-bottom: 0.5px solid var(--neutral-200); padding: 16px 0; }
+    .footer-link { font-size: 16px; font-weight: 500; line-height: 1.4; color: #000; transition: color 0.15s; }
+    .footer-link:hover { color: var(--primary-500); }
+    .footer-link sup { font-size: 9px; }
+    .footer-social { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; padding-top: 40px; }
+    .footer-social-link { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; background: var(--primary-500); transition: opacity 0.15s, transform 0.15s; }
+    .footer-social-link:hover { opacity: 0.85; transform: translateY(-2px); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--neutral-200); padding: 24px 0 32px; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 14px; color: #000; }
+    .footer-legal { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .footer-legal-link { font-size: 14px; color: #000; transition: color 0.15s; }
+    .footer-legal-link:hover { color: var(--primary-500); }
+    .footer-sep { font-size: 14px; color: var(--neutral-400); }
+
+    /* ─── SCROLL REVEAL ──────────────────────────────────────────── */
+    .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .rv.in { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      :root { --px: 40px; }
+      .hero-right { width: 360px; }
+      .content-cols { grid-template-columns: 1fr 280px; gap: 40px; }
+      .key-stats-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-cols { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 768px) {
+      :root { --px: 24px; }
+      .nav-menu { display: none; }
+      .hero-inner { flex-direction: column; padding: 32px 0 0; }
+      .hero-right { width: 100%; min-height: 240px; }
+      .hero-h1 { font-size: 32px; line-height: 40px; }
+      .content-cols { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .key-stats-grid { grid-template-columns: 1fr; }
+      .footer-cols { grid-template-columns: 1fr; gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════════════════ -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo" aria-label="Ascendion home">
+      <span class="nav-logo-text">ASCENDION</span>
+      <span class="nav-logo-tagline">Engineering to elevate life</span>
+    </a>
+    <nav class="nav-menu" aria-label="Main">
+      <a href="#" class="nav-link nav-link--aava">AAVA<sup>™</sup>
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H6M12 4v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#" class="nav-link">What We Do <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="nav-link">Who We Serve <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="nav-link">How We Deliver <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="nav-link active">Insights &amp; Impact <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="nav-link">Careers <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <button class="nav-search" aria-label="Search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <a href="#" class="btn-nav">
+        Get in Touch
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ SUB-NAV ══════════════════════════════════════════════════ -->
+<div class="sub-nav" id="subNav">
+  <div class="container">
+    <div class="sub-nav-inner">
+      <a href="#key-stats" class="sub-nav-link active" data-section="key-stats">Key Stats</a>
+      <a href="#challenge" class="sub-nav-link" data-section="challenge">The Challenge</a>
+      <a href="#solution" class="sub-nav-link" data-section="solution">Our Approach</a>
+      <a href="#results" class="sub-nav-link" data-section="results">Results</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HERO ══════════════════════════════════════════════════════ -->
+<section class="hero" aria-label="Case study hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span>›</span>
+          <a href="/client-outcomes/">Client Outcomes</a>
+          <span>›</span>
+          <span style="color:rgba(255,255,255,0.5)">Unified Data Marketplace</span>
+        </nav>
+        <div class="hero-tags">
+          <span class="hero-tag">Data &amp; Insights<sup>AI</sup></span>
+          <span class="hero-tag">Applied AI</span>
+          <span class="hero-tag hero-tag--industry">FinTech</span>
+        </div>
+        <h1 class="hero-h1">Unified Data Marketplace Enables 60% Improved CX For A FinTech Leader</h1>
+        <div class="hero-meta">
+          <span class="hero-date">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 1.5V4M11 1.5V4M2 7h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            September 9, 2025
+          </span>
+          <span class="hero-read">7 min read</span>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-img-placeholder"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MAIN CONTENT ══════════════════════════════════════════════ -->
+<main>
+  <div class="content-wrap">
+    <div class="container">
+      <div class="content-cols">
+
+        <!-- ── MAIN ─────────────────────────────────────────────── -->
+        <div class="main-col">
+
+          <!-- Key Stats Panel -->
+          <div class="key-stats rv" id="key-stats">
+            <div class="key-stats-label">Key Outcomes</div>
+            <div class="key-stats-grid">
+              <div class="key-stat-item">
+                <div class="key-stat-number">60%</div>
+                <div class="key-stat-title">Improved Customer Experience</div>
+                <div class="key-stat-desc">Measured across NPS, CSAT, and digital engagement scores</div>
+              </div>
+              <div class="key-stat-item">
+                <div class="key-stat-number">40%</div>
+                <div class="key-stat-title">Faster Time-to-Insight</div>
+                <div class="key-stat-desc">Reduced data latency from hours to near real-time</div>
+              </div>
+              <div class="key-stat-item">
+                <div class="key-stat-number">3×</div>
+                <div class="key-stat-title">Data Pipeline Efficiency</div>
+                <div class="key-stat-desc">Across 12+ consolidated data sources and systems</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Article Body -->
+          <article class="article-body">
+
+            <p class="article-lead rv">
+              A leading North American FinTech company was drowning in data — but starved of insights. Fragmented across 12+ siloed systems, their customer data couldn't deliver the unified intelligence needed to power modern, personalized experiences. Ascendion changed that.
+            </p>
+
+            <!-- The Challenge -->
+            <div class="article-section rv" id="challenge">
+              <div class="article-section-label">The Challenge</div>
+              <h2 class="article-h2">Fragmented Data Was Costing Customer Trust</h2>
+              <p class="article-p">The client, a fast-growing FinTech serving over 4 million retail and SMB customers, had accumulated data across a patchwork of legacy systems, third-party SaaS platforms, and multiple cloud environments. Each business unit operated its own data pipelines with no shared standards, governance, or visibility.</p>
+              <p class="article-p">Customer-facing teams couldn't access a single, reliable view of the customer. Onboarding took 3× longer than industry benchmarks. Personalization was nearly impossible. Fraud detection lag was increasing churn. Every product decision required weeks of data reconciliation before any analysis could begin.</p>
+              <p class="article-p">The business needed a unified data foundation — one that could consolidate the chaos, enable real-time intelligence, and scale with their rapid growth trajectory.</p>
+            </div>
+
+            <!-- Our Approach -->
+            <div class="article-section rv" id="solution">
+              <div class="article-section-label">Our Approach</div>
+              <h2 class="article-h2">A Unified Data Marketplace, Engineered for Scale</h2>
+              <p class="article-p">Ascendion's Data &amp; Insights<sup>AI</sup> team architected a cloud-native Unified Data Marketplace built on a modern medallion architecture. Rather than a rip-and-replace approach, we designed a phased integration strategy that brought existing data sources into a governed, AI-ready platform without disrupting live operations.</p>
+
+              <div class="callout rv">
+                <div class="callout-label">How We Delivered</div>
+                <h3 class="callout-title">Four Pillars of the Data Marketplace</h3>
+                <div class="callout-list">
+                  <div class="callout-item">
+                    <span class="callout-dash">—</span>
+                    <div class="callout-item-body">
+                      <div class="callout-item-title">Discovery &amp; Data Mapping</div>
+                      <div class="callout-item-desc">Comprehensive audit of all 12+ data sources across legacy systems, SaaS platforms, and cloud environments. Established unified data taxonomy and ownership model.</div>
+                    </div>
+                  </div>
+                  <div class="callout-item">
+                    <span class="callout-dash">—</span>
+                    <div class="callout-item-body">
+                      <div class="callout-item-title">Medallion Architecture &amp; Lakehouse Build</div>
+                      <div class="callout-item-desc">Implemented Bronze–Silver–Gold data layers on Azure Databricks with Delta Lake, enabling both batch and streaming data processing at enterprise scale.</div>
+                    </div>
+                  </div>
+                  <div class="callout-item">
+                    <span class="callout-dash">—</span>
+                    <div class="callout-item-body">
+                      <div class="callout-item-title">AI-Driven Pipeline Automation</div>
+                      <div class="callout-item-desc">Deployed AAVA<sup>™</sup>-powered data engineering agents to automate pipeline monitoring, anomaly detection, and self-healing data quality workflows.</div>
+                    </div>
+                  </div>
+                  <div class="callout-item">
+                    <span class="callout-dash">—</span>
+                    <div class="callout-item-body">
+                      <div class="callout-item-title">Self-Serve Analytics &amp; Governance Layer</div>
+                      <div class="callout-item-desc">Built a governed data marketplace with role-based access, data contracts, and a self-serve analytics portal enabling business teams to query data without engineering dependency.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p class="article-p">The platform was delivered in three sprints over 14 weeks, with phased go-lives that minimised disruption while progressively expanding data coverage. By Week 6, the client's customer success team had real-time access to unified customer profiles for the first time.</p>
+            </div>
+
+            <!-- Results -->
+            <div class="article-section rv" id="results">
+              <div class="article-section-label">Results</div>
+              <h2 class="article-h2">Real-Time Intelligence. Measurable Outcomes.</h2>
+              <p class="article-p">Within 90 days of full platform deployment, the impact was clear across every customer-facing metric. The unified data marketplace didn't just consolidate data — it transformed how the organisation makes decisions and serves customers.</p>
+              <p class="article-p">Customer experience scores improved by 60% as product teams gained the ability to personalise interactions at scale. Onboarding journeys that previously required 5–7 business days were reduced to same-day completions for over 80% of new customers. Fraud detection latency dropped from 48 hours to under 4 minutes, directly reducing chargeback rates and customer complaints.</p>
+              <p class="article-p">The self-serve analytics layer empowered over 200 business users across product, marketing, and operations to independently access trusted data — eliminating a significant backlog of ad-hoc data requests that had previously consumed 40% of the data engineering team's capacity.</p>
+              <p class="article-p">"Ascendion didn't just build us a data platform — they fundamentally changed how we think about data as a product. The speed, the quality, and the business ownership model they put in place has become a competitive differentiator for us." — <em>Chief Data Officer, FinTech client</em></p>
+            </div>
+
+          </article>
+
+          <!-- Prev / Next -->
+          <div class="article-nav rv">
+            <a href="#" class="article-nav-btn">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Previous
+            </a>
+            <div class="article-nav-line"></div>
+            <a href="#" class="article-nav-btn">
+              Next
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- ── SIDEBAR ────────────────────────────────────────────── -->
+        <aside class="sidebar">
+
+          <!-- Meta -->
+          <div class="sidebar-card rv">
+            <div class="sidebar-section-title">Published</div>
+            <div class="sidebar-published">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 1.5V4M11 1.5V4M2 7h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              September 9, 2025
+            </div>
+            <div style="margin-top: 20px;">
+              <div class="sidebar-meta-list">
+                <div class="sidebar-meta-item">
+                  <span class="sidebar-meta-label">Industry</span>
+                  <span class="sidebar-meta-value">FinTech &amp; Financial Services</span>
+                </div>
+                <div class="sidebar-meta-item">
+                  <span class="sidebar-meta-label">Service Line</span>
+                  <span class="sidebar-meta-value">Data &amp; Insights<sup>AI</sup></span>
+                </div>
+                <div class="sidebar-meta-item">
+                  <span class="sidebar-meta-label">Technology</span>
+                  <span class="sidebar-meta-value">Azure Databricks, Delta Lake, AAVA<sup>™</sup></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Share -->
+          <div class="sidebar-card rv">
+            <div class="sidebar-section-title">Share</div>
+            <div class="share-row">
+              <a href="#" class="share-btn" aria-label="Share on LinkedIn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+              <a href="#" class="share-btn share-btn--x" aria-label="Share on X">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+              </a>
+              <a href="#" class="share-btn share-btn--link" aria-label="Copy link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+            <a href="/client-outcomes/" class="all-link">
+              All Client Outcomes
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+
+          <!-- Related -->
+          <div class="sidebar-card rv">
+            <div class="sidebar-section-title">Related Outcomes</div>
+            <div class="related-list">
+              <a href="#" class="related-item">
+                <div class="related-date">
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 1.5V4M11 1.5V4M2 7h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                  Aug 14, 2025
+                </div>
+                <div class="related-industry">Banking &amp; Financial Services</div>
+                <div class="related-title">AI-Powered Fraud Detection Reduces False Positives by 45% for a Global Bank</div>
+              </a>
+              <a href="#" class="related-item">
+                <div class="related-date">
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 1.5V4M11 1.5V4M2 7h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                  Jun 22, 2025
+                </div>
+                <div class="related-industry">Retail &amp; Consumer Goods</div>
+                <div class="related-title">Real-Time Personalisation Engine Drives 28% Lift in Conversion for E-Commerce Leader</div>
+              </a>
+              <a href="#" class="related-item">
+                <div class="related-date">
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 1.5V4M11 1.5V4M2 7h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                  Apr 3, 2025
+                </div>
+                <div class="related-industry">Healthcare &amp; Life Sciences</div>
+                <div class="related-title">Automated Data Pipeline Cuts Reporting Time from 5 Days to 4 Hours for Healthcare Provider</div>
+              </a>
+            </div>
+          </div>
+
+        </aside>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ══ FOOTER ════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div>
+        <div class="footer-col-head">What We Do</div>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Applied AI</a></li>
+          <li><a href="#" class="footer-link">GCC<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">Product<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">Data &amp; Insights<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">Salesforce Implementation</a></li>
+          <li><a href="#" class="footer-link">Quality Engineering<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">Experience<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">Operations<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">AI Workforce Transformation</a></li>
+          <li><a href="#" class="footer-link">Enterprise Platform</a></li>
+          <li><a href="#" class="footer-link">Platform Engineering<sup>AI</sup></a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Industries</div>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Banking &amp; Financial Services</a></li>
+          <li><a href="#" class="footer-link">Communications, Media and Entertainment</a></li>
+          <li><a href="#" class="footer-link">Healthcare &amp; Life Sciences</a></li>
+          <li><a href="#" class="footer-link">Retail and Consumer Goods</a></li>
+          <li><a href="#" class="footer-link">High-tech</a></li>
+          <li><a href="#" class="footer-link">Travel and Hospitality</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Who We Are</div>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Leadership</a></li>
+          <li><a href="#" class="footer-link">Analyst Recognition</a></li>
+          <li><a href="#" class="footer-link">Certifications</a></li>
+          <li><a href="#" class="footer-link">Locations</a></li>
+          <li><a href="#" class="footer-link">ESG</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Insights and impact</a></li>
+          <li><a href="#" class="footer-link">Careers India</a></li>
+          <li><a href="#" class="footer-link">Careers North America</a></li>
+          <li><a href="#" class="footer-link">Careers Europe</a></li>
+          <li><a href="#" class="footer-link">Careers Asia Pacific</a></li>
+          <li><a href="#" class="footer-link">Global Delivery Hubs</a></li>
+          <li><a href="#" class="footer-link">Contact us</a></li>
+        </ul>
+      </div>
+      <div style="padding-top:40px">
+        <div class="footer-social">
+          <a href="#" class="footer-social-link" aria-label="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="YouTube">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">Copyright 2026, ASCENDION. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#" class="footer-legal-link">Privacy Policy</a>
+        <span class="footer-sep">|</span>
+        <a href="#" class="footer-legal-link">Terms of Use</a>
+        <span class="footer-sep">|</span>
+        <a href="#" class="footer-legal-link">Accessibility Disclosure</a>
+        <span class="footer-sep">|</span>
+        <a href="#" class="footer-legal-link">AI-enhanced Content Notice</a>
+        <span class="footer-sep">|</span>
+        <a href="#" class="footer-legal-link">Security Disclosure Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.rv').forEach(el => revealObserver.observe(el));
+
+  // Sub-nav active state
+  const sections = document.querySelectorAll('#key-stats, #challenge, #solution, #results');
+  const navLinks = document.querySelectorAll('.sub-nav-link');
+  const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.sub-nav-link[data-section="${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3, rootMargin: '-100px 0px -60% 0px' });
+  sections.forEach(s => sectionObserver.observe(s));
+</script>
+
+</body>
+</html>
