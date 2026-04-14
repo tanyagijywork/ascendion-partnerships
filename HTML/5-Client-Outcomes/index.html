@@ -118,11 +118,11 @@
     .hero-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .hero-tag {
       font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--accent-100);
-      border: 1px solid rgba(45, 220, 170, 0.3);
+      text-transform: uppercase; color: #000;
+      background: #00fac2; border: none;
       padding: 4px 10px; border-radius: 2px;
     }
-    .hero-tag--industry { color: var(--neutral-300); border-color: rgba(170,170,170,0.3); }
+    .hero-tag--industry { color: #000; background: #00fac2; }
     .hero-h1 {
       font-family: var(--font-display); font-size: 48px; line-height: 56px;
       font-weight: 400; color: #fff;
@@ -247,13 +247,13 @@
     .share-row { display: flex; align-items: center; gap: 10px; }
     .share-btn {
       width: 36px; height: 36px; border-radius: 50%;
-      background: var(--accent-500); color: #fff;
+      background: #00fac2; color: #fff;
       display: flex; align-items: center; justify-content: center;
       transition: opacity 0.15s, transform 0.15s;
     }
     .share-btn:hover { opacity: 0.85; transform: translateY(-2px); }
-    .share-btn--x { background: #000; }
-    .share-btn--link { background: var(--neutral-700); }
+    .share-btn--x { background: #00fac2; }
+    .share-btn--link { background: #00fac2; }
 
     .all-link {
       display: flex; align-items: center; justify-content: space-between;
@@ -309,6 +309,31 @@
     .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
     .rv.in { opacity: 1; transform: translateY(0); }
 
+    /* ─── CASE STUDIES SECTION ──────────────────────────────────── */
+    .case-studies-section { background: var(--neutral-100); padding: 64px 0; margin-top: 64px; }
+    .cs-rule { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
+    .cs-rule::before, .cs-rule::after { content: ''; flex: 1; height: 1px; background: var(--neutral-300); }
+    .cs-rule span { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-500); white-space: nowrap; }
+    .cs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .cs-card { background: #fff; border-radius: 2px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+    .cs-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+    .cs-card-img { position: relative; height: 220px; background: #b8b5c8; overflow: hidden; }
+    .cs-card-img-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, #c4c0d8 0%, #a8a4bc 100%); }
+    .cs-card-tags { position: absolute; top: 16px; left: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .cs-tag-industry { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; background: var(--accent-500); color: #fff; padding: 4px 10px; border-radius: 2px; }
+    .cs-tag-service { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; background: #fff; color: #000; border: 1px solid var(--neutral-200); padding: 4px 10px; border-radius: 2px; }
+    .cs-card-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+    .cs-card-title { font-size: 18px; font-weight: 700; line-height: 1.4; color: #000; }
+    .cs-card-cta { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: #000; transition: color 0.15s; }
+    .cs-card-cta:hover { color: var(--accent-500); }
+    .cs-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 32px; }
+    .cs-dots { display: flex; gap: 8px; align-items: center; }
+    .cs-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--neutral-300); }
+    .cs-dot.active { background: var(--accent-500); }
+    .cs-arrows { display: flex; gap: 12px; }
+    .cs-arrow { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--neutral-300); background: #fff; display: flex; align-items: center; justify-content: center; color: var(--neutral-400); cursor: pointer; transition: border-color 0.15s, color 0.15s; }
+    .cs-arrow:hover { border-color: #000; color: #000; }
+
     /* ─── RESPONSIVE ─────────────────────────────────────────────── */
     @media (max-width: 1024px) {
       :root { --px: 40px; }
@@ -363,10 +388,9 @@
 <div class="sub-nav" id="subNav">
   <div class="container">
     <div class="sub-nav-inner">
-      <a href="#key-stats" class="sub-nav-link active" data-section="key-stats">Business Impact</a>
-      <a href="#challenge" class="sub-nav-link" data-section="challenge">Challenge</a>
+      <a href="#challenge" class="sub-nav-link active" data-section="challenge">Challenge</a>
       <a href="#solution" class="sub-nav-link" data-section="solution">Data Platform</a>
-      <a href="#results" class="sub-nav-link" data-section="results">Business Impact</a>
+      <a href="#key-stats" class="sub-nav-link" data-section="key-stats">Business Impact</a>
     </div>
   </div>
 </div>
@@ -414,41 +438,19 @@
         <!-- ── MAIN ─────────────────────────────────────────────── -->
         <div class="main-col">
 
-          <!-- Key Stats Panel -->
-          <div class="key-stats rv" id="key-stats">
-            <div class="key-stats-label">Business Impact</div>
-            <div class="key-stats-grid">
-              <div class="key-stat-item">
-                <div class="key-stat-number">~60%</div>
-                <div class="key-stat-title">Improvement in Customer Experience</div>
-                <div class="key-stat-desc">Driven by seamless data access and marketplace-enabled self-service</div>
-              </div>
-              <div class="key-stat-item">
-                <div class="key-stat-number">4%</div>
-                <div class="key-stat-title">Faster Revenue Growth</div>
-                <div class="key-stat-desc">Enabled by actionable insights derived from advanced analytics</div>
-              </div>
-              <div class="key-stat-item">
-                <div class="key-stat-number">∞</div>
-                <div class="key-stat-title">Enterprise-wide Scalability</div>
-                <div class="key-stat-desc">Unified data platform supporting growth across all modules and products</div>
-              </div>
-            </div>
-          </div>
-
           <!-- Article Body -->
           <article class="article-body">
 
             <!-- Challenge -->
             <div class="article-section rv" id="challenge">
-              <div class="article-section-label">Challenge</div>
+              <h2 class="article-h2">Challenge</h2>
               <p class="article-p">Our client, serving a large base of customers across multiple modules and products, faced a critical roadblock: they lacked the analytical capability needed to extract deeper insights from their growing datasets. Their legacy systems produced data in varied formats, and integrating external third-party data sources only added to the complexity.</p>
               <p class="article-p">What they needed was not just modernization, but a way to make data easily accessible and consumable across the organization. Creating a marketplace model for data access was essential to ensure customers could seamlessly explore, integrate, and apply insights for smarter decision-making.</p>
             </div>
 
             <!-- Creating a Unified and Accessible Data Platform -->
             <div class="article-section rv" id="solution">
-              <div class="article-section-label">Creating a Unified and Accessible Data Platform</div>
+              <h2 class="article-h2">Creating a Unified and Accessible Data Platform</h2>
               <p class="article-p">Ascendion partnered with the client to design and implement a scalable, modern data ecosystem that simplified access, enhanced performance, and enabled a marketplace approach.</p>
 
               <div class="callout rv">
@@ -487,44 +489,28 @@
               <p class="article-p"><strong>Tech Stack:</strong> Snowflake for core platform, flexible onboarding architecture, and data fabric-based design for enterprise-wide scalability.</p>
             </div>
 
-            <!-- Business Impact -->
-            <div class="article-section rv" id="results">
-              <div class="article-section-label">Business Impact</div>
-              <div class="callout-list" style="margin-top: 8px;">
-                <div class="callout-item">
-                  <span class="callout-dash">—</span>
-                  <div class="callout-item-body">
-                    <div class="callout-item-desc"><strong>~60% improvement in customer experience</strong>, driven by seamless data access and marketplace-enabled self-service.</div>
-                  </div>
-                </div>
-                <div class="callout-item">
-                  <span class="callout-dash">—</span>
-                  <div class="callout-item-body">
-                    <div class="callout-item-desc"><strong>4% faster revenue growth</strong>, enabled by actionable insights derived from advanced analytics.</div>
-                  </div>
-                </div>
-                <div class="callout-item">
-                  <span class="callout-dash">—</span>
-                  <div class="callout-item-body">
-                    <div class="callout-item-desc"><strong>Enterprise-wide scalability and agility</strong>, with a unified data platform that supports growth across modules and products.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </article>
 
-          <!-- Prev / Next -->
-          <div class="article-nav rv">
-            <a href="#" class="article-nav-btn">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Previous
-            </a>
-            <div class="article-nav-line"></div>
-            <a href="#" class="article-nav-btn">
-              Next
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
+          <!-- Business Impact -->
+          <h2 class="article-h2" style="margin-bottom: 24px; margin-top: 48px;">Business Impact</h2>
+          <div class="key-stats rv" id="key-stats">
+            <div class="key-stats-grid">
+              <div class="key-stat-item">
+                <div class="key-stat-number">~60%</div>
+                <div class="key-stat-title">Improvement in Customer Experience</div>
+                <div class="key-stat-desc">Driven by seamless data access and marketplace-enabled self-service</div>
+              </div>
+              <div class="key-stat-item">
+                <div class="key-stat-number">4%</div>
+                <div class="key-stat-title">Faster Revenue Growth</div>
+                <div class="key-stat-desc">Enabled by actionable insights derived from advanced analytics</div>
+              </div>
+              <div class="key-stat-item">
+                <div class="key-stat-number">∞</div>
+                <div class="key-stat-title">Enterprise-wide Scalability</div>
+                <div class="key-stat-desc">Unified data platform supporting growth across all modules and products</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -609,6 +595,101 @@
 
         </aside>
       </div>
+    </div>
+  </div>
+
+  <!-- ══ CASE STUDIES ══════════════════════════════════════════════ -->
+  <section class="case-studies-section rv">
+    <div class="container">
+      <div class="cs-rule"><span>Related Case Studies</span></div>
+      <div class="cs-grid">
+
+        <!-- Card 1 -->
+        <div class="cs-card">
+          <div class="cs-card-img">
+            <div class="cs-card-img-placeholder"></div>
+            <div class="cs-card-tags">
+              <span class="cs-tag-industry">Banking &amp; FS</span>
+              <span class="cs-tag-service">Applied AI</span>
+            </div>
+          </div>
+          <div class="cs-card-body">
+            <div class="cs-card-title">AI-Powered Fraud Detection Reduces False Positives by 45% for a Global Bank</div>
+            <a href="#" class="cs-card-cta">
+              Read More
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="cs-card">
+          <div class="cs-card-img">
+            <div class="cs-card-img-placeholder"></div>
+            <div class="cs-card-tags">
+              <span class="cs-tag-industry">Retail</span>
+              <span class="cs-tag-service">Data &amp; Insights</span>
+            </div>
+          </div>
+          <div class="cs-card-body">
+            <div class="cs-card-title">Real-Time Personalisation Engine Drives 28% Lift in Conversion for E-Commerce Leader</div>
+            <a href="#" class="cs-card-cta">
+              Read More
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="cs-card">
+          <div class="cs-card-img">
+            <div class="cs-card-img-placeholder"></div>
+            <div class="cs-card-tags">
+              <span class="cs-tag-industry">Healthcare</span>
+              <span class="cs-tag-service">Platform Eng.</span>
+            </div>
+          </div>
+          <div class="cs-card-body">
+            <div class="cs-card-title">Automated Data Pipeline Cuts Reporting Time from 5 Days to 4 Hours for Healthcare Provider</div>
+            <a href="#" class="cs-card-cta">
+              Read More
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /cs-grid -->
+
+      <div class="cs-footer">
+        <div class="cs-dots">
+          <div class="cs-dot active"></div>
+          <div class="cs-dot"></div>
+          <div class="cs-dot"></div>
+        </div>
+        <div class="cs-arrows">
+          <button class="cs-arrow" aria-label="Previous case studies">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="cs-arrow" aria-label="Next case studies">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PREV / NEXT NAV ════════════════════════════════════════════ -->
+  <div class="container" style="padding-bottom: 40px;">
+    <div class="article-nav rv">
+      <a href="#" class="article-nav-btn">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Previous
+      </a>
+      <div class="article-nav-line"></div>
+      <a href="#" class="article-nav-btn">
+        Next
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
     </div>
   </div>
 </main>
@@ -705,7 +786,7 @@
   document.querySelectorAll('.rv').forEach(el => revealObserver.observe(el));
 
   // Sub-nav active state
-  const sections = document.querySelectorAll('#key-stats, #challenge, #solution, #results');
+  const sections = document.querySelectorAll('#challenge, #solution, #key-stats');
   const navLinks = document.querySelectorAll('.sub-nav-link');
   const sectionObserver = new IntersectionObserver(entries => {
     entries.forEach(e => {
