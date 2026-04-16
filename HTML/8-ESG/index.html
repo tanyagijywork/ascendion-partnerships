@@ -181,24 +181,30 @@
     }
 
     /* Header row */
-    .ghg-table thead tr { background: #fff; }
+    .ghg-table thead tr { background: #000; }
     .ghg-table thead th {
-      padding: 16px 24px;
+      padding: 18px 24px;
       font-family: var(--font-primary);
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
-      color: #000;
+      color: #fff;
       text-align: left;
-      border: 1px solid var(--neutral-300);
+      border-top: 1px solid #000;
+      border-bottom: 1px solid #000;
+      border-left: none;
+      border-right: none;
     }
     .ghg-table thead th:not(:first-child) { text-align: right; }
 
-    /* Body rows — all white, borders on every cell */
+    /* Body rows — all white, horizontal borders only */
     .ghg-table tbody tr { background: #fff; }
     .ghg-table tbody td {
       padding: 14px 24px;
       color: var(--neutral-700);
-      border: 1px solid var(--neutral-300);
+      border-top: 1px solid var(--neutral-300);
+      border-bottom: 1px solid var(--neutral-300);
+      border-left: none;
+      border-right: none;
       vertical-align: top;
     }
     .ghg-table tbody td:not(:first-child) {
@@ -219,7 +225,8 @@
       background: #008567;
       color: #fff;
       font-weight: 700;
-      border-color: #007a5c;
+      border-top-color: #007a5c;
+      border-bottom-color: #007a5c;
     }
 
     /* ════════════════════════════════════════════════════════════
