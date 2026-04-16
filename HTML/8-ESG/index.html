@@ -320,6 +320,53 @@
     .footer-legal-link:hover { color: var(--accent-500); }
     .footer-sep { font-size: 14px; color: var(--neutral-400); }
 
+    /* ─── SUBNAV ─────────────────────────────────────────────── */
+    .subnav {
+      position: sticky;
+      top: 86px;
+      z-index: 190;
+      background: #fff;
+      border-bottom: 1px solid var(--neutral-200);
+      height: 52px;
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .subnav.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .subnav-inner {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .subnav-inner::-webkit-scrollbar { display: none; }
+    .subnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--neutral-600);
+      padding: 0 24px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .subnav-link:hover { color: #000; }
+    .subnav-link.active {
+      color: var(--accent-500);
+      border-bottom-color: var(--accent-500);
+    }
+
     /* ─── RESPONSIVE ─────────────────────────────────────────── */
     @media (max-width: 1200px) {
       :root { --px: 60px; }
@@ -379,6 +426,15 @@
     </nav>
   </div>
 </header>
+
+<!-- ══ SUBNAV ═════════════════════════════════════════════════════ -->
+<div class="subnav" id="subnav" aria-label="Page sections">
+  <div class="container subnav-inner">
+    <a href="#about" class="subnav-link">About ESG</a>
+    <a href="#ghg-inventory" class="subnav-link">GHG Inventory Results</a>
+    <a href="#downloads" class="subnav-link">Download Resources</a>
+  </div>
+</div>
 
 <!-- ══ SECTION 1 — HERO ══════════════════════════════════════════ -->
 <section class="hero" id="hero">
@@ -655,13 +711,40 @@
   </div>
 </footer>
 
-<!-- ══ SCROLL REVEAL ═════════════════════════════════════════════ -->
+<!-- ══ SCROLL REVEAL + SUBNAV ════════════════════════════════════ -->
 <script>
+  // Scroll reveal
   const observer = new IntersectionObserver(
     entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } }),
     { threshold: 0.08 }
   );
   document.querySelectorAll('.rv').forEach(el => observer.observe(el));
+
+  // Subnav — show after hero, highlight active section
+  const subnav      = document.getElementById('subnav');
+  const hero        = document.getElementById('hero');
+  const navHeight   = 86;
+  const sectionIds  = ['about', 'ghg-inventory', 'downloads'];
+  const subnavLinks = document.querySelectorAll('.subnav-link');
+
+  function updateSubnav() {
+    // Show when hero bottom scrolls past the main nav
+    const heroBottom = hero.getBoundingClientRect().bottom;
+    subnav.classList.toggle('visible', heroBottom <= navHeight);
+
+    // Highlight active section
+    let active = '';
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= navHeight + 60) active = id;
+    });
+    subnavLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + active);
+    });
+  }
+
+  window.addEventListener('scroll', updateSubnav, { passive: true });
+  updateSubnav();
 </script>
 
 </body>
