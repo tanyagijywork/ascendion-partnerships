@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ESG — Ascendion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('../../Font/PPNeueMachina-PlainRegular.ttf') format('truetype');
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('../../Font/PPNeueMachina-PlainUltrabold.ttf') format('truetype');
+      font-weight: 800;
+      font-display: swap;
+    }
+
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --primary-500: #009673;
+      --primary-900: #007a5c;
+      --accent-100:  #2ddcaa;
+      --accent-500:  #009673;
+      --neutral-0:   #ffffff;
+      --neutral-100: #f4f4f4;
+      --neutral-200: #e3e2df;
+      --neutral-300: #aaaaaa;
+      --neutral-400: #999999;
+      --neutral-600: #4b4b4b;
+      --neutral-700: #333333;
+      --neutral-800: #1a1a1a;
+      --neutral-900: #000000;
+      --font-display: 'PP Neue Machina', sans-serif;
+      --font-primary: 'Inter', sans-serif;
+      --px: 80px;
+      --py: 80px;
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-primary); color: var(--neutral-900); background: #fff; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    img { display: block; max-width: 100%; }
+    sup { font-size: 0.6em; vertical-align: super; }
+
+    /* ─── LAYOUT ─────────────────────────────────────────────── */
+    .container { max-width: 1440px; margin: 0 auto; padding-left: var(--px); padding-right: var(--px); }
+
+    /* ─── NAV ────────────────────────────────────────────────── */
+    .nav {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--neutral-100); border-bottom: 1px solid var(--neutral-200);
+      height: 86px; display: flex; align-items: center;
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .nav-logo { display: flex; flex-direction: column; }
+    .nav-logo-text { font-family: var(--font-display); font-size: 20px; font-weight: 800; letter-spacing: -0.03em; color: #000; line-height: 1; }
+    .nav-logo-tagline { font-size: 11px; font-weight: 400; color: #666; line-height: 1.2; margin-top: 2px; }
+    .nav-menu { display: flex; align-items: center; gap: 4px; }
+    .nav-link { font-size: 16px; font-weight: 400; color: var(--neutral-900); padding: 6px 10px; display: flex; align-items: center; gap: 4px; white-space: nowrap; transition: color 0.15s; }
+    .nav-link:hover { color: var(--accent-500); }
+    .nav-link.active { color: var(--accent-500); }
+    .nav-link--aava { color: var(--accent-500); font-weight: 500; }
+    .nav-link--aava:hover { color: var(--primary-900); }
+    .nav-link svg { opacity: 0.5; }
+    .btn { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-primary); font-size: 16px; font-weight: 500; letter-spacing: 0.02em; border-radius: 2px; padding: 14px 20px; line-height: 1; white-space: nowrap; cursor: pointer; transition: background 0.2s ease; }
+    .btn__icon { display: inline-flex; align-items: center; justify-content: center; transition: transform 0.2s ease; flex-shrink: 0; }
+    .btn:hover .btn__icon { transform: translateX(3px); }
+    .btn-primary { background: #000; color: #fff; border: none; }
+    .btn-primary .btn__icon { color: var(--accent-100); }
+    .btn-primary:hover { background: var(--neutral-800); }
+    .btn-inverse { background: var(--accent-100); color: #000; border: none; }
+    .btn-inverse:hover { background: var(--accent-500); color: #fff; }
+    .btn-inverse .btn__icon { color: #000; }
+
+    /* ─── SECTION LABELS ─────────────────────────────────────── */
+    .lbl {
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent-100); margin-bottom: 24px;
+    }
+    .lbl--dark { color: var(--accent-500); }
+    .lbl::before, .lbl::after { content: ''; flex: 1; height: 1px; background: currentColor; opacity: 0.3; }
+
+    /* ─── SCROLL REVEAL ──────────────────────────────────────── */
+    .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .rv.in { opacity: 1; transform: translateY(0); }
+
+    /* ════════════════════════════════════════════════════════════
+       SECTION 1 — HERO
+    ════════════════════════════════════════════════════════════ */
+    .hero { background: var(--neutral-100); position: relative; overflow: hidden; }
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 480px;
+      gap: 80px; align-items: start;
+      padding: 64px 0 72px;
+    }
+    .hero-left { display: flex; flex-direction: column; gap: 24px; }
+    .hero-breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--neutral-600); }
+    .hero-breadcrumb a { color: var(--neutral-600); transition: color 0.15s; }
+    .hero-breadcrumb a:hover { color: #000; }
+    .hero-breadcrumb span { color: var(--neutral-400); }
+    .hero-eyebrow { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-500); display: flex; align-items: center; gap: 12px; }
+    .hero-eyebrow::after { content: ''; width: 32px; height: 1px; background: var(--accent-500); opacity: 0.5; }
+    .hero-h1 { font-family: var(--font-display); font-size: 64px; line-height: 72px; font-weight: 400; color: #000; }
+    .hero-body { display: flex; flex-direction: column; gap: 16px; }
+    .hero-p { font-size: 17px; line-height: 28px; color: var(--neutral-600); }
+    .hero-p strong { color: #000; font-weight: 600; }
+    .hero-p--notice {
+      font-size: 14px; line-height: 22px;
+      color: var(--neutral-600);
+      padding: 14px 20px;
+      background: rgba(0,150,115,0.07);
+      border-left: 3px solid var(--accent-500);
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* Right side — ESG badge panel */
+    .hero-right {
+      position: relative; z-index: 1;
+      align-self: stretch; min-height: 360px;
+    }
+    .esg-badge-panel {
+      width: 100%; height: 100%; min-height: 360px;
+      background: #000;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 40px;
+      position: relative; overflow: hidden;
+    }
+    .esg-badge-panel::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(0,150,115,0.18) 0%, rgba(45,220,170,0.06) 100%);
+    }
+    .esg-badge-top {
+      position: relative; z-index: 1;
+    }
+    .esg-badge-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent-100); margin-bottom: 12px;
+    }
+    .esg-badge-title {
+      font-family: var(--font-display); font-size: 28px; line-height: 36px;
+      font-weight: 400; color: #fff;
+    }
+    .esg-badge-bottom {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .esg-mini-stat { display: flex; flex-direction: column; gap: 4px; }
+    .esg-mini-num {
+      font-family: var(--font-display); font-size: 40px; line-height: 1;
+      font-weight: 400; color: var(--accent-100);
+    }
+    .esg-mini-label {
+      font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.6);
+    }
+    .esg-mini-divider { height: 1px; background: rgba(255,255,255,0.1); }
+
+    /* Hero stats bar */
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--neutral-200);
+      background: #fff;
+    }
+    .hero-stat {
+      padding: 28px 32px;
+      border-right: 1px solid var(--neutral-200);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-num {
+      font-family: var(--font-display); font-size: 40px; line-height: 48px;
+      font-weight: 400; color: var(--accent-500);
+    }
+    .hero-stat-label {
+      font-size: 14px; line-height: 20px; color: var(--neutral-700); margin-top: 6px;
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       SECTION 2 — GHG TABLE
+    ════════════════════════════════════════════════════════════ */
+    .s-table { background: #fff; padding: var(--py) 0; }
+    .s-head { margin-bottom: 48px; }
+    .s-head--left { text-align: left; }
+    .s-h2 { font-family: var(--font-display); font-size: 40px; line-height: 48px; font-weight: 400; }
+    .s-h2--dark { color: #000; }
+    .s-sub { font-size: 17px; line-height: 28px; margin-top: 12px; color: var(--neutral-600); }
+
+    /* GHG Table */
+    .ghg-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--neutral-200);
+      border-radius: 2px;
+    }
+    .ghg-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+      line-height: 22px;
+    }
+    /* Header row */
+    .ghg-table thead tr {
+      background: #000;
+    }
+    .ghg-table thead th {
+      padding: 18px 24px;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 400;
+      color: #fff;
+      text-align: left;
+      white-space: nowrap;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .ghg-table thead th:last-child { border-right: none; }
+    .ghg-table thead th:not(:first-child) { text-align: right; white-space: normal; max-width: 180px; }
+
+    /* Body rows */
+    .ghg-table tbody tr {
+      border-bottom: 1px solid var(--neutral-200);
+    }
+    .ghg-table tbody tr:last-child { border-bottom: none; }
+    .ghg-table tbody tr:nth-child(odd) { background: #fff; }
+    .ghg-table tbody tr:nth-child(even) { background: var(--neutral-100); }
+    .ghg-table tbody td {
+      padding: 14px 24px;
+      color: var(--neutral-700);
+      border-right: 1px solid var(--neutral-200);
+    }
+    .ghg-table tbody td:last-child { border-right: none; }
+    .ghg-table tbody td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+
+    /* Subtotal / total rows */
+    .ghg-table tbody tr.row-subtotal td {
+      background: var(--neutral-100);
+      color: #000;
+      font-weight: 600;
+      border-top: 1px solid var(--neutral-200);
+    }
+    .ghg-table tbody tr.row-total td {
+      background: #000;
+      color: #fff;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .ghg-table tbody tr.row-total td:first-child {
+      font-family: var(--font-display);
+    }
+    .ghg-table tbody tr.row-scope-total td {
+      background: var(--neutral-800);
+      color: #fff;
+      font-weight: 600;
+    }
+    .ghg-table tbody tr.row-scope-total td:first-child {
+      font-family: var(--font-display);
+    }
+    /* Accent number for green numbers */
+    .ghg-table .num-accent { color: var(--accent-500); }
+    .ghg-table tr.row-subtotal .num-accent,
+    .ghg-table tr.row-scope-total .num-accent { color: var(--accent-100); }
+    .ghg-table tr.row-total .num-accent { color: var(--accent-100); }
+
+    /* Scope section headers */
+    .ghg-table tbody tr.row-scope-label td {
+      background: var(--neutral-100);
+      color: var(--neutral-600);
+      font-size: 13px;
+      padding-top: 20px;
+      padding-bottom: 6px;
+      border-top: 2px solid var(--neutral-200);
+    }
+    .ghg-table tbody tr.row-scope-label td:first-child {
+      font-weight: 600;
+      color: #000;
+      font-size: 14px;
+      letter-spacing: 0.01em;
+    }
+    /* Category indent */
+    .ghg-table .td-indent { padding-left: 40px; }
+    .ghg-table .td-category-label {
+      font-size: 13px; color: var(--neutral-600);
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       SECTION 3 — DOWNLOADS
+    ════════════════════════════════════════════════════════════ */
+    .s-downloads { background: #000; padding: var(--py) 0; }
+    .s-h2--light { color: #fff; }
+
+    .download-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .download-card {
+      background: var(--neutral-800);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 2px;
+      padding: 36px 32px;
+      display: flex; flex-direction: column; gap: 20px;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .download-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.5);
+      border-color: rgba(45,220,170,0.3);
+    }
+    .download-icon {
+      width: 48px; height: 48px; border-radius: 2px;
+      background: rgba(45,220,170,0.12);
+      border: 1px solid rgba(45,220,170,0.2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent-100);
+    }
+    .download-title {
+      font-family: var(--font-display);
+      font-size: 22px; line-height: 30px;
+      font-weight: 400; color: #fff;
+      flex: 1;
+    }
+    .download-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 14px; font-weight: 500;
+      color: var(--accent-100);
+      transition: color 0.15s, gap 0.2s;
+      margin-top: auto;
+    }
+    .download-cta:hover { color: #fff; gap: 14px; }
+    .download-cta svg { flex-shrink: 0; }
+
+    /* ════════════════════════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════════════════════════ */
+    .footer { background: #fff; padding: var(--py) 0 0; border-top: 1px solid #cccccc; }
+    .footer-cols { display: grid; grid-template-columns: 2fr 2fr 1.5fr 1.5fr auto; gap: 80px; padding-bottom: 64px; }
+    .footer-col-head { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #000; margin-bottom: 16px; }
+    .footer-links { display: flex; flex-direction: column; gap: 12px; }
+    .footer-link { font-size: 14px; line-height: 1.4; color: #333; transition: color 0.15s; }
+    .footer-link:hover { color: var(--accent-500); }
+    .footer-link sup { font-size: 9px; }
+    .footer-social { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; padding-top: 40px; }
+    .footer-social-link { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; transition: opacity 0.15s, transform 0.15s; }
+    .footer-social-link:hover { opacity: 0.85; transform: translateY(-2px); }
+    .footer-social-link--linkedin  { background: #0077b5; }
+    .footer-social-link--youtube   { background: #ff0000; }
+    .footer-social-link--instagram { background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #cccccc; padding: 24px 0 32px; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 14px; color: #000; }
+    .footer-legal { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .footer-legal-link { font-size: 14px; color: #000; transition: color 0.15s; }
+    .footer-legal-link:hover { color: var(--accent-500); }
+    .footer-sep { font-size: 14px; color: var(--neutral-400); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 1200px) {
+      :root { --px: 60px; }
+      .hero-inner { grid-template-columns: 1fr 400px; gap: 56px; }
+      .hero-stats { grid-template-columns: repeat(3, 1fr); }
+      .download-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 900px) {
+      :root { --px: 32px; --py: 60px; }
+      .nav-menu { display: none; }
+      .hero-inner { grid-template-columns: 1fr; padding: 40px 0 56px; }
+      .hero-h1 { font-size: 40px; line-height: 48px; }
+      .hero-right { min-height: 280px; }
+      .hero-stats { grid-template-columns: repeat(3, 1fr); }
+      .hero-stat { padding: 20px 20px; }
+      .hero-stat-num { font-size: 32px; line-height: 40px; }
+      .download-grid { grid-template-columns: 1fr; gap: 16px; }
+      .footer-cols { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .ghg-table-wrap { font-size: 13px; }
+    }
+    @media (max-width: 600px) {
+      :root { --px: 24px; --py: 48px; }
+      .hero-h1 { font-size: 32px; line-height: 40px; }
+      .hero-stats { grid-template-columns: 1fr; }
+      .hero-stat { border-right: none; border-bottom: 1px solid var(--neutral-200); }
+      .s-h2 { font-size: 28px; line-height: 36px; }
+      .ghg-table thead th, .ghg-table tbody td { padding: 12px 14px; }
+      .ghg-table .td-indent { padding-left: 22px; }
+      .footer-cols { grid-template-columns: 1fr; gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════════════════ -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo" aria-label="Ascendion home">
+      <span class="nav-logo-text">ASCENDION</span>
+      <span class="nav-logo-tagline">Engineering to elevate life</span>
+    </a>
+    <nav class="nav-menu" aria-label="Main">
+      <a href="#" class="nav-link nav-link--aava">AAVA<sup>™</sup>
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H6M12 4v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#" class="nav-link">What We Do <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="nav-link">Who We Serve <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="nav-link">How We Deliver <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="nav-link active">Insights &amp; Impact <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="nav-link">Careers <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="btn btn-primary">
+        <span class="btn__label">Get In Touch</span>
+        <span class="btn__icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ SECTION 1 — HERO ══════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- Left column -->
+      <div class="hero-left rv">
+        <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span>›</span>
+          <a href="#">Who We Are</a>
+          <span>›</span>
+          <span style="color:var(--neutral-600)">ESG</span>
+        </nav>
+        <div class="hero-eyebrow">Who We Are</div>
+        <h1 class="hero-h1">Engineering an ESG-Powered Future</h1>
+        <div class="hero-body">
+          <p class="hero-p hero-p--notice">2025 reports will be provided by the spring of 2026.</p>
+          <p class="hero-p">Ascendion is dedicated to integrating Environmental, Social, and Governance (ESG) considerations into our core business strategy, leveraging AI-first software engineering to drive meaningful impact. In our inaugural ESG report (2024), we have disclosed our greenhouse gas (GHG) emissions, adhering to the globally recognized Greenhouse Gas Protocol standards.</p>
+          <p class="hero-p">By actively managing critical categories such as business travel, employee commuting, and sustainable procurement, <strong>we achieved a notable 32% emissions reduction compared to 2023</strong> and have set an ambitious target of a 55% reduction by 2030.</p>
+          <p class="hero-p">Beyond environmental stewardship, Ascendion prioritizes social responsibility through inclusive workforce practices, community engagement, and ethical governance, ensuring our business growth aligns with global sustainability and social equity goals. We will continue to identify opportunities for further emissions reductions, advancing our goal of creating meaningful environmental impact and fostering sustainable innovation.</p>
+        </div>
+      </div>
+
+      <!-- Right column — ESG badge panel -->
+      <div class="hero-right rv">
+        <div class="esg-badge-panel">
+          <div class="esg-badge-top">
+            <div class="esg-badge-label">Inaugural Report · 2024</div>
+            <div class="esg-badge-title">Environmental<br>Social &amp;<br>Governance</div>
+          </div>
+          <div class="esg-badge-bottom">
+            <div class="esg-mini-divider"></div>
+            <div class="esg-mini-stat">
+              <div class="esg-mini-num">32%</div>
+              <div class="esg-mini-label">Emissions reduction vs. 2023</div>
+            </div>
+            <div class="esg-mini-divider"></div>
+            <div class="esg-mini-stat">
+              <div class="esg-mini-num">55%</div>
+              <div class="esg-mini-label">Reduction target by 2030</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">32%</div>
+      <div class="hero-stat-label">Emissions reduction compared to 2023</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">55%</div>
+      <div class="hero-stat-label">Reduction target by 2030</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">2,395</div>
+      <div class="hero-stat-label">Total GHG emissions (tonnes CO₂e) · 2024</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 2 — GHG TABLE ═════════════════════════════════════ -->
+<section class="s-table" id="ghg-inventory">
+  <div class="container">
+
+    <div class="s-head s-head--left rv">
+      <div class="lbl lbl--dark" style="justify-content:flex-start; margin-bottom:20px;">GHG INVENTORY RESULTS</div>
+      <h2 class="s-h2 s-h2--dark">GHG Inventory Results</h2>
+      <p class="s-sub">Greenhouse gas emissions data for 2024</p>
+    </div>
+
+    <div class="ghg-table-wrap rv">
+      <table class="ghg-table">
+        <thead>
+          <tr>
+            <th style="width:52%">Scopes and Categories</th>
+            <th>Ascendion North America Operations<br>(tonnes CO₂e)</th>
+            <th>Percentage Contribution</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- SCOPE 1 -->
+          <tr class="row-scope-label">
+            <td colspan="3">Scope 1: Direct emissions from owned/controlled operations</td>
+          </tr>
+          <tr>
+            <td class="td-indent td-category-label">Direct emissions</td>
+            <td>0</td>
+            <td>0%</td>
+          </tr>
+          <tr class="row-subtotal">
+            <td>Scope 1 Emissions Subtotal</td>
+            <td class="num-accent">0</td>
+            <td class="num-accent">0%</td>
+          </tr>
+
+          <!-- SCOPE 2 -->
+          <tr class="row-scope-label">
+            <td colspan="3">Scope 2: Indirect emissions from the use of purchased electricity, steam, heating, and cooling</td>
+          </tr>
+          <tr>
+            <td class="td-indent td-category-label">Scope 2 (location-based): Indirect emissions from the use of purchased electricity, steam, heating, and cooling</td>
+            <td>286.1</td>
+            <td>12%</td>
+          </tr>
+          <tr>
+            <td class="td-indent td-category-label">Scope 2 (market-based): Indirect emissions from the use of purchased electricity, steam, heating, and cooling</td>
+            <td>286.1</td>
+            <td>12%</td>
+          </tr>
+          <tr class="row-subtotal">
+            <td>Scope 2 Emissions Subtotal</td>
+            <td class="num-accent">286</td>
+            <td class="num-accent">12%</td>
+          </tr>
+
+          <!-- SCOPE 1+2 TOTAL -->
+          <tr class="row-scope-total">
+            <td>Total Scope 1 + Scope 2 Emissions</td>
+            <td class="num-accent">286</td>
+            <td class="num-accent">12%</td>
+          </tr>
+
+          <!-- SCOPE 3 -->
+          <tr class="row-scope-label">
+            <td colspan="3">Scope 3: Value chain emissions</td>
+          </tr>
+          <tr>
+            <td class="td-indent td-category-label">Category 1: Purchased goods and services</td>
+            <td>806.2</td>
+            <td>33.7%</td>
+          </tr>
+          <tr>
+            <td class="td-indent td-category-label">Category 2: Capital goods</td>
+            <td>35.5</td>
+            <td>1.5%</td>
+          </tr>
+          <tr>
+            <td class="td-indent td-category-label">Category 5: Waste generated in operations</td>
+            <td>2.2</td>
+            <td>0.1%</td>
+          </tr>
+          <tr>
+            <td class="td-indent td-category-label">Category 6: Business travel</td>
+            <td>1,011.9</td>
+            <td>42.3%</td>
+          </tr>
+          <tr>
+            <td class="td-indent td-category-label">Category 7: Employee commuting</td>
+            <td>247.1</td>
+            <td>10.3%</td>
+          </tr>
+          <tr>
+            <td class="td-indent td-category-label">Category 8: Upstream leased assets</td>
+            <td>5.9</td>
+            <td>0.2%</td>
+          </tr>
+          <tr class="row-subtotal">
+            <td>Scope 3 Emissions Subtotal</td>
+            <td class="num-accent">2,109</td>
+            <td class="num-accent">88%</td>
+          </tr>
+
+          <!-- GRAND TOTAL -->
+          <tr class="row-total">
+            <td>Total GHG Emissions</td>
+            <td class="num-accent">2,395</td>
+            <td class="num-accent">100%</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ SECTION 3 — DOWNLOAD RESOURCES ═══════════════════════════ -->
+<section class="s-downloads" id="downloads">
+  <div class="container">
+
+    <div class="s-head rv" style="text-align:center; margin-bottom:56px;">
+      <div class="lbl">DOWNLOAD RESOURCES</div>
+      <h2 class="s-h2 s-h2--light">ESG Reports &amp; Documentation</h2>
+    </div>
+
+    <div class="download-grid rv">
+
+      <div class="download-card">
+        <div class="download-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="download-title">Ascendion ESG Statement</div>
+        <a href="https://ascendion.com/wp-content/uploads/2025/08/Ascendion-ESG-Statement.pdf"
+           target="_blank" rel="noopener"
+           class="download-cta">
+          Download PDF
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="download-card">
+        <div class="download-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="download-title">Ascendion GHG Report 2024</div>
+        <a href="https://ascendion.com/wp-content/uploads/2025/08/Ascendion-GHG-report.pdf"
+           target="_blank" rel="noopener"
+           class="download-cta">
+          Download PDF
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="download-card">
+        <div class="download-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="download-title">GHG Reduction Action Plan</div>
+        <a href="https://ascendion.com/wp-content/uploads/2025/08/GHG-Reduction-Action-Plan.pdf"
+           target="_blank" rel="noopener"
+           class="download-cta">
+          Download PDF
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 4 — FOOTER ════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div>
+        <div class="footer-col-head">What We Do</div>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Applied AI</a></li>
+          <li><a href="#" class="footer-link">GCC<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">Product<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">Data &amp; Insights<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">Salesforce Implementation</a></li>
+          <li><a href="#" class="footer-link">Quality Engineering<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">Experience<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">Operations<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">AI Workforce Transformation</a></li>
+          <li><a href="#" class="footer-link">Enterprise Platform</a></li>
+          <li><a href="#" class="footer-link">Platform Engineering<sup>AI</sup></a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Industries</div>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Banking &amp; Financial Services</a></li>
+          <li><a href="#" class="footer-link">Communications, Media and Entertainment</a></li>
+          <li><a href="#" class="footer-link">Healthcare &amp; Life Sciences</a></li>
+          <li><a href="#" class="footer-link">Retail and Consumer Goods</a></li>
+          <li><a href="#" class="footer-link">High-tech</a></li>
+          <li><a href="#" class="footer-link">Travel and Hospitality</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Who We Are</div>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Leadership</a></li>
+          <li><a href="#" class="footer-link">Analyst Recognition</a></li>
+          <li><a href="#" class="footer-link">Certifications</a></li>
+          <li><a href="#" class="footer-link">Locations</a></li>
+          <li><a href="#" class="footer-link">ESG</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Insights and impact</a></li>
+          <li><a href="#" class="footer-link">Careers India</a></li>
+          <li><a href="#" class="footer-link">Careers North America</a></li>
+          <li><a href="#" class="footer-link">Careers Europe</a></li>
+          <li><a href="#" class="footer-link">Careers Asia Pacific</a></li>
+          <li><a href="#" class="footer-link">Global Delivery Hubs</a></li>
+          <li><a href="#" class="footer-link">Contact us</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-social">
+          <a href="#" class="footer-social-link footer-social-link--linkedin" aria-label="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="#" class="footer-social-link footer-social-link--youtube" aria-label="YouTube">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="#" class="footer-social-link footer-social-link--instagram" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">Copyright 2026, ASCENDION. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#" class="footer-legal-link">Privacy Policy</a>
+        <span class="footer-sep">|</span>
+        <a href="#" class="footer-legal-link">Terms of Use</a>
+        <span class="footer-sep">|</span>
+        <a href="#" class="footer-legal-link">Accessibility Disclosure</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ SCROLL REVEAL ═════════════════════════════════════════════ -->
+<script>
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } }),
+    { threshold: 0.08 }
+  );
+  document.querySelectorAll('.rv').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
