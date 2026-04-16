@@ -207,18 +207,19 @@
       white-space: nowrap;
     }
 
-    /* Bold rows: Scope 2 Subtotal, Total S1+S2, Scope 3 Subtotal */
-    .ghg-table tbody tr.row-bold td {
+    /* Rows 2, 5, 13 — light bg, green bold text */
+    .ghg-table tbody tr.row-highlight td {
+      background: #f4f4f0;
+      color: #009673;
       font-weight: 700;
-      color: #000;
     }
 
-    /* Total GHG Emissions — separated with thick top border */
-    .ghg-table tbody tr.row-grand-total td {
+    /* Rows 6, 14 — dark green bg, white bold text */
+    .ghg-table tbody tr.row-total-dark td {
+      background: #008567;
+      color: #fff;
       font-weight: 700;
-      color: #000;
-      border-top: 3px solid #000;
-      padding-top: 18px;
+      border-color: #007a5c;
     }
 
     /* ════════════════════════════════════════════════════════════
@@ -435,7 +436,7 @@
             <td>0</td>
             <td>0%</td>
           </tr>
-          <tr>
+          <tr class="row-highlight">
             <td>Scope 1 Emissions Subtotal</td>
             <td>0</td>
             <td>0%</td>
@@ -450,12 +451,12 @@
             <td>286.1</td>
             <td>12%</td>
           </tr>
-          <tr class="row-bold">
+          <tr class="row-highlight">
             <td>Scope 2 Emissions Subtotal</td>
             <td>286</td>
             <td>12%</td>
           </tr>
-          <tr class="row-bold">
+          <tr class="row-total-dark">
             <td>Total Scope 1 + Scope 2 Emissions</td>
             <td>286</td>
             <td>12%</td>
@@ -490,12 +491,12 @@
             <td>5.9</td>
             <td>0.2%</td>
           </tr>
-          <tr class="row-bold">
+          <tr class="row-highlight">
             <td>Scope 3 Emissions Subtotal</td>
             <td>2,109</td>
             <td>88%</td>
           </tr>
-          <tr class="row-grand-total">
+          <tr class="row-total-dark">
             <td>Total GHG Emissions</td>
             <td>2,395</td>
             <td>100%</td>
