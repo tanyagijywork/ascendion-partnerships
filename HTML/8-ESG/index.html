@@ -170,7 +170,7 @@
     /* GHG Table */
     .ghg-table-wrap {
       overflow-x: auto;
-      border: 1px solid var(--neutral-200);
+      border: 1px solid var(--neutral-300);
       border-radius: 2px;
     }
     .ghg-table {
@@ -179,87 +179,46 @@
       font-size: 15px;
       line-height: 22px;
     }
-    /* Header row */
-    .ghg-table thead tr {
-      background: #000;
-    }
-    .ghg-table thead th {
-      padding: 18px 24px;
-      font-family: var(--font-display);
-      font-size: 14px;
-      font-weight: 400;
-      color: #fff;
-      text-align: left;
-      white-space: nowrap;
-      border-right: 1px solid rgba(255,255,255,0.1);
-    }
-    .ghg-table thead th:last-child { border-right: none; }
-    .ghg-table thead th:not(:first-child) { text-align: right; white-space: normal; max-width: 180px; }
 
-    /* Body rows */
-    .ghg-table tbody tr {
-      border-bottom: 1px solid var(--neutral-200);
+    /* Header row */
+    .ghg-table thead tr { background: #fff; }
+    .ghg-table thead th {
+      padding: 16px 24px;
+      font-family: var(--font-primary);
+      font-size: 14px;
+      font-weight: 700;
+      color: #000;
+      text-align: left;
+      border: 1px solid var(--neutral-300);
     }
-    .ghg-table tbody tr:last-child { border-bottom: none; }
-    .ghg-table tbody tr:nth-child(odd) { background: #fff; }
-    .ghg-table tbody tr:nth-child(even) { background: var(--neutral-100); }
+    .ghg-table thead th:not(:first-child) { text-align: right; }
+
+    /* Body rows — all white, borders on every cell */
+    .ghg-table tbody tr { background: #fff; }
     .ghg-table tbody td {
       padding: 14px 24px;
       color: var(--neutral-700);
-      border-right: 1px solid var(--neutral-200);
+      border: 1px solid var(--neutral-300);
+      vertical-align: top;
     }
-    .ghg-table tbody td:last-child { border-right: none; }
-    .ghg-table tbody td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+    .ghg-table tbody td:not(:first-child) {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
 
-    /* Subtotal / total rows */
-    .ghg-table tbody tr.row-subtotal td {
-      background: var(--neutral-100);
+    /* Bold rows: Scope 2 Subtotal, Total S1+S2, Scope 3 Subtotal */
+    .ghg-table tbody tr.row-bold td {
+      font-weight: 700;
       color: #000;
-      font-weight: 600;
-      border-top: 1px solid var(--neutral-200);
     }
-    .ghg-table tbody tr.row-total td {
-      background: #000;
-      color: #fff;
-      font-weight: 600;
-      font-size: 15px;
-    }
-    .ghg-table tbody tr.row-total td:first-child {
-      font-family: var(--font-display);
-    }
-    .ghg-table tbody tr.row-scope-total td {
-      background: var(--neutral-800);
-      color: #fff;
-      font-weight: 600;
-    }
-    .ghg-table tbody tr.row-scope-total td:first-child {
-      font-family: var(--font-display);
-    }
-    /* Accent number for green numbers */
-    .ghg-table .num-accent { color: var(--accent-500); }
-    .ghg-table tr.row-subtotal .num-accent,
-    .ghg-table tr.row-scope-total .num-accent { color: var(--accent-100); }
-    .ghg-table tr.row-total .num-accent { color: var(--accent-100); }
 
-    /* Scope section headers */
-    .ghg-table tbody tr.row-scope-label td {
-      background: var(--neutral-100);
-      color: var(--neutral-600);
-      font-size: 13px;
-      padding-top: 20px;
-      padding-bottom: 6px;
-      border-top: 2px solid var(--neutral-200);
-    }
-    .ghg-table tbody tr.row-scope-label td:first-child {
-      font-weight: 600;
+    /* Total GHG Emissions — separated with thick top border */
+    .ghg-table tbody tr.row-grand-total td {
+      font-weight: 700;
       color: #000;
-      font-size: 14px;
-      letter-spacing: 0.01em;
-    }
-    /* Category indent */
-    .ghg-table .td-indent { padding-left: 40px; }
-    .ghg-table .td-category-label {
-      font-size: 13px; color: var(--neutral-600);
+      border-top: 3px solid #000;
+      padding-top: 18px;
     }
 
     /* ════════════════════════════════════════════════════════════
@@ -473,93 +432,75 @@
         </thead>
         <tbody>
 
-          <!-- SCOPE 1 -->
-          <tr class="row-scope-label">
-            <td colspan="3">Scope 1: Direct emissions from owned/controlled operations</td>
-          </tr>
           <tr>
-            <td class="td-indent td-category-label">Direct emissions</td>
+            <td>Scope 1: Direct emissions from owned/controlled operations</td>
             <td>0</td>
             <td>0%</td>
           </tr>
-          <tr class="row-subtotal">
+          <tr>
             <td>Scope 1 Emissions Subtotal</td>
-            <td class="num-accent">0</td>
-            <td class="num-accent">0%</td>
-          </tr>
-
-          <!-- SCOPE 2 -->
-          <tr class="row-scope-label">
-            <td colspan="3">Scope 2: Indirect emissions from the use of purchased electricity, steam, heating, and cooling</td>
+            <td>0</td>
+            <td>0%</td>
           </tr>
           <tr>
-            <td class="td-indent td-category-label">Scope 2 (location-based): Indirect emissions from the use of purchased electricity, steam, heating, and cooling</td>
+            <td>Scope 2 (location-based): Indirect emissions from the use of purchased electricity, steam, heating, and cooling</td>
             <td>286.1</td>
             <td>12%</td>
           </tr>
           <tr>
-            <td class="td-indent td-category-label">Scope 2 (market-based): Indirect emissions from the use of purchased electricity, steam, heating, and cooling</td>
+            <td>Scope 2 (market-based): Indirect emissions from the use of purchased electricity, steam, heating, and cooling</td>
             <td>286.1</td>
             <td>12%</td>
           </tr>
-          <tr class="row-subtotal">
+          <tr class="row-bold">
             <td>Scope 2 Emissions Subtotal</td>
-            <td class="num-accent">286</td>
-            <td class="num-accent">12%</td>
+            <td>286</td>
+            <td>12%</td>
           </tr>
-
-          <!-- SCOPE 1+2 TOTAL -->
-          <tr class="row-scope-total">
+          <tr class="row-bold">
             <td>Total Scope 1 + Scope 2 Emissions</td>
-            <td class="num-accent">286</td>
-            <td class="num-accent">12%</td>
-          </tr>
-
-          <!-- SCOPE 3 -->
-          <tr class="row-scope-label">
-            <td colspan="3">Scope 3: Value chain emissions</td>
+            <td>286</td>
+            <td>12%</td>
           </tr>
           <tr>
-            <td class="td-indent td-category-label">Category 1: Purchased goods and services</td>
+            <td>Category 1: Purchased goods and services</td>
             <td>806.2</td>
             <td>33.7%</td>
           </tr>
           <tr>
-            <td class="td-indent td-category-label">Category 2: Capital goods</td>
+            <td>Category 2: Capital goods</td>
             <td>35.5</td>
             <td>1.5%</td>
           </tr>
           <tr>
-            <td class="td-indent td-category-label">Category 5: Waste generated in operations</td>
+            <td>Category 5: Waste generated in operations</td>
             <td>2.2</td>
             <td>0.1%</td>
           </tr>
           <tr>
-            <td class="td-indent td-category-label">Category 6: Business travel</td>
-            <td>1,011.9</td>
+            <td>Category 6: Business travel</td>
+            <td>1011.9</td>
             <td>42.3%</td>
           </tr>
           <tr>
-            <td class="td-indent td-category-label">Category 7: Employee commuting</td>
+            <td>Category 7: Employee commuting</td>
             <td>247.1</td>
             <td>10.3%</td>
           </tr>
           <tr>
-            <td class="td-indent td-category-label">Category 8: Upstream leased assets</td>
+            <td>Category 8: Upstream leased assets</td>
             <td>5.9</td>
             <td>0.2%</td>
           </tr>
-          <tr class="row-subtotal">
+          <tr class="row-bold">
             <td>Scope 3 Emissions Subtotal</td>
-            <td class="num-accent">2,109</td>
-            <td class="num-accent">88%</td>
+            <td>2,109</td>
+            <td>88%</td>
           </tr>
-
-          <!-- GRAND TOTAL -->
-          <tr class="row-total">
+          <tr class="row-grand-total">
             <td>Total GHG Emissions</td>
-            <td class="num-accent">2,395</td>
-            <td class="num-accent">100%</td>
+            <td>2,395</td>
+            <td>100%</td>
           </tr>
 
         </tbody>
