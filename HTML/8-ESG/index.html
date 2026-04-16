@@ -263,48 +263,66 @@
     }
 
     /* ════════════════════════════════════════════════════════════
-       SECTION 3 — DOWNLOADS
+       SECTION 4 — DOWNLOADS (light theme)
     ════════════════════════════════════════════════════════════ */
-    .s-downloads { background: #000; padding: var(--py) 0; }
-    .s-h2--light { color: #fff; }
+    .s-downloads { background: var(--neutral-100); padding: var(--py) 0; }
 
     .download-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
     }
     .download-card {
-      background: var(--neutral-800);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: #fff;
+      border: 1px solid var(--neutral-200);
       border-radius: 2px;
-      padding: 36px 32px;
-      display: flex; flex-direction: column; gap: 20px;
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      display: flex; flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     .download-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 20px 48px rgba(0,0,0,0.5);
-      border-color: rgba(45,220,170,0.3);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.07);
     }
-    .download-icon {
-      width: 48px; height: 48px; border-radius: 2px;
-      background: rgba(45,220,170,0.12);
-      border: 1px solid rgba(45,220,170,0.2);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--accent-100);
+    /* Bottom accent line on hover */
+    .download-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; background: var(--accent-500);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .download-card:hover::after { transform: scaleX(1); }
+
+    /* 16:9 image area */
+    .download-card-img {
+      width: 100%; aspect-ratio: 16/9;
+      position: relative; overflow: hidden;
+      flex-shrink: 0;
+    }
+    .download-card-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(0,150,115,0.1) 0%, rgba(45,220,170,0.06) 100%);
+    }
+
+    /* Card body */
+    .download-card-body {
+      padding: 24px 28px 36px;
+      display: flex; flex-direction: column;
+      flex: 1;
     }
     .download-title {
       font-family: var(--font-display);
-      font-size: 22px; line-height: 30px;
-      font-weight: 400; color: #fff;
-      flex: 1;
+      font-size: 20px; line-height: 28px;
+      font-weight: 400; color: #000;
+      flex: 1; margin-bottom: 0;
     }
     .download-cta {
-      display: inline-flex; align-items: center; gap: 10px;
+      display: inline-flex; align-items: center; gap: 8px;
       font-size: 14px; font-weight: 500;
-      color: var(--accent-100);
+      color: var(--accent-500);
       transition: color 0.15s, gap 0.2s;
-      margin-top: auto;
+      margin-top: 40px;
     }
-    .download-cta:hover { color: #fff; gap: 14px; }
+    .download-cta:hover { color: #000; gap: 12px; }
     .download-cta svg { flex-shrink: 0; }
 
     /* ════════════════════════════════════════════════════════════
@@ -551,63 +569,54 @@
   </div>
 </section>
 
-<!-- ══ SECTION 3 — DOWNLOAD RESOURCES ═══════════════════════════ -->
+<!-- ══ SECTION 4 — DOWNLOAD RESOURCES ═══════════════════════════ -->
 <section class="s-downloads" id="downloads">
   <div class="container">
 
     <div class="s-head rv" style="text-align:center; margin-bottom:56px;">
-      <div class="lbl">DOWNLOAD RESOURCES</div>
-      <h2 class="s-h2 s-h2--light">ESG Reports &amp; Documentation</h2>
+      <div class="lbl lbl--dark">DOWNLOAD RESOURCES</div>
+      <h2 class="s-h2 s-h2--dark">ESG Reports &amp; Documentation</h2>
     </div>
 
     <div class="download-grid rv">
 
       <div class="download-card">
-        <div class="download-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <div class="download-card-img" style="background: linear-gradient(135deg, #c8e8e0 0%, #a8d4cc 100%);"></div>
+        <div class="download-card-body">
+          <div class="download-title">Ascendion ESG Statement</div>
+          <a href="https://ascendion.com/wp-content/uploads/2025/08/Ascendion-ESG-Statement.pdf"
+             target="_blank" rel="noopener"
+             class="download-cta">
+            Download PDF
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
         </div>
-        <div class="download-title">Ascendion ESG Statement</div>
-        <a href="https://ascendion.com/wp-content/uploads/2025/08/Ascendion-ESG-Statement.pdf"
-           target="_blank" rel="noopener"
-           class="download-cta">
-          Download PDF
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
       </div>
 
       <div class="download-card">
-        <div class="download-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <div class="download-card-img" style="background: linear-gradient(135deg, #b8e2d8 0%, #98ccc4 100%);"></div>
+        <div class="download-card-body">
+          <div class="download-title">Ascendion GHG Report 2024</div>
+          <a href="https://ascendion.com/wp-content/uploads/2025/08/Ascendion-GHG-report.pdf"
+             target="_blank" rel="noopener"
+             class="download-cta">
+            Download PDF
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
         </div>
-        <div class="download-title">Ascendion GHG Report 2024</div>
-        <a href="https://ascendion.com/wp-content/uploads/2025/08/Ascendion-GHG-report.pdf"
-           target="_blank" rel="noopener"
-           class="download-cta">
-          Download PDF
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
       </div>
 
       <div class="download-card">
-        <div class="download-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <div class="download-card-img" style="background: linear-gradient(135deg, #d4edea 0%, #b4dbd4 100%);"></div>
+        <div class="download-card-body">
+          <div class="download-title">GHG Reduction Action Plan</div>
+          <a href="https://ascendion.com/wp-content/uploads/2025/08/GHG-Reduction-Action-Plan.pdf"
+             target="_blank" rel="noopener"
+             class="download-cta">
+            Download PDF
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
         </div>
-        <div class="download-title">GHG Reduction Action Plan</div>
-        <a href="https://ascendion.com/wp-content/uploads/2025/08/GHG-Reduction-Action-Plan.pdf"
-           target="_blank" rel="noopener"
-           class="download-cta">
-          Download PDF
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
       </div>
 
     </div>
