@@ -170,8 +170,11 @@
     /* GHG Table */
     .ghg-table-wrap {
       overflow-x: auto;
-      border: 1px solid var(--neutral-300);
-      border-radius: 2px;
+      border-top: 1px solid #e3e2df;
+      border-bottom: 1px solid #e3e2df;
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
     }
     .ghg-table {
       width: 100%;
@@ -183,7 +186,7 @@
     /* Header row */
     .ghg-table thead tr { background: #000; }
     .ghg-table thead th {
-      padding: 18px 24px;
+      padding: 34px 24px;
       font-family: var(--font-primary);
       font-size: 16px;
       font-weight: 700;
@@ -199,10 +202,10 @@
     /* Body rows — all white, horizontal borders only */
     .ghg-table tbody tr { background: #fff; }
     .ghg-table tbody td {
-      padding: 14px 24px;
+      padding: 30px 24px;
       color: var(--neutral-700);
-      border-top: 1px solid var(--neutral-300);
-      border-bottom: 1px solid var(--neutral-300);
+      border-top: 1px solid #e3e2df;
+      border-bottom: 1px solid #e3e2df;
       border-left: none;
       border-right: none;
       vertical-align: top;
@@ -227,6 +230,8 @@
       font-weight: 700;
       border-top-color: #007a5c;
       border-bottom-color: #007a5c;
+      border-left: none;
+      border-right: none;
     }
 
     /* ════════════════════════════════════════════════════════════
