@@ -130,66 +130,32 @@
       border-radius: 0 2px 2px 0;
     }
 
-    /* Right side — ESG badge panel */
+    /* Right side — image container */
     .hero-right {
       position: relative; z-index: 1;
-      align-self: stretch; min-height: 360px;
+      align-self: stretch; min-height: 420px;
     }
-    .esg-badge-panel {
-      width: 100%; height: 100%; min-height: 360px;
-      background: #000;
-      display: flex; flex-direction: column; justify-content: space-between;
-      padding: 40px;
+    .hero-img-placeholder {
+      width: 100%; height: 100%; min-height: 420px;
+      background: linear-gradient(135deg, #d8f2ea 0%, #c0e8dc 100%);
       position: relative; overflow: hidden;
     }
-    .esg-badge-panel::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(0,150,115,0.18) 0%, rgba(45,220,170,0.06) 100%);
+    .hero-img-placeholder::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(0,150,115,0.12) 0%, rgba(45,220,170,0.08) 100%);
     }
-    .esg-badge-top {
-      position: relative; z-index: 1;
-    }
-    .esg-badge-label {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--accent-100); margin-bottom: 12px;
-    }
-    .esg-badge-title {
-      font-family: var(--font-display); font-size: 28px; line-height: 36px;
-      font-weight: 400; color: #fff;
-    }
-    .esg-badge-bottom {
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column; gap: 16px;
-    }
-    .esg-mini-stat { display: flex; flex-direction: column; gap: 4px; }
-    .esg-mini-num {
-      font-family: var(--font-display); font-size: 40px; line-height: 1;
-      font-weight: 400; color: var(--accent-100);
-    }
-    .esg-mini-label {
-      font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.6);
-    }
-    .esg-mini-divider { height: 1px; background: rgba(255,255,255,0.1); }
 
-    /* Hero stats bar */
-    .hero-stats {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      border-top: 1px solid var(--neutral-200);
-      background: #fff;
-    }
-    .hero-stat {
-      padding: 28px 32px;
-      border-right: 1px solid var(--neutral-200);
-    }
-    .hero-stat:last-child { border-right: none; }
-    .hero-stat-num {
+    /* ════════════════════════════════════════════════════════════
+       SECTION 2 — ESG INTRO (two-column)
+    ════════════════════════════════════════════════════════════ */
+    .s-intro { background: #fff; padding: var(--py) 0; border-top: 1px solid var(--neutral-200); }
+    .s-intro-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .s-intro-h2 {
       font-family: var(--font-display); font-size: 40px; line-height: 48px;
-      font-weight: 400; color: var(--accent-500);
+      font-weight: 400; color: #000;
     }
-    .hero-stat-label {
-      font-size: 14px; line-height: 20px; color: var(--neutral-700); margin-top: 6px;
-    }
+    .s-intro-body { display: flex; flex-direction: column; gap: 24px; }
+    .s-intro-p { font-size: 20px; line-height: 30px; color: var(--neutral-600); }
 
     /* ════════════════════════════════════════════════════════════
        SECTION 2 — GHG TABLE
@@ -368,7 +334,7 @@
     @media (max-width: 1200px) {
       :root { --px: 60px; }
       .hero-inner { grid-template-columns: 1fr 400px; gap: 56px; }
-      .hero-stats { grid-template-columns: repeat(3, 1fr); }
+      .s-intro-inner { gap: 56px; }
       .download-grid { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 900px) {
@@ -377,9 +343,9 @@
       .hero-inner { grid-template-columns: 1fr; padding: 40px 0 56px; }
       .hero-h1 { font-size: 40px; line-height: 48px; }
       .hero-right { min-height: 280px; }
-      .hero-stats { grid-template-columns: repeat(3, 1fr); }
-      .hero-stat { padding: 20px 20px; }
-      .hero-stat-num { font-size: 32px; line-height: 40px; }
+      .hero-img-placeholder { min-height: 280px; }
+      .s-intro-inner { grid-template-columns: 1fr; gap: 40px; }
+      .s-intro-h2 { font-size: 32px; line-height: 40px; }
       .download-grid { grid-template-columns: 1fr; gap: 16px; }
       .footer-cols { grid-template-columns: 1fr 1fr; gap: 40px; }
       .ghg-table-wrap { font-size: 13px; }
@@ -387,8 +353,8 @@
     @media (max-width: 600px) {
       :root { --px: 24px; --py: 48px; }
       .hero-h1 { font-size: 32px; line-height: 40px; }
-      .hero-stats { grid-template-columns: 1fr; }
-      .hero-stat { border-right: none; border-bottom: 1px solid var(--neutral-200); }
+      .s-intro-h2 { font-size: 28px; line-height: 36px; }
+      .s-intro-p { font-size: 17px; line-height: 28px; }
       .s-h2 { font-size: 28px; line-height: 36px; }
       .ghg-table thead th, .ghg-table tbody td { padding: 12px 14px; }
       .ghg-table .td-indent { padding-left: 22px; }
@@ -441,57 +407,34 @@
         </nav>
         <div class="hero-eyebrow">Who We Are</div>
         <h1 class="hero-h1">Engineering an ESG-Powered Future</h1>
-        <div class="hero-body">
-          <p class="hero-p hero-p--notice">2025 reports will be provided by the spring of 2026.</p>
-          <p class="hero-p">Ascendion is dedicated to integrating Environmental, Social, and Governance (ESG) considerations into our core business strategy, leveraging AI-first software engineering to drive meaningful impact. In our inaugural ESG report (2024), we have disclosed our greenhouse gas (GHG) emissions, adhering to the globally recognized Greenhouse Gas Protocol standards.</p>
-          <p class="hero-p">By actively managing critical categories such as business travel, employee commuting, and sustainable procurement, <strong>we achieved a notable 32% emissions reduction compared to 2023</strong> and have set an ambitious target of a 55% reduction by 2030.</p>
-          <p class="hero-p">Beyond environmental stewardship, Ascendion prioritizes social responsibility through inclusive workforce practices, community engagement, and ethical governance, ensuring our business growth aligns with global sustainability and social equity goals. We will continue to identify opportunities for further emissions reductions, advancing our goal of creating meaningful environmental impact and fostering sustainable innovation.</p>
-        </div>
+        <p class="hero-p hero-p--notice">2025 reports will be provided by the spring of 2026.</p>
       </div>
 
-      <!-- Right column — ESG badge panel -->
+      <!-- Right column — image container -->
       <div class="hero-right rv">
-        <div class="esg-badge-panel">
-          <div class="esg-badge-top">
-            <div class="esg-badge-label">Inaugural Report · 2024</div>
-            <div class="esg-badge-title">Environmental<br>Social &amp;<br>Governance</div>
-          </div>
-          <div class="esg-badge-bottom">
-            <div class="esg-mini-divider"></div>
-            <div class="esg-mini-stat">
-              <div class="esg-mini-num">32%</div>
-              <div class="esg-mini-label">Emissions reduction vs. 2023</div>
-            </div>
-            <div class="esg-mini-divider"></div>
-            <div class="esg-mini-stat">
-              <div class="esg-mini-num">55%</div>
-              <div class="esg-mini-label">Reduction target by 2030</div>
-            </div>
-          </div>
-        </div>
+        <div class="hero-img-placeholder"></div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- Stats bar -->
-  <div class="hero-stats">
-    <div class="hero-stat">
-      <div class="hero-stat-num">32%</div>
-      <div class="hero-stat-label">Emissions reduction compared to 2023</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">55%</div>
-      <div class="hero-stat-label">Reduction target by 2030</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">2,395</div>
-      <div class="hero-stat-label">Total GHG emissions (tonnes CO₂e) · 2024</div>
     </div>
   </div>
 </section>
 
-<!-- ══ SECTION 2 — GHG TABLE ═════════════════════════════════════ -->
+<!-- ══ SECTION 2 — ESG INTRO ════════════════════════════════════ -->
+<section class="s-intro" id="about">
+  <div class="container">
+    <div class="s-intro-inner rv">
+      <div>
+        <h2 class="s-intro-h2">Ascendion is dedicated to integrating Environmental, Social, and Governance (ESG) considerations into our core business strategy, leveraging AI-first software engineering to drive meaningful impact.</h2>
+      </div>
+      <div class="s-intro-body">
+        <p class="s-intro-p">In our inaugural ESG report (2024), we have disclosed our greenhouse gas (GHG) emissions, adhering to the globally recognized Greenhouse Gas Protocol standards. By actively managing critical categories such as, business travel, employee commuting, and sustainable procurement, we achieved a notable 32% emissions reduction compared to 2023 and have set an ambitious target of a 55% reduction by 2030.</p>
+        <p class="s-intro-p">Beyond environmental stewardship, Ascendion prioritizes social responsibility through inclusive workforce practices, community engagement, and ethical governance, ensuring our business growth aligns with global sustainability and social equity goals. We will continue to identify opportunities for further emissions reductions, advancing our goal of creating meaningful environmental impact and fostering sustainable innovation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 3 — GHG TABLE ═════════════════════════════════════ -->
 <section class="s-table" id="ghg-inventory">
   <div class="container">
 
