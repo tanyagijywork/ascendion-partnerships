@@ -295,98 +295,62 @@
     .cap-row-example { font-size: 14px; line-height: 22px; color: var(--neutral-700); padding: 14px 18px; background: #fff; border-left: 3px solid var(--accent-500); }
 
     /* ════════════════════════════════════════════════════════════
-       SECTION 8 — CLIENT OUTCOMES (FLIP CARDS)
+       SECTION 8 — CLIENT OUTCOMES
     ════════════════════════════════════════════════════════════ */
-    .s-outcomes { background: #fff; padding: var(--py) 0; }
+    .s-outcomes { background: var(--neutral-100); padding: var(--py) 0; border-top: 1px solid var(--neutral-200); }
     .s-outcomes .s-head { text-align: center; margin-bottom: 48px; }
 
-    .flip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .flip-card { height: 300px; perspective: 1000px; cursor: pointer; }
-    .flip-card-inner {
-      position: relative; width: 100%; height: 100%;
-      transform-style: preserve-3d;
-      transition: transform 0.5s ease;
-    }
-    .flip-card:hover .flip-card-inner,
-    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-    .flip-card-front, .flip-card-back {
-      position: absolute; inset: 0;
-      backface-visibility: hidden; -webkit-backface-visibility: hidden;
-      border-radius: 2px; padding: 28px 24px;
-      display: flex; flex-direction: column;
-    }
-    .flip-card-front {
-      background: var(--neutral-100);
-      border: 1px solid var(--neutral-200);
-      justify-content: space-between;
-    }
-    .flip-card-back {
-      background: #000;
-      transform: rotateY(180deg);
-      border: 1px solid rgba(45,220,170,0.15);
-      justify-content: space-between;
-    }
-    .flip-tag {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-      color: #000; background: var(--accent-100);
-      padding: 4px 10px; border-radius: 2px;
-      display: inline-block; align-self: flex-start; margin-bottom: 12px;
-    }
-    .flip-stat {
-      font-family: var(--font-display); font-size: 38px; line-height: 46px;
-      font-weight: 400; color: #000;
-    }
-    .flip-hint {
-      font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--neutral-400); display: flex; align-items: center; gap: 6px;
-    }
-    .flip-hint::before { content: '↻'; font-size: 14px; }
-    .flip-back-tag {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--accent-100); margin-bottom: 12px; align-self: flex-start;
-    }
-    .flip-back-body { font-size: 13px; line-height: 21px; color: rgba(255,255,255,0.75); flex: 1; }
+    /* Shared card carousel */
+    .sec-carousel-wrap { position: relative; display: flex; align-items: center; gap: 20px; }
+    .sec-carousel-viewport { flex: 1; overflow: hidden; }
+    .sec-carousel-track { display: flex; gap: 20px; transition: transform 0.4s ease; will-change: transform; }
+
+    /* Outcome cards */
+    .oc-card { flex: 0 0 calc((100% - 40px) / 3); background: #fff; border: 1px solid var(--neutral-200); border-radius: 2px; overflow: hidden; display: flex; flex-direction: column; }
+    .oc-card-img { width: 100%; aspect-ratio: 4/3; background: #a8a8b5; position: relative; flex-shrink: 0; }
+    .oc-card-tags { position: absolute; top: 12px; left: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+    .oc-tag-industry { font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; background: var(--accent-500); color: #fff; padding: 4px 10px; border-radius: 2px; white-space: nowrap; }
+    .oc-tag-service { font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; background: rgba(255,255,255,0.92); color: #000; padding: 4px 10px; border-radius: 2px; white-space: nowrap; }
+    .oc-card-body { padding: 20px 20px 24px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
+    .oc-card-title { font-size: 15px; font-weight: 700; line-height: 23px; color: #000; flex: 1; }
+    .oc-card-link { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: #000; transition: gap 0.15s, color 0.15s; }
+    .oc-card-link:hover { color: var(--accent-500); gap: 10px; }
+
+    /* Shared controls row */
+    .sec-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; }
+    .sec-dots { display: flex; gap: 8px; align-items: center; }
+    .sec-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--neutral-300); border: none; cursor: pointer; padding: 0; transition: background 0.2s; }
+    .sec-dot.active { background: var(--neutral-800); }
+    .sec-nav-btns { display: flex; gap: 10px; }
+    .sec-nav-btn { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--neutral-300); background: transparent; color: #000; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: border-color 0.15s; }
+    .sec-nav-btn:hover { border-color: #000; }
+    .sec-nav-btn:disabled { opacity: 0.3; pointer-events: none; }
+    .sec-cta { margin-top: 36px; }
+    .sec-cta-btn { display: inline-flex; align-items: center; gap: 12px; background: #000; color: #fff; font-family: var(--font-primary); font-size: 15px; font-weight: 500; padding: 14px 20px; border-radius: 2px; cursor: pointer; border: none; transition: background 0.15s; text-decoration: none; }
+    .sec-cta-btn:hover { background: var(--neutral-800); }
+
+    /* ─── Green gradient separator ──────────────────────────── */
+    .section-sep { height: 2px; background: linear-gradient(90deg, transparent 0%, var(--accent-500) 25%, var(--accent-100) 50%, var(--accent-500) 75%, transparent 100%); }
 
     /* ════════════════════════════════════════════════════════════
        SECTION 9 — IDEAS & INSIGHTS
     ════════════════════════════════════════════════════════════ */
-    .s-insights { background: #000; padding: var(--py) 0; }
-    .s-insights .s-head { text-align: center; margin-bottom: 48px; }
-    .insights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .insight-card {
-      background: var(--neutral-800); border-radius: 2px; overflow: hidden;
-      display: flex; flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s;
-      position: relative;
-    }
-    .insight-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
-    .insight-card::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-      height: 3px; background: var(--accent-500);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.4s ease;
-    }
-    .insight-card:hover::after { transform: scaleX(1); }
-    .insight-card-img {
-      width: 100%; aspect-ratio: 16/9;
-      background: linear-gradient(135deg, #0e2a22 0%, #1a3d30 100%);
-      position: relative; overflow: hidden; flex-shrink: 0;
-    }
-    .insight-card-img::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(0,150,115,0.2) 0%, rgba(45,220,170,0.06) 100%);
-    }
-    .insight-card-body { padding: 24px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
-    .insight-tag {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-      color: #000; background: var(--accent-100);
-      padding: 4px 10px; border-radius: 2px;
-      display: inline-block; align-self: flex-start;
-    }
-    .insight-title { font-family: var(--font-display); font-size: 18px; line-height: 26px; font-weight: 400; color: #fff; flex: 1; }
-    .insight-cta { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--accent-100); transition: color 0.15s, gap 0.2s; margin-top: auto; }
-    .insight-cta:hover { color: #fff; gap: 12px; }
-    .insight-cta svg { flex-shrink: 0; }
+    .s-insights { background: var(--neutral-100); padding: var(--py) 0; }
+    .s-insights .s-head { text-align: center; margin-bottom: 32px; }
+
+    /* Content tabs */
+    .ins-tabs { display: flex; align-items: center; gap: 0; border-bottom: 1px solid var(--neutral-200); margin-bottom: 40px; }
+    .ins-tab { font-size: 14px; font-weight: 400; color: var(--neutral-600); padding: 0 0 12px; margin-right: 32px; border-bottom: 2px solid transparent; cursor: pointer; transition: color 0.15s, border-color 0.15s; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none; font-family: var(--font-primary); }
+    .ins-tab:hover { color: #000; }
+    .ins-tab.active { color: #000; font-weight: 600; border-bottom-color: var(--accent-500); }
+
+    /* Insight cards — same width as outcome cards */
+    .ins-card { flex: 0 0 calc((100% - 40px) / 3); background: #fff; border: 1px solid var(--neutral-200); border-radius: 2px; overflow: hidden; display: flex; flex-direction: column; }
+    .ins-card-img { width: 100%; aspect-ratio: 4/3; background: #a8a8b5; flex-shrink: 0; }
+    .ins-card-body { padding: 20px 20px 24px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
+    .ins-card-title { font-size: 15px; font-weight: 700; line-height: 23px; color: #000; flex: 1; }
+    .ins-card-link { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: #000; transition: gap 0.15s, color 0.15s; }
+    .ins-card-link:hover { color: var(--accent-500); gap: 10px; }
 
     /* ════════════════════════════════════════════════════════════
        SECTION 10 — CLOSING CTA
@@ -445,8 +409,7 @@
       .aava-card:nth-child(3), .aava-card:nth-child(4) { border-top: 1px solid var(--neutral-200); }
       .bold-layout { grid-template-columns: 1fr; gap: 48px; }
       .bold-h2 { font-size: 32px; line-height: 42px; }
-      .flip-grid { grid-template-columns: repeat(2, 1fr); }
-      .insights-grid { grid-template-columns: repeat(2, 1fr); }
+      .oc-card, .ins-card { flex: 0 0 calc((100% - 20px) / 2); }
       .footer-cols { grid-template-columns: 1fr 1fr; gap: 40px; }
       .cta-title { font-size: 36px; line-height: 44px; }
     }
@@ -455,9 +418,7 @@
       .hero-h1 { font-size: 32px; line-height: 40px; }
       .s-h2 { font-size: 28px; line-height: 36px; }
       .impact-card { flex: 0 0 100%; }
-      .flip-grid { grid-template-columns: 1fr 1fr; }
-      .flip-card { height: 260px; }
-      .insights-grid { grid-template-columns: 1fr; }
+      .oc-card, .ins-card { flex: 0 0 100%; }
       .bold-h2 { font-size: 28px; line-height: 36px; }
       .footer-cols { grid-template-columns: 1fr; gap: 32px; }
     }
@@ -863,170 +824,165 @@
       <h2 class="s-h2 s-h2--dark">Proven GCC<sup>AI</sup> Transformation Across Industries</h2>
     </div>
 
-    <div class="flip-grid rv">
+    <div class="sec-carousel-wrap rv">
+      <button class="sec-nav-btn" id="ocPrev" aria-label="Previous" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="sec-carousel-viewport">
+        <div class="sec-carousel-track" id="ocTrack">
 
-      <div class="flip-card" tabindex="0" role="button" aria-label="Ecommerce outcome — click to reveal details">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <div>
-              <div class="flip-tag">Ecommerce</div>
-              <div class="flip-stat">50%<br>Faster</div>
+          <div class="oc-card">
+            <div class="oc-card-img">
+              <div class="oc-card-tags"><span class="oc-tag-industry">Ecommerce</span><span class="oc-tag-service">50% Faster</span></div>
             </div>
-            <div class="flip-hint">Hover to reveal</div>
+            <div class="oc-card-body">
+              <div class="oc-card-title">Heavy, error-prone MEC cycles are transformed through a single GCC operating spine with 24×7 governance and proactive anomaly prevention.</div>
+              <a href="#" class="oc-card-link">Read More <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
           </div>
-          <div class="flip-card-back">
-            <div class="flip-back-tag">Ecommerce</div>
-            <p class="flip-back-body">Heavy, error-prone MEC cycles are transformed through a single GCC operating spine with 24×7 governance and proactive anomaly prevention. Higher throughput, audit-ready reliability at scale.</p>
+
+          <div class="oc-card">
+            <div class="oc-card-img">
+              <div class="oc-card-tags"><span class="oc-tag-industry">Fintech</span><span class="oc-tag-service">Accelerated Delivery</span></div>
+            </div>
+            <div class="oc-card-body">
+              <div class="oc-card-title">Slow product throughput is reversed through AI-trained engineers with dual screening (technical + product thinking). Stronger platform stability, improved merchant experience.</div>
+              <a href="#" class="oc-card-link">Read More <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
           </div>
+
+          <div class="oc-card">
+            <div class="oc-card-img">
+              <div class="oc-card-tags"><span class="oc-tag-industry">Travel &amp; Hospitality</span><span class="oc-tag-service">30–35% Automation</span></div>
+            </div>
+            <div class="oc-card-body">
+              <div class="oc-card-title">Rapid customer operations expansion achieved in 2 weeks with a nearshore technical ops model, RPA + AI-enabled workflows. &gt;98% SLA, 20% faster response times.</div>
+              <a href="#" class="oc-card-link">Read More <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+          </div>
+
+          <div class="oc-card">
+            <div class="oc-card-img">
+              <div class="oc-card-tags"><span class="oc-tag-industry">Global Bank</span><span class="oc-tag-service">Zero-Downtime</span></div>
+            </div>
+            <div class="oc-card-body">
+              <div class="oc-card-title">Fragile releases causing after-hours interventions have been eliminated through standardized blue-green deployment with automated validation.</div>
+              <a href="#" class="oc-card-link">Read More <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+          </div>
+
+          <div class="oc-card">
+            <div class="oc-card-img">
+              <div class="oc-card-tags"><span class="oc-tag-industry">Insurance</span><span class="oc-tag-service">40% Faster</span></div>
+            </div>
+            <div class="oc-card-body">
+              <div class="oc-card-title">Disconnected HR, Finance, and Ops processes are unified through a centralized BSS model with domain-aligned delivery pods injecting AI. Improved governance across 100+ FTE.</div>
+              <a href="#" class="oc-card-link">Read More <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+          </div>
+
+          <div class="oc-card">
+            <div class="oc-card-img">
+              <div class="oc-card-tags"><span class="oc-tag-industry">Consumer Credit</span><span class="oc-tag-service">30% Cost Reduction</span></div>
+            </div>
+            <div class="oc-card-body">
+              <div class="oc-card-title">Legacy systems and fragmented data are overcome through an AI-first GCC that unifies data platforms, automates insights, and modernizes analytics pipelines.</div>
+              <a href="#" class="oc-card-link">Read More <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+          </div>
+
+          <div class="oc-card">
+            <div class="oc-card-img">
+              <div class="oc-card-tags"><span class="oc-tag-industry">Grocery Retail</span><span class="oc-tag-service">35% Cost Reduction</span></div>
+            </div>
+            <div class="oc-card-body">
+              <div class="oc-card-title">Traditional support desks evolved into fully AI-powered GCCs with automation, voice AI, sentiment intelligence, and multi-tier ops. &gt;95% CSAT, 10× scale growth.</div>
+              <a href="#" class="oc-card-link">Read More <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+          </div>
+
         </div>
       </div>
-
-      <div class="flip-card" tabindex="0" role="button" aria-label="Fintech outcome — click to reveal details">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <div>
-              <div class="flip-tag">Fintech</div>
-              <div class="flip-stat">Accelerated<br>Delivery</div>
-            </div>
-            <div class="flip-hint">Hover to reveal</div>
-          </div>
-          <div class="flip-card-back">
-            <div class="flip-back-tag">Fintech</div>
-            <p class="flip-back-body">Slow product throughput is reversed through AI-trained engineers with dual screening (technical + product thinking). Stronger platform stability, improved merchant experience.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-card" tabindex="0" role="button" aria-label="Travel & Hospitality outcome — click to reveal details">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <div>
-              <div class="flip-tag">Travel &amp; Hospitality</div>
-              <div class="flip-stat">30–35%<br>Automation Efficiency</div>
-            </div>
-            <div class="flip-hint">Hover to reveal</div>
-          </div>
-          <div class="flip-card-back">
-            <div class="flip-back-tag">Travel &amp; Hospitality</div>
-            <p class="flip-back-body">Rapid customer operations expansion achieved in 2 weeks with a nearshore technical ops model, RPA + AI-enabled workflows. &gt;98% SLA, 20% faster response times.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-card" tabindex="0" role="button" aria-label="Global Bank outcome — click to reveal details">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <div>
-              <div class="flip-tag">Global Bank</div>
-              <div class="flip-stat">Zero-Downtime<br>Deployments</div>
-            </div>
-            <div class="flip-hint">Hover to reveal</div>
-          </div>
-          <div class="flip-card-back">
-            <div class="flip-back-tag">Global Bank</div>
-            <p class="flip-back-body">Fragile releases causing after-hours interventions have been eliminated through standardized blue-green deployment with automated validation. Predictable, zero-downtime releases, step-change in confidence.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-card" tabindex="0" role="button" aria-label="Insurance outcome — click to reveal details">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <div>
-              <div class="flip-tag">Insurance</div>
-              <div class="flip-stat">40%<br>Faster Cycle Times</div>
-            </div>
-            <div class="flip-hint">Hover to reveal</div>
-          </div>
-          <div class="flip-card-back">
-            <div class="flip-back-tag">Insurance</div>
-            <p class="flip-back-body">Disconnected HR, Finance, and Ops processes are unified through a centralized BSS model with domain-aligned delivery pods injecting AI. Improved governance across 100+ FTE operations.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-card" tabindex="0" role="button" aria-label="Consumer Credit Reporting outcome — click to reveal details">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <div>
-              <div class="flip-tag">Consumer Credit Reporting</div>
-              <div class="flip-stat">30%<br>Cost Reduction</div>
-            </div>
-            <div class="flip-hint">Hover to reveal</div>
-          </div>
-          <div class="flip-card-back">
-            <div class="flip-back-tag">Consumer Credit Reporting</div>
-            <p class="flip-back-body">Legacy systems and fragmented data are overcome through an AI-first GCC that unifies data platforms, automates insights, and modernizes analytics pipelines. 5× decision velocity, 50% faster GTM.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="flip-card" tabindex="0" role="button" aria-label="Grocery Retail outcome — click to reveal details">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-            <div>
-              <div class="flip-tag">Grocery Retail</div>
-              <div class="flip-stat">35%<br>Cost Reduction</div>
-            </div>
-            <div class="flip-hint">Hover to reveal</div>
-          </div>
-          <div class="flip-card-back">
-            <div class="flip-back-tag">Grocery Retail</div>
-            <p class="flip-back-body">Traditional support desks evolved into fully AI-powered GCCs with automation, voice AI, sentiment intelligence, and multi-tier ops. &gt;95% CSAT, 10× scale growth (30 → 300+ FTE).</p>
-          </div>
-        </div>
-      </div>
-
+      <button class="sec-nav-btn" id="ocNext" aria-label="Next">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
+
+    <div class="sec-controls rv">
+      <div class="sec-dots" id="ocDots"></div>
+      <div class="sec-nav-btns" style="display:none"></div>
+    </div>
+    <div class="sec-cta rv">
+      <a href="#" class="sec-cta-btn">Explore all client outcomes <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+
   </div>
 </section>
+
+<!-- ══ GRADIENT SEPARATOR ════════════════════════════════════════ -->
+<div class="section-sep"></div>
 
 <!-- ══ SECTION 9 — IDEAS & INSIGHTS ══════════════════════════════ -->
 <section class="s-insights" id="insights">
   <div class="container">
     <div class="s-head rv">
-      <div class="lbl">IDEAS &amp; INSIGHTS</div>
+      <div class="lbl lbl--dark">IDEAS &amp; INSIGHTS</div>
     </div>
 
-    <div class="insights-grid rv">
-
-      <div class="insight-card">
-        <div class="insight-card-img"></div>
-        <div class="insight-card-body">
-          <div class="insight-tag">News</div>
-          <div class="insight-title">AI is 'Eating' Global Capability Centers, and Here's Why You Want to be on the Menu</div>
-          <a href="https://ascendion.com/news/ai-is-eating-global-capability-centers-and-heres-why-you-want-to-be-on-the-menu/" target="_blank" rel="noopener" class="insight-cta">
-            Read More
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <div class="insight-card">
-        <div class="insight-card-img"></div>
-        <div class="insight-card-body">
-          <div class="insight-tag">Blog</div>
-          <div class="insight-title">EngineeringAI: Your Pathway to Software Excellence</div>
-          <a href="https://ascendion.com/insights/engineeringai-your-pathway-to-software-excellence/" target="_blank" rel="noopener" class="insight-cta">
-            Read More
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <div class="insight-card">
-        <div class="insight-card-img"></div>
-        <div class="insight-card-body">
-          <div class="insight-tag">Blog</div>
-          <div class="insight-title">Ushering in a New Work Order and Revolutionizing Workflows with Agentic AI</div>
-          <a href="https://ascendion.com/insights/ushering-in-a-new-work-order-and-revolutionizing-workflows-with-agentic-ai/" target="_blank" rel="noopener" class="insight-cta">
-            Read More
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-      </div>
-
+    <div class="ins-tabs rv">
+      <button class="ins-tab active">Articles</button>
+      <button class="ins-tab">Analyst reports</button>
+      <button class="ins-tab">Podcasts</button>
+      <button class="ins-tab">Media mentions</button>
+      <button class="ins-tab">Whitepapers</button>
     </div>
+
+    <div class="sec-carousel-wrap rv">
+      <button class="sec-nav-btn" id="insPrev" aria-label="Previous" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="sec-carousel-viewport">
+        <div class="sec-carousel-track" id="insTrack">
+
+          <div class="ins-card">
+            <div class="ins-card-img"></div>
+            <div class="ins-card-body">
+              <div class="ins-card-title">AI is 'Eating' Global Capability Centers, and Here's Why You Want to be on the Menu</div>
+              <a href="https://ascendion.com/news/ai-is-eating-global-capability-centers-and-heres-why-you-want-to-be-on-the-menu/" target="_blank" rel="noopener" class="ins-card-link">Read Article <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+          </div>
+
+          <div class="ins-card">
+            <div class="ins-card-img"></div>
+            <div class="ins-card-body">
+              <div class="ins-card-title">EngineeringAI: Your Pathway to Software Excellence</div>
+              <a href="https://ascendion.com/insights/engineeringai-your-pathway-to-software-excellence/" target="_blank" rel="noopener" class="ins-card-link">Read Article <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+          </div>
+
+          <div class="ins-card">
+            <div class="ins-card-img"></div>
+            <div class="ins-card-body">
+              <div class="ins-card-title">Ushering in a New Work Order and Revolutionizing Workflows with Agentic AI</div>
+              <a href="https://ascendion.com/insights/ushering-in-a-new-work-order-and-revolutionizing-workflows-with-agentic-ai/" target="_blank" rel="noopener" class="ins-card-link">Read Article <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <button class="sec-nav-btn" id="insNext" aria-label="Next" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="sec-controls rv">
+      <div class="sec-dots" id="insDots"></div>
+      <div class="sec-nav-btns" style="display:none"></div>
+    </div>
+    <div class="sec-cta rv">
+      <a href="#" class="sec-cta-btn">Explore all insights <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+
   </div>
 </section>
 
@@ -1153,10 +1109,12 @@
   window.addEventListener('scroll', updateSubnav, { passive: true });
   updateSubnav();
 
-  // ── Flip cards: tap/click toggle for touch devices
-  document.querySelectorAll('.flip-card').forEach(card => {
-    card.addEventListener('click', () => card.classList.toggle('flipped'));
-    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('flipped'); } });
+  // ── Insights tabs (visual only — all content is Articles)
+  document.querySelectorAll('.ins-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.ins-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
   });
 
   // ── Bold video tabs
@@ -1184,6 +1142,49 @@
     prevBtn.addEventListener('click', () => goTo(current - 1));
     nextBtn.addEventListener('click', () => goTo(current + 1));
   })();
+
+  // ── Generic section carousel factory
+  function makeSectionCarousel(trackId, dotsId, prevId, nextId) {
+    const track   = document.getElementById(trackId);
+    const dotsWrap= document.getElementById(dotsId);
+    const prevBtn = document.getElementById(prevId);
+    const nextBtn = document.getElementById(nextId);
+    if (!track) return;
+    const cards = Array.from(track.children);
+    let idx = 0;
+
+    function getVisible() { return window.innerWidth <= 600 ? 1 : (window.innerWidth <= 900 ? 2 : 3); }
+    function getMax() { return Math.max(0, cards.length - getVisible()); }
+
+    function buildDots() {
+      dotsWrap.innerHTML = '';
+      for (let i = 0; i <= getMax(); i++) {
+        const d = document.createElement('button');
+        d.className = 'sec-dot' + (i === idx ? ' active' : '');
+        d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        d.dataset.i = i;
+        d.addEventListener('click', () => goTo(+d.dataset.i));
+        dotsWrap.appendChild(d);
+      }
+    }
+
+    function goTo(i) {
+      const max = getMax();
+      idx = Math.max(0, Math.min(i, max));
+      const cardW = cards[0].offsetWidth + 20;
+      track.style.transform = 'translateX(-' + (idx * cardW) + 'px)';
+      dotsWrap.querySelectorAll('.sec-dot').forEach((d, j) => d.classList.toggle('active', j === idx));
+      if (prevBtn) prevBtn.disabled = idx === 0;
+      if (nextBtn) nextBtn.disabled = idx === max;
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', () => goTo(idx - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => goTo(idx + 1));
+    let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { idx = 0; buildDots(); goTo(0); }, 120); });
+    buildDots(); goTo(0);
+  }
+  makeSectionCarousel('ocTrack',  'ocDots',  'ocPrev',  'ocNext');
+  makeSectionCarousel('insTrack', 'insDots', 'insPrev', 'insNext');
 
   // ── Impact Carousel
   (function() {
