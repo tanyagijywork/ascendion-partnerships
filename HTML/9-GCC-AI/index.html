@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GCCAI — Ascendion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('../../Font/PPNeueMachina-PlainRegular.ttf') format('truetype');
+      font-weight: 400; font-display: swap;
+    }
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('../../Font/PPNeueMachina-PlainUltrabold.ttf') format('truetype');
+      font-weight: 800; font-display: swap;
+    }
+
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --accent-100:  #2ddcaa;
+      --accent-500:  #009673;
+      --accent-900:  #006450;
+      --neutral-0:   #ffffff;
+      --neutral-100: #f4f4f4;
+      --neutral-200: #e3e2df;
+      --neutral-300: #aaaaaa;
+      --neutral-400: #999999;
+      --neutral-600: #4b4b4b;
+      --neutral-700: #333333;
+      --neutral-800: #1a1a1a;
+      --neutral-900: #000000;
+      --font-display: 'PP Neue Machina', sans-serif;
+      --font-primary: 'Inter', sans-serif;
+      --px: 80px;
+      --py: 80px;
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-primary); color: var(--neutral-900); background: #fff; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    img { display: block; max-width: 100%; }
+    sup { font-size: 0.6em; vertical-align: super; }
+
+    /* ─── LAYOUT ─────────────────────────────────────────────── */
+    .container { max-width: 1440px; margin: 0 auto; padding-left: var(--px); padding-right: var(--px); }
+
+    /* ─── NAV ────────────────────────────────────────────────── */
+    .nav {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--neutral-100); border-bottom: 1px solid var(--neutral-200);
+      height: 86px; display: flex; align-items: center;
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .nav-logo { display: flex; flex-direction: column; }
+    .nav-logo-text { font-family: var(--font-display); font-size: 20px; font-weight: 800; letter-spacing: -0.03em; color: #000; line-height: 1; }
+    .nav-logo-tagline { font-size: 11px; font-weight: 400; color: #666; line-height: 1.2; margin-top: 2px; }
+    .nav-menu { display: flex; align-items: center; gap: 4px; }
+    .nav-link { font-size: 16px; font-weight: 400; color: var(--neutral-900); padding: 6px 10px; display: flex; align-items: center; gap: 4px; white-space: nowrap; transition: color 0.15s; }
+    .nav-link:hover { color: var(--accent-500); }
+    .nav-link.active { color: var(--accent-500); }
+    .nav-link--aava { color: var(--accent-500); font-weight: 500; }
+    .nav-link--aava:hover { color: var(--accent-900); }
+    .nav-link svg { opacity: 0.5; }
+
+    /* ─── BUTTONS ────────────────────────────────────────────── */
+    .btn { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-primary); font-size: 16px; font-weight: 500; letter-spacing: 0.02em; border-radius: 2px; padding: 14px 20px; line-height: 1; white-space: nowrap; cursor: pointer; transition: background 0.2s ease; }
+    .btn__icon { display: inline-flex; align-items: center; justify-content: center; transition: transform 0.2s ease; flex-shrink: 0; }
+    .btn:hover .btn__icon { transform: translateX(3px); }
+    .btn-primary { background: #000; color: #fff; border: none; }
+    .btn-primary .btn__icon { color: var(--accent-100); }
+    .btn-primary:hover { background: var(--neutral-800); }
+    .btn-inverse { background: var(--accent-100); color: #000; border: none; }
+    .btn-inverse:hover { background: var(--accent-500); color: #fff; }
+    .btn-inverse .btn__icon { color: #000; }
+    .btn-ghost-inv { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.3); }
+    .btn-ghost-inv:hover { background: rgba(255,255,255,0.08); }
+    .btn-ghost-inv .btn__icon { color: var(--accent-100); }
+    .btn-ghost-dark { background: transparent; color: #000; border: 1.5px solid rgba(0,0,0,0.25); }
+    .btn-ghost-dark:hover { background: rgba(0,0,0,0.05); }
+    .btn-ghost-dark .btn__icon { color: var(--accent-500); }
+
+    /* ─── SECTION LABELS ─────────────────────────────────────── */
+    .lbl {
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent-100); margin-bottom: 24px;
+    }
+    .lbl--dark { color: var(--accent-500); }
+    .lbl::before, .lbl::after { content: ''; flex: 1; height: 1px; background: currentColor; opacity: 0.3; }
+
+    /* ─── SCROLL REVEAL ──────────────────────────────────────── */
+    .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .rv.in { opacity: 1; transform: translateY(0); }
+
+    /* ─── SUBNAV ─────────────────────────────────────────────── */
+    .subnav {
+      position: sticky; top: 86px; z-index: 190;
+      background: var(--neutral-100); border-bottom: 1px solid #e3e2df;
+      overflow: hidden; max-height: 0; transition: max-height 0.35s ease;
+    }
+    .subnav.visible { max-height: 60px; }
+    .subnav-inner { display: flex; align-items: center; width: 100%; overflow-x: auto; scrollbar-width: none; }
+    .subnav-inner::-webkit-scrollbar { display: none; }
+    .subnav-link {
+      font-size: 14px; font-weight: 400; color: var(--neutral-600);
+      padding: 0 24px; height: 52px;
+      display: inline-flex; align-items: center;
+      border-bottom: 3px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .subnav-link:hover { color: #000; }
+    .subnav-link.active { color: #000; font-weight: 500; border-bottom-color: var(--accent-500); }
+
+    /* ════════════════════════════════════════════════════════════
+       SECTION 1 — HERO (Banner)
+    ════════════════════════════════════════════════════════════ */
+    .hero { background: #fff; position: relative; overflow: hidden; }
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 520px;
+      gap: 80px; align-items: center;
+      padding: 64px 0 72px;
+    }
+    .hero-left { display: flex; flex-direction: column; gap: 24px; }
+    .hero-breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--neutral-600); }
+    .hero-breadcrumb a { color: var(--neutral-600); transition: color 0.15s; }
+    .hero-breadcrumb a:hover { color: #000; }
+    .hero-breadcrumb span { color: var(--neutral-400); }
+    .hero-eyebrow { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-500); display: flex; align-items: center; gap: 12px; }
+    .hero-eyebrow::after { content: ''; width: 32px; height: 1px; background: var(--accent-500); opacity: 0.5; }
+    .hero-h1 { font-family: var(--font-display); font-size: 64px; line-height: 72px; font-weight: 400; color: #000; }
+    .hero-right { align-self: stretch; min-height: 420px; }
+    .hero-img-placeholder {
+      width: 100%; height: 100%; min-height: 420px;
+      background: linear-gradient(135deg, #d8f2ea 0%, #c0e8dc 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero-img-placeholder::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(0,150,115,0.12) 0%, rgba(45,220,170,0.08) 100%);
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       SECTION 2 — INTRO
+    ════════════════════════════════════════════════════════════ */
+    .s-intro { background: var(--neutral-100); padding: var(--py) 0; border-top: 1px solid var(--neutral-200); }
+    .s-intro-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .s-intro-h2 { font-family: var(--font-display); font-size: 40px; line-height: 48px; font-weight: 400; color: #000; margin-bottom: 28px; }
+    .s-intro-body { display: flex; flex-direction: column; gap: 16px; }
+    .s-intro-p { font-size: 17px; line-height: 28px; color: var(--neutral-600); }
+    .s-intro-p strong { color: #000; font-weight: 600; }
+
+    /* Video panel */
+    .video-panel { display: flex; flex-direction: column; gap: 20px; }
+    .video-label { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-500); display: flex; align-items: center; gap: 12px; }
+    .video-label::after { content: ''; width: 32px; height: 1px; background: var(--accent-500); opacity: 0.5; }
+    .video-subhead { font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 400; color: #000; }
+    .video-desc { font-size: 16px; line-height: 26px; color: var(--neutral-600); }
+    .video-wrap {
+      position: relative; width: 100%; aspect-ratio: 16/9;
+      background: #0a0a0a; border-radius: 2px; overflow: hidden;
+    }
+    .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+    /* ════════════════════════════════════════════════════════════
+       SECTION 3 — IMPACT
+    ════════════════════════════════════════════════════════════ */
+    .s-impact { background: #000; padding: var(--py) 0; border-top: 1px solid rgba(255,255,255,0.06); }
+    .s-head { text-align: center; margin-bottom: 56px; }
+    .s-h2 { font-family: var(--font-display); font-size: 40px; line-height: 48px; font-weight: 400; }
+    .s-h2--light { color: #fff; }
+    .s-h2--dark  { color: #000; }
+    .s-sub { font-size: 17px; line-height: 28px; margin-top: 16px; color: rgba(255,255,255,0.6); }
+
+    .impact-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+    .impact-card { background: #0a0a0a; padding: 32px 24px; display: flex; flex-direction: column; gap: 10px; }
+    .impact-stat { font-family: var(--font-display); font-size: 48px; line-height: 1; font-weight: 400; color: var(--accent-100); }
+    .impact-title { font-family: var(--font-display); font-size: 18px; line-height: 26px; font-weight: 400; color: #fff; }
+    .impact-desc { font-size: 13px; line-height: 21px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+    /* ════════════════════════════════════════════════════════════
+       SECTION 4 — COMPARISON TABLE
+    ════════════════════════════════════════════════════════════ */
+    .s-comparison { background: #fff; padding: var(--py) 0; }
+    .s-comparison .s-head { text-align: center; margin-bottom: 16px; }
+    .s-comparison .s-sub--dark { color: var(--neutral-600); margin-top: 16px; font-size: 17px; line-height: 28px; }
+    .comparison-wrap { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; border-radius: 2px; overflow: hidden; border: 1px solid var(--neutral-200); }
+    .comparison-col { display: flex; flex-direction: column; }
+    .comparison-col-head {
+      padding: 24px 36px;
+      font-family: var(--font-display); font-size: 22px; line-height: 30px;
+      font-weight: 400;
+    }
+    .comparison-col--humans .comparison-col-head { background: #000; color: #fff; }
+    .comparison-col--ai .comparison-col-head { background: var(--accent-500); color: #fff; }
+    .comparison-items { display: flex; flex-direction: column; padding: 8px 0; flex: 1; }
+    .comparison-item {
+      display: flex; align-items: center; gap: 16px;
+      padding: 16px 36px;
+      font-size: 15px; line-height: 22px;
+      border-bottom: 1px solid var(--neutral-200);
+    }
+    .comparison-item:last-child { border-bottom: none; }
+    .comparison-col--humans .comparison-item { color: var(--neutral-700); background: #fff; }
+    .comparison-col--humans .comparison-item::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #000; flex-shrink: 0; }
+    .comparison-col--ai .comparison-item { color: var(--neutral-700); background: var(--neutral-100); }
+    .comparison-col--ai .comparison-item::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-500); flex-shrink: 0; }
+
+    /* ════════════════════════════════════════════════════════════
+       SECTION 5 — AAVA ADVANTAGE
+    ════════════════════════════════════════════════════════════ */
+    .s-aava { background: var(--neutral-800); padding: var(--py) 0; }
+    .s-aava-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .aava-h2 { font-family: var(--font-display); font-size: 40px; line-height: 48px; font-weight: 400; color: #fff; margin-bottom: 24px; }
+    .aava-body { font-size: 17px; line-height: 28px; color: rgba(255,255,255,0.65); margin-bottom: 20px; }
+    .aava-lead { font-size: 17px; line-height: 28px; color: #fff; font-weight: 600; margin-bottom: 20px; }
+    .aava-features { display: flex; flex-direction: column; gap: 0; }
+    .aava-feature { display: flex; align-items: flex-start; gap: 16px; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .aava-feature:first-child { border-top: 1px solid rgba(255,255,255,0.1); }
+    .aava-feature-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-100); flex-shrink: 0; margin-top: 6px; }
+    .aava-feature-text { font-size: 15px; line-height: 24px; color: rgba(255,255,255,0.65); }
+    .aava-feature-text strong { color: #fff; font-weight: 600; }
+
+    /* ════════════════════════════════════════════════════════════
+       SECTION 6 — BOLD STATEMENT
+    ════════════════════════════════════════════════════════════ */
+    .s-bold { background: #000; padding: var(--py) 0; border-top: 1px solid rgba(255,255,255,0.08); }
+    .s-bold-inner { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 40px; }
+    .bold-h2 { font-family: var(--font-display); font-size: 48px; line-height: 58px; font-weight: 400; color: #fff; max-width: 900px; }
+    .bold-btns { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+    /* ════════════════════════════════════════════════════════════
+       SECTION 7 — CAPABILITIES (ACCORDION)
+    ════════════════════════════════════════════════════════════ */
+    .s-cap { background: var(--neutral-100); padding: var(--py) 0; }
+    .s-cap .s-head { text-align: center; margin-bottom: 16px; }
+    .cap-subhead { font-size: 17px; line-height: 28px; color: var(--neutral-600); text-align: center; max-width: 680px; margin: 16px auto 56px; }
+
+    .accordion { display: flex; flex-direction: column; border-top: 1px solid var(--neutral-200); }
+    .acc-item { border-bottom: 1px solid var(--neutral-200); }
+    .acc-trigger {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 28px 0; background: none; cursor: pointer;
+      font-family: var(--font-display); font-size: 22px; line-height: 30px; font-weight: 400;
+      color: #000; text-align: left; gap: 16px; transition: color 0.15s;
+    }
+    .acc-trigger:hover { color: var(--accent-500); }
+    .acc-trigger.open { color: var(--accent-500); }
+    .acc-icon {
+      width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--neutral-200);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      color: var(--neutral-400); transition: border-color 0.15s, background 0.15s, transform 0.3s;
+    }
+    .acc-trigger.open .acc-icon { background: var(--accent-500); border-color: var(--accent-500); color: #fff; transform: rotate(45deg); }
+    .acc-body { overflow: hidden; max-height: 0; transition: max-height 0.35s ease; }
+    .acc-body-inner { padding: 0 0 32px; max-width: 860px; }
+    .acc-stat { font-family: var(--font-display); font-size: 32px; line-height: 40px; font-weight: 400; color: var(--accent-500); margin-bottom: 16px; }
+    .acc-text { font-size: 16px; line-height: 26px; color: var(--neutral-600); margin-bottom: 12px; }
+    .acc-example { font-size: 15px; line-height: 24px; color: var(--neutral-700); padding: 16px 20px; background: #fff; border-left: 3px solid var(--accent-500); margin-top: 8px; }
+
+    /* ════════════════════════════════════════════════════════════
+       SECTION 8 — CLIENT OUTCOMES (FLIP CARDS)
+    ════════════════════════════════════════════════════════════ */
+    .s-outcomes { background: #fff; padding: var(--py) 0; }
+    .s-outcomes .s-head { text-align: center; margin-bottom: 48px; }
+
+    .flip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .flip-card { height: 300px; perspective: 1000px; cursor: pointer; }
+    .flip-card-inner {
+      position: relative; width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease;
+    }
+    .flip-card:hover .flip-card-inner,
+    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-front, .flip-card-back {
+      position: absolute; inset: 0;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      border-radius: 2px; padding: 28px 24px;
+      display: flex; flex-direction: column;
+    }
+    .flip-card-front {
+      background: var(--neutral-100);
+      border: 1px solid var(--neutral-200);
+      justify-content: space-between;
+    }
+    .flip-card-back {
+      background: #000;
+      transform: rotateY(180deg);
+      border: 1px solid rgba(45,220,170,0.15);
+      justify-content: space-between;
+    }
+    .flip-tag {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #000; background: var(--accent-100);
+      padding: 4px 10px; border-radius: 2px;
+      display: inline-block; align-self: flex-start; margin-bottom: 12px;
+    }
+    .flip-stat {
+      font-family: var(--font-display); font-size: 38px; line-height: 46px;
+      font-weight: 400; color: #000;
+    }
+    .flip-hint {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--neutral-400); display: flex; align-items: center; gap: 6px;
+    }
+    .flip-hint::before { content: '↻'; font-size: 14px; }
+    .flip-back-tag {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent-100); margin-bottom: 12px; align-self: flex-start;
+    }
+    .flip-back-body { font-size: 13px; line-height: 21px; color: rgba(255,255,255,0.75); flex: 1; }
+
+    /* ════════════════════════════════════════════════════════════
+       SECTION 9 — IDEAS & INSIGHTS
+    ════════════════════════════════════════════════════════════ */
+    .s-insights { background: #000; padding: var(--py) 0; }
+    .s-insights .s-head { text-align: center; margin-bottom: 48px; }
+    .insights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .insight-card {
+      background: var(--neutral-800); border-radius: 2px; overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .insight-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
+    .insight-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; background: var(--accent-500);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .insight-card:hover::after { transform: scaleX(1); }
+    .insight-card-img {
+      width: 100%; aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #0e2a22 0%, #1a3d30 100%);
+      position: relative; overflow: hidden; flex-shrink: 0;
+    }
+    .insight-card-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(0,150,115,0.2) 0%, rgba(45,220,170,0.06) 100%);
+    }
+    .insight-card-body { padding: 24px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+    .insight-tag {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #000; background: var(--accent-100);
+      padding: 4px 10px; border-radius: 2px;
+      display: inline-block; align-self: flex-start;
+    }
+    .insight-title { font-family: var(--font-display); font-size: 18px; line-height: 26px; font-weight: 400; color: #fff; flex: 1; }
+    .insight-cta { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--accent-100); transition: color 0.15s, gap 0.2s; margin-top: auto; }
+    .insight-cta:hover { color: #fff; gap: 12px; }
+    .insight-cta svg { flex-shrink: 0; }
+
+    /* ════════════════════════════════════════════════════════════
+       SECTION 10 — CLOSING CTA
+    ════════════════════════════════════════════════════════════ */
+    .s-cta { background: #000; padding: var(--py) 0; border-top: 1px solid rgba(255,255,255,0.08); }
+    .cta-inner { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; max-width: 800px; }
+    .cta-title { font-family: var(--font-display); font-size: 48px; line-height: 58px; font-weight: 400; color: #fff; }
+    .cta-body { font-size: 17px; line-height: 28px; color: rgba(255,255,255,0.6); }
+
+    /* ════════════════════════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════════════════════════ */
+    .footer { background: #fff; padding: var(--py) 0 0; border-top: 1px solid #cccccc; }
+    .footer-cols { display: grid; grid-template-columns: 2fr 2fr 1.5fr 1.5fr auto; gap: 80px; padding-bottom: 64px; }
+    .footer-col-head { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #000; margin-bottom: 16px; }
+    .footer-links { display: flex; flex-direction: column; gap: 12px; }
+    .footer-link { font-size: 14px; line-height: 1.4; color: #333; transition: color 0.15s; }
+    .footer-link:hover { color: var(--accent-500); }
+    .footer-link sup { font-size: 9px; }
+    .footer-social { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; padding-top: 40px; }
+    .footer-social-link { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; transition: opacity 0.15s, transform 0.15s; }
+    .footer-social-link:hover { opacity: 0.85; transform: translateY(-2px); }
+    .footer-social-link--linkedin  { background: #0077b5; }
+    .footer-social-link--youtube   { background: #ff0000; }
+    .footer-social-link--instagram { background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #cccccc; padding: 24px 0 32px; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 14px; color: #000; }
+    .footer-legal { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .footer-legal-link { font-size: 14px; color: #000; transition: color 0.15s; }
+    .footer-legal-link:hover { color: var(--accent-500); }
+    .footer-sep { font-size: 14px; color: var(--neutral-400); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 1200px) {
+      :root { --px: 60px; }
+      .hero-inner { grid-template-columns: 1fr 420px; gap: 60px; }
+      .impact-grid { grid-template-columns: repeat(3, 1fr); }
+      .flip-grid { grid-template-columns: repeat(3, 1fr); }
+      .s-intro-inner { gap: 56px; }
+      .s-aava-inner { gap: 56px; }
+    }
+    @media (max-width: 900px) {
+      :root { --px: 32px; --py: 60px; }
+      .nav-menu { display: none; }
+      .hero-inner { grid-template-columns: 1fr; padding: 40px 0 56px; }
+      .hero-h1 { font-size: 40px; line-height: 48px; }
+      .hero-right { min-height: 280px; }
+      .hero-img-placeholder { min-height: 280px; }
+      .s-intro-inner { grid-template-columns: 1fr; gap: 48px; }
+      .s-intro-h2 { font-size: 32px; line-height: 40px; }
+      .impact-grid { grid-template-columns: repeat(2, 1fr); }
+      .comparison-wrap { grid-template-columns: 1fr; }
+      .s-aava-inner { grid-template-columns: 1fr; gap: 40px; }
+      .bold-h2 { font-size: 36px; line-height: 44px; }
+      .flip-grid { grid-template-columns: repeat(2, 1fr); }
+      .insights-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-cols { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .cta-title { font-size: 36px; line-height: 44px; }
+    }
+    @media (max-width: 600px) {
+      :root { --px: 24px; --py: 48px; }
+      .hero-h1 { font-size: 32px; line-height: 40px; }
+      .s-h2 { font-size: 28px; line-height: 36px; }
+      .impact-grid { grid-template-columns: 1fr 1fr; }
+      .flip-grid { grid-template-columns: 1fr 1fr; }
+      .flip-card { height: 260px; }
+      .insights-grid { grid-template-columns: 1fr; }
+      .bold-btns { flex-direction: column; align-items: stretch; }
+      .footer-cols { grid-template-columns: 1fr; gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════════════════ -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo" aria-label="Ascendion home">
+      <span class="nav-logo-text">ASCENDION</span>
+      <span class="nav-logo-tagline">Engineering to elevate life</span>
+    </a>
+    <nav class="nav-menu" aria-label="Main">
+      <a href="#" class="nav-link nav-link--aava">AAVA<sup>™</sup>
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H6M12 4v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#" class="nav-link active">What We Do <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="nav-link">Who We Serve <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="nav-link">How We Deliver <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="nav-link">Insights &amp; Impact <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="nav-link">Careers <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="btn btn-primary">
+        <span class="btn__label">Get In Touch</span>
+        <span class="btn__icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ SUBNAV ═════════════════════════════════════════════════════ -->
+<div class="subnav" id="subnav">
+  <div class="container subnav-inner">
+    <a href="#intro"        class="subnav-link">Overview</a>
+    <a href="#impact"       class="subnav-link">Impact</a>
+    <a href="#how-it-works" class="subnav-link">How It Works</a>
+    <a href="#aava"         class="subnav-link">AAVA Advantage</a>
+    <a href="#capabilities" class="subnav-link">Capabilities</a>
+    <a href="#outcomes"     class="subnav-link">Client Outcomes</a>
+    <a href="#insights"     class="subnav-link">Ideas &amp; Insights</a>
+  </div>
+</div>
+
+<!-- ══ SECTION 1 — HERO ══════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-inner">
+
+      <div class="hero-left rv">
+        <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span>›</span>
+          <a href="#">What We Do</a>
+          <span>›</span>
+          <span style="color:var(--neutral-600)">GCC<sup>AI</sup></span>
+        </nav>
+        <div class="hero-eyebrow">What We Do</div>
+        <h1 class="hero-h1">GCC to the Power of AI</h1>
+      </div>
+
+      <div class="hero-right rv">
+        <div class="hero-img-placeholder"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 2 — INTRO ═════════════════════════════════════════ -->
+<section class="s-intro" id="intro">
+  <div class="container">
+    <div class="s-intro-inner rv">
+
+      <!-- Left: heading + body -->
+      <div>
+        <h2 class="s-intro-h2">From Cost Center to Innovation Engine</h2>
+        <div class="s-intro-body">
+          <p class="s-intro-p">Global Capability Centers to the Power of AI (GCC<sup>AI</sup>) transforms traditional delivery models into autonomous, AI-native operating systems.</p>
+          <p class="s-intro-p"><strong>Same headcount, higher leverage. Better economics. Strategic impact.</strong></p>
+          <p class="s-intro-p">We don't just optimize your GCC. We fundamentally change how work happens—moving from labor arbitrage to outcome arbitrage through agentic AI.</p>
+        </div>
+      </div>
+
+      <!-- Right: video -->
+      <div class="video-panel">
+        <div class="video-label">GCC<sup>AI</sup> in Action</div>
+        <div class="video-subhead">GCC<sup>AI</sup> in Action</div>
+        <p class="video-desc">See how AI agents and human oversight transform GCC operations</p>
+        <div class="video-wrap">
+          <iframe src="https://player.vimeo.com/video/1107001979" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="GCC to the Power of AI"></iframe>
+        </div>
+        <a href="https://vimeo.com/1107001979?fl=pl&fe=vl" target="_blank" rel="noopener" class="btn btn-primary" style="align-self:flex-start;">
+          <span class="btn__label">Watch: GCC to the Power of AI</span>
+          <span class="btn__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 3 — IMPACT ════════════════════════════════════════ -->
+<section class="s-impact" id="impact">
+  <div class="container">
+    <div class="s-head rv">
+      <div class="lbl">IMPACT</div>
+      <h2 class="s-h2 s-h2--light">Real Economics. Real Transformation.</h2>
+    </div>
+    <div class="impact-grid rv">
+
+      <div class="impact-card">
+        <div class="impact-stat">50%</div>
+        <div class="impact-title">50% Faster Execution</div>
+        <p class="impact-desc">Accelerate delivery cycles without adding headcount. AI agents eliminate bottlenecks, reduce rework, and smooth throughput.</p>
+      </div>
+
+      <div class="impact-card">
+        <div class="impact-stat">30–40%</div>
+        <div class="impact-title">30-40% Cost Reduction</div>
+        <p class="impact-desc">Redesign unit economics through agentification. Lower cost per outcome—permanently—while maintaining or improving quality.</p>
+      </div>
+
+      <div class="impact-card">
+        <div class="impact-stat">5×</div>
+        <div class="impact-title">5× Decision Velocity</div>
+        <p class="impact-desc">Move from data-blocked to insight-driven. AI-first analytics pipelines compress decision cycles from weeks to days.</p>
+      </div>
+
+      <div class="impact-card">
+        <div class="impact-stat">&gt;98%</div>
+        <div class="impact-title">&gt;98% SLA Achievement</div>
+        <p class="impact-desc">Predictable, audit-ready operations. AI-enabled workflows with human oversight deliver enterprise-grade reliability at scale.</p>
+      </div>
+
+      <div class="impact-card">
+        <div class="impact-stat">10×</div>
+        <div class="impact-title">10× Scale Growth</div>
+        <p class="impact-desc">Proven capacity to grow from 30 to 300+ FTE while maintaining service quality and reducing per-unit costs.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 4 — HOW AAVA + HUMANS WORK ════════════════════════ -->
+<section class="s-comparison" id="how-it-works">
+  <div class="container">
+    <div class="s-head rv">
+      <div class="lbl lbl--dark">THE POWER OF AI</div>
+      <h2 class="s-h2 s-h2--dark">How AAVA + Humans Unlock GCC<sup>AI</sup></h2>
+      <p class="s-sub s-sub--dark" style="color:var(--neutral-600);">Traditional GCCs scale linearly: more people = more capacity. GCC<sup>AI</sup> scales exponentially: agentic AI multiplies human leverage.</p>
+    </div>
+
+    <div class="comparison-wrap rv">
+      <div class="comparison-col comparison-col--humans">
+        <div class="comparison-col-head">Humans Own</div>
+        <div class="comparison-items">
+          <div class="comparison-item">Strategy</div>
+          <div class="comparison-item">Governance</div>
+          <div class="comparison-item">Exceptions</div>
+          <div class="comparison-item">Risk decisions</div>
+          <div class="comparison-item">Innovation</div>
+          <div class="comparison-item">Client relationships</div>
+          <div class="comparison-item">Process design</div>
+          <div class="comparison-item">Agent oversight</div>
+        </div>
+      </div>
+      <div class="comparison-col comparison-col--ai">
+        <div class="comparison-col-head">AI Agents Handle</div>
+        <div class="comparison-items">
+          <div class="comparison-item">Predictable workflows</div>
+          <div class="comparison-item">Data processing</div>
+          <div class="comparison-item">Monitoring</div>
+          <div class="comparison-item">Anomaly detection</div>
+          <div class="comparison-item">Routine operations</div>
+          <div class="comparison-item">Deployment automation</div>
+          <div class="comparison-item">Report generation</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ SECTION 5 — AAVA ADVANTAGE ════════════════════════════════ -->
+<section class="s-aava" id="aava">
+  <div class="container">
+    <div class="s-aava-inner rv">
+
+      <div>
+        <h2 class="aava-h2">The AAVA Advantage:</h2>
+        <p class="aava-body">Our proprietary agentic AI platform orchestrates automation across the entire SDLC—from ideation through operations—while maintaining full auditability and human control.</p>
+        <p class="aava-lead">Leading in real-world AI Impact (but don't just take our word for it)</p>
+      </div>
+
+      <div class="aava-features">
+        <div class="aava-feature">
+          <div class="aava-feature-dot"></div>
+          <p class="aava-feature-text"><strong>HFS Research:</strong> Named a Leader in Services-as-Software (January 2026)</p>
+        </div>
+        <div class="aava-feature">
+          <div class="aava-feature-dot"></div>
+          <p class="aava-feature-text"><strong>ISG Provider Lens™:</strong> Global Leader in Generative AI Services (2025)</p>
+        </div>
+        <div class="aava-feature">
+          <div class="aava-feature-dot"></div>
+          <p class="aava-feature-text"><strong>Gartner:</strong> AAVA™ platform featured in "Generative AI in Outsourced Software Development"</p>
+        </div>
+        <div class="aava-feature">
+          <div class="aava-feature-dot"></div>
+          <p class="aava-feature-text"><strong>Zinnov Zones 2023:</strong> Leader in Overall ER&amp;D and Digital Engineering Services (2023)</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 6 — BOLD STATEMENT ════════════════════════════════ -->
+<section class="s-bold" id="bold">
+  <div class="container">
+    <div class="s-bold-inner rv">
+      <h2 class="bold-h2">GCC<sup>AI</sup> Runs with the Power of agents, plus Human Talent.</h2>
+      <div class="bold-btns">
+        <a href="https://www.youtube.com/watch?v=tVzpn2dKEQk" target="_blank" rel="noopener" class="btn btn-inverse">
+          <span class="btn__label">Envision AAVA in Action</span>
+          <span class="btn__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+        <a href="https://www.youtube.com/watch?v=cwmEASTNPlM" target="_blank" rel="noopener" class="btn btn-ghost-inv">
+          <span class="btn__label">Humans and Agents Deliver Together</span>
+          <span class="btn__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 7 — CAPABILITIES ══════════════════════════════════ -->
+<section class="s-cap" id="capabilities">
+  <div class="container">
+    <div class="s-head rv">
+      <div class="lbl lbl--dark">CAPABILITIES</div>
+      <h2 class="s-h2 s-h2--dark">Three Models. Three Moments. One Platform.</h2>
+    </div>
+    <p class="cap-subhead rv">Every GCC reaches a moment where more people can't create more capacity. What you need next is a different model.</p>
+
+    <div class="accordion rv" id="accordion">
+
+      <div class="acc-item">
+        <button class="acc-trigger open" aria-expanded="true" data-acc="acc-1">
+          Capability 1: Accelerate — Do More with the Same
+          <span class="acc-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="acc-body" id="acc-1" style="max-height:400px;">
+          <div class="acc-body-inner">
+            <div class="acc-stat">200 HC → 200 HC</div>
+            <p class="acc-text">Unlock hidden capacity without changing your GCC or your cost base. Same headcount, higher leverage through skill arbitrage, process efficiency, and AI-skilled talent. Humans focus on judgment, not repetition. Global coverage smooths throughput without heroics.</p>
+            <div class="acc-example">Relatable example: 200 HC → 200 HC. Same people. Same budget. More output. More stability. Less pressure.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false" data-acc="acc-2">
+          Capability 2: Amplify — Do More with Less
+          <span class="acc-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="acc-body" id="acc-2">
+          <div class="acc-body-inner">
+            <div class="acc-stat">200 HC → 100 HC + 100</div>
+            <p class="acc-text">Reset unit economics by redesigning how work happens. Value arbitrage replaces role arbitrage—outcomes delivered by humans + agents, not headcount. AAVA orchestrates work across the SDLC. Process-led delivery pods replace experience-heavy pyramids. Humans move from execution to leverage.</p>
+            <div class="acc-example">Relatable example: 200 HC → 100 HC + 100 agents. Fewer people. Higher output. Lower cost per outcome—permanently.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" aria-expanded="false" data-acc="acc-3">
+          Capability 3: Ascend — Less is More
+          <span class="acc-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="acc-body" id="acc-3">
+          <div class="acc-body-inner">
+            <div class="acc-stat">200 HC → 50 HC + 150</div>
+            <p class="acc-text">Move from funding capacity to purchasing outcomes. Agents absorb the bulk of volume work. AAVA runs predictable flows end-to-end with autonomous execution. Savings generated offset GCC run costs. Human oversight governs value, risk, and exceptions. Near-zero marginal cost for growth.</p>
+            <div class="acc-example">Relatable example: 200 HC → 50 HC + 150 agents. Less labor. More capability. Outcome funding model unlocks strategic value.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 8 — CLIENT OUTCOMES ═══════════════════════════════ -->
+<section class="s-outcomes" id="outcomes">
+  <div class="container">
+    <div class="s-head rv">
+      <div class="lbl lbl--dark">CLIENT OUTCOMES</div>
+      <h2 class="s-h2 s-h2--dark">Proven GCC<sup>AI</sup> Transformation Across Industries</h2>
+    </div>
+
+    <div class="flip-grid rv">
+
+      <div class="flip-card" tabindex="0" role="button" aria-label="Ecommerce outcome — click to reveal details">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div>
+              <div class="flip-tag">Ecommerce</div>
+              <div class="flip-stat">50%<br>Faster</div>
+            </div>
+            <div class="flip-hint">Hover to reveal</div>
+          </div>
+          <div class="flip-card-back">
+            <div class="flip-back-tag">Ecommerce</div>
+            <p class="flip-back-body">Heavy, error-prone MEC cycles are transformed through a single GCC operating spine with 24×7 governance and proactive anomaly prevention. Higher throughput, audit-ready reliability at scale.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" tabindex="0" role="button" aria-label="Fintech outcome — click to reveal details">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div>
+              <div class="flip-tag">Fintech</div>
+              <div class="flip-stat">Accelerated<br>Delivery</div>
+            </div>
+            <div class="flip-hint">Hover to reveal</div>
+          </div>
+          <div class="flip-card-back">
+            <div class="flip-back-tag">Fintech</div>
+            <p class="flip-back-body">Slow product throughput is reversed through AI-trained engineers with dual screening (technical + product thinking). Stronger platform stability, improved merchant experience.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" tabindex="0" role="button" aria-label="Travel & Hospitality outcome — click to reveal details">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div>
+              <div class="flip-tag">Travel &amp; Hospitality</div>
+              <div class="flip-stat">30–35%<br>Automation Efficiency</div>
+            </div>
+            <div class="flip-hint">Hover to reveal</div>
+          </div>
+          <div class="flip-card-back">
+            <div class="flip-back-tag">Travel &amp; Hospitality</div>
+            <p class="flip-back-body">Rapid customer operations expansion achieved in 2 weeks with a nearshore technical ops model, RPA + AI-enabled workflows. &gt;98% SLA, 20% faster response times.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" tabindex="0" role="button" aria-label="Global Bank outcome — click to reveal details">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div>
+              <div class="flip-tag">Global Bank</div>
+              <div class="flip-stat">Zero-Downtime<br>Deployments</div>
+            </div>
+            <div class="flip-hint">Hover to reveal</div>
+          </div>
+          <div class="flip-card-back">
+            <div class="flip-back-tag">Global Bank</div>
+            <p class="flip-back-body">Fragile releases causing after-hours interventions have been eliminated through standardized blue-green deployment with automated validation. Predictable, zero-downtime releases, step-change in confidence.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" tabindex="0" role="button" aria-label="Insurance outcome — click to reveal details">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div>
+              <div class="flip-tag">Insurance</div>
+              <div class="flip-stat">40%<br>Faster Cycle Times</div>
+            </div>
+            <div class="flip-hint">Hover to reveal</div>
+          </div>
+          <div class="flip-card-back">
+            <div class="flip-back-tag">Insurance</div>
+            <p class="flip-back-body">Disconnected HR, Finance, and Ops processes are unified through a centralized BSS model with domain-aligned delivery pods injecting AI. Improved governance across 100+ FTE operations.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" tabindex="0" role="button" aria-label="Consumer Credit Reporting outcome — click to reveal details">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div>
+              <div class="flip-tag">Consumer Credit Reporting</div>
+              <div class="flip-stat">30%<br>Cost Reduction</div>
+            </div>
+            <div class="flip-hint">Hover to reveal</div>
+          </div>
+          <div class="flip-card-back">
+            <div class="flip-back-tag">Consumer Credit Reporting</div>
+            <p class="flip-back-body">Legacy systems and fragmented data are overcome through an AI-first GCC that unifies data platforms, automates insights, and modernizes analytics pipelines. 5× decision velocity, 50% faster GTM.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" tabindex="0" role="button" aria-label="Grocery Retail outcome — click to reveal details">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div>
+              <div class="flip-tag">Grocery Retail</div>
+              <div class="flip-stat">35%<br>Cost Reduction</div>
+            </div>
+            <div class="flip-hint">Hover to reveal</div>
+          </div>
+          <div class="flip-card-back">
+            <div class="flip-back-tag">Grocery Retail</div>
+            <p class="flip-back-body">Traditional support desks evolved into fully AI-powered GCCs with automation, voice AI, sentiment intelligence, and multi-tier ops. &gt;95% CSAT, 10× scale growth (30 → 300+ FTE).</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 9 — IDEAS & INSIGHTS ══════════════════════════════ -->
+<section class="s-insights" id="insights">
+  <div class="container">
+    <div class="s-head rv">
+      <div class="lbl">IDEAS &amp; INSIGHTS</div>
+    </div>
+
+    <div class="insights-grid rv">
+
+      <div class="insight-card">
+        <div class="insight-card-img"></div>
+        <div class="insight-card-body">
+          <div class="insight-tag">News</div>
+          <div class="insight-title">AI is 'Eating' Global Capability Centers, and Here's Why You Want to be on the Menu</div>
+          <a href="https://ascendion.com/news/ai-is-eating-global-capability-centers-and-heres-why-you-want-to-be-on-the-menu/" target="_blank" rel="noopener" class="insight-cta">
+            Read More
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-card-img"></div>
+        <div class="insight-card-body">
+          <div class="insight-tag">Blog</div>
+          <div class="insight-title">EngineeringAI: Your Pathway to Software Excellence</div>
+          <a href="https://ascendion.com/insights/engineeringai-your-pathway-to-software-excellence/" target="_blank" rel="noopener" class="insight-cta">
+            Read More
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-card-img"></div>
+        <div class="insight-card-body">
+          <div class="insight-tag">Blog</div>
+          <div class="insight-title">Ushering in a New Work Order and Revolutionizing Workflows with Agentic AI</div>
+          <a href="https://ascendion.com/insights/ushering-in-a-new-work-order-and-revolutionizing-workflows-with-agentic-ai/" target="_blank" rel="noopener" class="insight-cta">
+            Read More
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 10 — CLOSING CTA ══════════════════════════════════ -->
+<section class="s-cta" id="cta">
+  <div class="container">
+    <div class="cta-inner rv">
+      <h2 class="cta-title">Global Capability Centers (GCCs) are at a Crossroads</h2>
+      <p class="cta-body">More people isn't the answer. A different model is.</p>
+      <p class="cta-body">The GCC is one of the best places to start mining for value from agent-powered work.</p>
+      <a href="https://ascendion.com/contact-us/" target="_blank" rel="noopener" class="btn btn-inverse">
+        <span class="btn__label">Let's Discuss Your GCC<sup>AI</sup> Transformation</span>
+        <span class="btn__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ═════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div>
+        <div class="footer-col-head">What We Do</div>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Applied AI</a></li>
+          <li><a href="#" class="footer-link">GCC<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">Product<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">Data &amp; Insights<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">Salesforce Implementation</a></li>
+          <li><a href="#" class="footer-link">Quality Engineering<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">Experience<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">Operations<sup>AI</sup></a></li>
+          <li><a href="#" class="footer-link">AI Workforce Transformation</a></li>
+          <li><a href="#" class="footer-link">Enterprise Platform</a></li>
+          <li><a href="#" class="footer-link">Platform Engineering<sup>AI</sup></a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Industries</div>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Banking &amp; Financial Services</a></li>
+          <li><a href="#" class="footer-link">Communications, Media and Entertainment</a></li>
+          <li><a href="#" class="footer-link">Healthcare &amp; Life Sciences</a></li>
+          <li><a href="#" class="footer-link">Retail and Consumer Goods</a></li>
+          <li><a href="#" class="footer-link">High-tech</a></li>
+          <li><a href="#" class="footer-link">Travel and Hospitality</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Who We Are</div>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Leadership</a></li>
+          <li><a href="#" class="footer-link">Analyst Recognition</a></li>
+          <li><a href="#" class="footer-link">Certifications</a></li>
+          <li><a href="#" class="footer-link">Locations</a></li>
+          <li><a href="#" class="footer-link">ESG</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Insights and impact</a></li>
+          <li><a href="#" class="footer-link">Careers India</a></li>
+          <li><a href="#" class="footer-link">Careers North America</a></li>
+          <li><a href="#" class="footer-link">Careers Europe</a></li>
+          <li><a href="#" class="footer-link">Careers Asia Pacific</a></li>
+          <li><a href="#" class="footer-link">Global Delivery Hubs</a></li>
+          <li><a href="#" class="footer-link">Contact us</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-social">
+          <a href="#" class="footer-social-link footer-social-link--linkedin" aria-label="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="#" class="footer-social-link footer-social-link--youtube" aria-label="YouTube">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="#" class="footer-social-link footer-social-link--instagram" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">Copyright 2026, ASCENDION. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#" class="footer-legal-link">Privacy Policy</a>
+        <span class="footer-sep">|</span>
+        <a href="#" class="footer-legal-link">Terms of Use</a>
+        <span class="footer-sep">|</span>
+        <a href="#" class="footer-legal-link">Accessibility Disclosure</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ SCRIPTS ════════════════════════════════════════════════════ -->
+<script>
+  // ── Scroll reveal
+  const revealObserver = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealObserver.unobserve(e.target); } }),
+    { threshold: 0.07 }
+  );
+  document.querySelectorAll('.rv').forEach(el => revealObserver.observe(el));
+
+  // ── Subnav: show after hero, highlight active section
+  const subnav     = document.getElementById('subnav');
+  const hero       = document.getElementById('hero');
+  const navH       = 86;
+  const sectionIds = ['intro','impact','how-it-works','aava','capabilities','outcomes','insights'];
+  const subLinks   = document.querySelectorAll('.subnav-link');
+
+  function updateSubnav() {
+    subnav.classList.toggle('visible', hero.getBoundingClientRect().bottom <= navH);
+    let active = '';
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= navH + 60) active = id;
+    });
+    subLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + active));
+  }
+  window.addEventListener('scroll', updateSubnav, { passive: true });
+  updateSubnav();
+
+  // ── Accordion
+  document.querySelectorAll('.acc-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const isOpen = btn.classList.contains('open');
+      document.querySelectorAll('.acc-trigger').forEach(b => {
+        b.classList.remove('open'); b.setAttribute('aria-expanded','false');
+        document.getElementById(b.dataset.acc).style.maxHeight = '0';
+      });
+      if (!isOpen) {
+        btn.classList.add('open'); btn.setAttribute('aria-expanded','true');
+        const body = document.getElementById(btn.dataset.acc);
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ── Flip cards: tap/click toggle for touch devices
+  document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('flipped'); } });
+  });
+</script>
+
+</body>
+</html>
