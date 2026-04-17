@@ -310,29 +310,41 @@
     /* ════════════════════════════════════════════════════════════
        SECTION 7 — CAPABILITIES
     ════════════════════════════════════════════════════════════ */
-    .s-cap { background: var(--neutral-100); padding: var(--py) 0; }
-    .s-cap .s-head { text-align: center; margin-bottom: 16px; }
-    .cap-subhead { font-size: 17px; line-height: 28px; color: var(--neutral-600); text-align: center; max-width: 680px; margin: 16px auto 56px; }
+    .s-cap { background: #f4f4f0; padding: var(--py) 0; }
 
-    .cap-list { border-top: 1px solid var(--neutral-200); }
+    /* Section rule label */
+    .cap-rule { display: flex; align-items: center; gap: 16px; width: 100%; margin-bottom: 32px; }
+    .cap-rule-line { flex: 1; height: 1px; background: #999; }
+    .cap-rule-label { font-size: 16px; font-weight: 600; color: var(--accent-500); white-space: nowrap; font-family: var(--font-primary); letter-spacing: 0; }
+
+    .cap-h2 { font-family: var(--font-display); font-size: 40px; line-height: 48px; font-weight: 400; color: #000; text-align: center; }
+    .cap-subhead { font-size: 20px; line-height: 26px; color: #000; text-align: center; max-width: 779px; margin: 8px auto 0; }
+
+    /* List */
+    .cap-list { border-top: 0.5px solid #999; margin-top: 32px; }
     .cap-row {
-      display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: start;
-      padding: 40px 0 40px 28px;
-      border-bottom: 1px solid var(--neutral-200);
-      position: relative; transition: background 0.2s ease;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 24px;
+      border-bottom: 0.5px solid #999;
+      border-left: 3px solid transparent;
+      transition: border-left-color 0.25s ease, background 0.25s ease;
     }
-    .cap-row::before {
-      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-      background: transparent; transition: background 0.25s ease;
+    .cap-row:hover {
+      border-left-color: var(--accent-500);
+      background: linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0) 60%);
     }
-    .cap-row:hover::before { background: var(--accent-500); }
-    .cap-row-left { display: flex; flex-direction: column; gap: 14px; }
-    .cap-row-icon { color: var(--accent-500); display: flex; }
-    .cap-row-title { font-size: 22px; font-weight: 700; color: #000; line-height: 1.3; }
-    .cap-row-stat { font-family: var(--font-display); font-size: 18px; line-height: 26px; font-weight: 400; color: var(--accent-500); }
-    .cap-row-right { display: flex; flex-direction: column; gap: 16px; padding-top: 4px; }
-    .cap-row-desc { font-size: 16px; line-height: 26px; color: var(--neutral-600); }
-    .cap-row-example { font-size: 14px; line-height: 22px; color: var(--neutral-700); padding: 14px 18px; background: #fff; border-left: 3px solid var(--accent-500); }
+
+    /* Left column */
+    .cap-row-left { display: flex; flex-direction: column; gap: 8px; width: 278px; flex-shrink: 0; }
+    .cap-row-icon { color: var(--accent-500); display: flex; align-items: center; }
+    .cap-row-title { font-size: 24px; line-height: 29px; font-weight: 400; color: #000; font-family: var(--font-primary); }
+    .cap-row-subtitle { font-size: 20px; line-height: 26px; font-weight: 400; color: var(--neutral-600); font-family: var(--font-primary); }
+
+    /* Right column */
+    .cap-row-right { display: flex; flex-direction: column; gap: 16px; width: 560px; flex-shrink: 0; }
+    .cap-row-stat { font-size: 20px; font-weight: 600; line-height: 26px; color: var(--accent-500); font-family: var(--font-primary); }
+    .cap-row-desc { font-size: 16px; line-height: 24px; color: #000; }
+    .cap-row-example { font-size: 16px; line-height: 24px; color: #000; padding: 8px 12px 8px 15px; border-left: 3px solid var(--accent-500); }
 
     /* ════════════════════════════════════════════════════════════
        SECTION 8 — CLIENT OUTCOMES
@@ -449,7 +461,9 @@
       .comparison-col-head { font-size: 28px; line-height: 36px; }
       .s-aava-header { grid-template-columns: 1fr; gap: 40px; }
       .aava-cards { grid-template-columns: repeat(2, 1fr); }
-      .cap-row { grid-template-columns: 1fr; gap: 20px; padding: 32px 0 32px 20px; }
+      .cap-row { flex-direction: column; gap: 20px; padding: 24px 16px; }
+      .cap-row-left { width: 100%; }
+      .cap-row-right { width: 100%; }
       .aava-card:nth-child(2) { border-right: none; }
       .aava-card:nth-child(3), .aava-card:nth-child(4) { border-top: 1px solid var(--neutral-200); }
       .bold-layout { grid-template-columns: 1fr; gap: 48px; }
@@ -799,10 +813,14 @@
 <!-- ══ SECTION 7 — CAPABILITIES ══════════════════════════════════ -->
 <section class="s-cap" id="capabilities">
   <div class="container">
-    <div class="s-head rv">
-      <div class="lbl lbl--dark">CAPABILITIES</div>
-      <h2 class="s-h2 s-h2--dark">Three Models. Three Moments. One Platform.</h2>
+
+    <div class="cap-rule rv">
+      <div class="cap-rule-line"></div>
+      <span class="cap-rule-label">Capabilities</span>
+      <div class="cap-rule-line"></div>
     </div>
+
+    <h2 class="cap-h2 rv">Three Models. Three Moments. One Platform.</h2>
     <p class="cap-subhead rv">Every GCC reaches a moment where more people can't create more capacity. What you need next is a different model.</p>
 
     <div class="cap-list rv">
@@ -811,15 +829,19 @@
       <div class="cap-row">
         <div class="cap-row-left">
           <div class="cap-row-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 8h20M4 14h20M4 20h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M19 17l4 3-4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- lucide/circle-gauge -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M7 12a5 5 0 0 1 9.9-1"/>
+              <path d="M12 12 9.5 9.5"/>
+              <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>
             </svg>
           </div>
-          <div class="cap-row-title">Accelerate — Do More with the Same</div>
-          <div class="cap-row-stat">200 HC → 200 HC</div>
+          <div class="cap-row-title">Accelerate</div>
+          <div class="cap-row-subtitle">Do More with the Same</div>
         </div>
         <div class="cap-row-right">
+          <div class="cap-row-stat">200 HC → 200 HC</div>
           <p class="cap-row-desc">Unlock hidden capacity without changing your GCC or your cost base. Same headcount, higher leverage through skill arbitrage, process efficiency, and AI-skilled talent. Humans focus on judgment, not repetition. Global coverage smooths throughput without heroics.</p>
           <div class="cap-row-example">Relatable example: 200 HC → 200 HC. Same people. Same budget. More output. More stability. Less pressure.</div>
         </div>
@@ -829,17 +851,18 @@
       <div class="cap-row">
         <div class="cap-row-left">
           <div class="cap-row-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="5" cy="14" r="2.5" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="23" cy="7" r="2.5" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="23" cy="21" r="2.5" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M7.5 13L20.5 8M7.5 15L20.5 20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- lucide/megaphone -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 5v14l-4-4H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h4l4-3z"/>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
             </svg>
           </div>
-          <div class="cap-row-title">Amplify — Do More with Less</div>
-          <div class="cap-row-stat">200 HC → 100 HC + 100</div>
+          <div class="cap-row-title">Amplify</div>
+          <div class="cap-row-subtitle">Do More with Less</div>
         </div>
         <div class="cap-row-right">
+          <div class="cap-row-stat">200 HC → 100 HC + 100</div>
           <p class="cap-row-desc">Reset unit economics by redesigning how work happens. Value arbitrage replaces role arbitrage—outcomes delivered by humans + agents, not headcount. AAVA orchestrates work across the SDLC. Process-led delivery pods replace experience-heavy pyramids. Humans move from execution to leverage.</p>
           <div class="cap-row-example">Relatable example: 200 HC → 100 HC + 100 agents. Fewer people. Higher output. Lower cost per outcome—permanently.</div>
         </div>
@@ -849,15 +872,16 @@
       <div class="cap-row">
         <div class="cap-row-left">
           <div class="cap-row-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 22h4v-6H3v6zM10 22h4V10h-4v12zM17 22h4V6h-4v16z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-              <path d="M4 16l6-6 4 4 7-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- lucide/mountain -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m8 3 4 8 5-5 5 15H2L8 3z"/>
             </svg>
           </div>
-          <div class="cap-row-title">Ascend — Less is More</div>
-          <div class="cap-row-stat">200 HC → 50 HC + 150</div>
+          <div class="cap-row-title">Ascend</div>
+          <div class="cap-row-subtitle">Less is More</div>
         </div>
         <div class="cap-row-right">
+          <div class="cap-row-stat">200 HC → 50 HC + 150</div>
           <p class="cap-row-desc">Move from funding capacity to purchasing outcomes. Agents absorb the bulk of volume work. AAVA runs predictable flows end-to-end with autonomous execution. Savings generated offset GCC run costs. Human oversight governs value, risk, and exceptions. Near-zero marginal cost for growth.</p>
           <div class="cap-row-example">Relatable example: 200 HC → 50 HC + 150 agents. Less labor. More capability. Outcome funding model unlocks strategic value.</div>
         </div>
