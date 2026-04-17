@@ -273,10 +273,9 @@
     .aava-h2 { font-family: var(--font-display); font-size: 40px; line-height: 48px; font-weight: 400; color: #000; }
     .aava-body { font-size: 17px; line-height: 28px; color: var(--neutral-600); }
     .aava-lead { font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--neutral-600); margin-bottom: 0; }
-    .aava-cards { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--neutral-200); }
-    .aava-card { padding: 36px 28px; border-right: 1px solid var(--neutral-200); border-top: 3px solid transparent; transition: border-top-color 0.25s ease, background 0.25s ease; }
-    .aava-card:last-child { border-right: none; }
-    .aava-card:hover { border-top-color: var(--accent-500); background: #f4f4f0; }
+    .aava-cards { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .aava-card { padding: 36px 28px; border-top: 3px solid transparent; transition: border-top-color 0.3s ease, background 0.3s ease; }
+    .aava-card:hover { border-top-color: var(--accent-500); background: linear-gradient(180deg, #f4f4f0 0%, rgba(244,244,240,0) 100%); }
     .aava-card-icon { width: 52px; height: 52px; margin-bottom: 24px; color: #000; }
     .aava-card-title { font-size: 17px; font-weight: 700; color: #000; margin-bottom: 8px; line-height: 1.3; }
     .aava-card-desc { font-size: 14px; line-height: 22px; color: var(--neutral-600); }
@@ -465,8 +464,7 @@
       .cap-row { flex-direction: column; gap: 20px; padding: 24px 16px; }
       .cap-row-left { width: 100%; }
       .cap-row-right { width: 100%; }
-      .aava-card:nth-child(2) { border-right: none; }
-      .aava-card:nth-child(3), .aava-card:nth-child(4) { border-top: 1px solid var(--neutral-200); }
+      .aava-cards { grid-template-columns: repeat(2, 1fr); }
       .bold-layout { grid-template-columns: 1fr; gap: 48px; }
       .bold-h2 { font-size: 32px; line-height: 42px; }
       .oc-card, .ins-card { flex: 0 0 calc((100% - 20px) / 2); }
