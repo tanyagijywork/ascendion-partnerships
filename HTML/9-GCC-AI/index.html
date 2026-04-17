@@ -164,33 +164,38 @@
     .s-intro-p { font-size: 17px; line-height: 28px; color: var(--neutral-600); }
     .s-intro-p strong { color: #000; font-weight: 600; }
 
-    /* Video panel */
-    .video-panel { display: flex; flex-direction: column; gap: 20px; }
-    .video-label { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-500); display: flex; align-items: center; gap: 12px; }
-    .video-label::after { content: ''; width: 32px; height: 1px; background: var(--accent-500); opacity: 0.5; }
-    .video-subhead { font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 400; color: #000; }
-    .video-desc { font-size: 16px; line-height: 26px; color: var(--neutral-600); }
-    .video-wrap {
-      position: relative; width: 100%; aspect-ratio: 16/9;
-      background: #0a0a0a; border-radius: 2px; overflow: hidden;
-    }
-    .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    /* ─── VIDEO FOLD ─────────────────────────────────────────── */
+    .s-video { background: var(--neutral-100); padding-top: var(--py); border-top: 1px solid var(--neutral-200); }
+    .s-video-head { text-align: center; padding-bottom: 40px; }
+    .video-eyebrow { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-500); margin-bottom: 12px; }
+    .video-desc-center { font-size: 17px; line-height: 28px; color: var(--neutral-600); max-width: 600px; margin: 0 auto; }
+    .s-video-bleed { width: 100%; position: relative; aspect-ratio: 16/9; }
+    .s-video-bleed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; display: block; }
 
     /* ════════════════════════════════════════════════════════════
        SECTION 3 — IMPACT
     ════════════════════════════════════════════════════════════ */
-    .s-impact { background: #000; padding: var(--py) 0; border-top: 1px solid rgba(255,255,255,0.06); }
-    .s-head { text-align: center; margin-bottom: 56px; }
+    .s-impact { background: #fff; padding: var(--py) 0; border-top: 1px solid var(--neutral-200); }
+    .s-head { text-align: center; margin-bottom: 48px; }
     .s-h2 { font-family: var(--font-display); font-size: 40px; line-height: 48px; font-weight: 400; }
     .s-h2--light { color: #fff; }
     .s-h2--dark  { color: #000; }
-    .s-sub { font-size: 17px; line-height: 28px; margin-top: 16px; color: rgba(255,255,255,0.6); }
+    .s-sub { font-size: 17px; line-height: 28px; margin-top: 16px; color: var(--neutral-600); }
 
-    .impact-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
-    .impact-card { background: #0a0a0a; padding: 32px 24px; display: flex; flex-direction: column; gap: 10px; }
-    .impact-stat { font-family: var(--font-display); font-size: 48px; line-height: 1; font-weight: 400; color: var(--accent-100); }
-    .impact-title { font-family: var(--font-display); font-size: 18px; line-height: 26px; font-weight: 400; color: #fff; }
-    .impact-desc { font-size: 13px; line-height: 21px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+    /* Carousel */
+    .impact-carousel-wrap { position: relative; display: flex; align-items: center; gap: 20px; }
+    .impact-carousel-viewport { flex: 1; overflow: hidden; }
+    .impact-carousel-track { display: flex; gap: 20px; transition: transform 0.4s ease; will-change: transform; }
+    .impact-card { flex: 0 0 calc((100% - 40px) / 3); background: var(--neutral-100); border: 1px solid var(--neutral-200); border-radius: 2px; padding: 36px 28px; display: flex; flex-direction: column; gap: 10px; }
+    .impact-stat { font-family: var(--font-display); font-size: 48px; line-height: 1; font-weight: 400; color: var(--accent-500); }
+    .impact-title { font-family: var(--font-display); font-size: 18px; line-height: 26px; font-weight: 400; color: #000; }
+    .impact-desc { font-size: 13px; line-height: 21px; color: var(--neutral-600); margin-top: 4px; }
+    .car-btn { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--neutral-200); background: #fff; display: flex; align-items: center; justify-content: center; color: #000; cursor: pointer; transition: background 0.15s, border-color 0.15s; flex-shrink: 0; }
+    .car-btn:hover { background: var(--neutral-100); border-color: var(--neutral-400); }
+    .car-btn:disabled { opacity: 0.3; cursor: default; pointer-events: none; }
+    .car-dots { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 28px; }
+    .car-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--neutral-200); border: none; cursor: pointer; transition: background 0.2s, transform 0.2s; padding: 0; }
+    .car-dot.active { background: var(--accent-500); transform: scale(1.3); }
 
     /* ════════════════════════════════════════════════════════════
        SECTION 4 — COMPARISON TABLE
@@ -401,7 +406,6 @@
     @media (max-width: 1200px) {
       :root { --px: 60px; }
       .hero-inner { grid-template-columns: 1fr 420px; gap: 60px; }
-      .impact-grid { grid-template-columns: repeat(3, 1fr); }
       .flip-grid { grid-template-columns: repeat(3, 1fr); }
       .s-intro-inner { gap: 56px; }
       .s-aava-inner { gap: 56px; }
@@ -415,7 +419,7 @@
       .hero-img-placeholder { min-height: 280px; }
       .s-intro-inner { grid-template-columns: 1fr; gap: 48px; }
       .s-intro-h2 { font-size: 32px; line-height: 40px; }
-      .impact-grid { grid-template-columns: repeat(2, 1fr); }
+      .impact-card { flex: 0 0 calc((100% - 20px) / 2); }
       .comparison-wrap { grid-template-columns: 1fr; }
       .s-aava-inner { grid-template-columns: 1fr; gap: 40px; }
       .bold-h2 { font-size: 36px; line-height: 44px; }
@@ -428,7 +432,7 @@
       :root { --px: 24px; --py: 48px; }
       .hero-h1 { font-size: 32px; line-height: 40px; }
       .s-h2 { font-size: 28px; line-height: 36px; }
-      .impact-grid { grid-template-columns: 1fr 1fr; }
+      .impact-card { flex: 0 0 100%; }
       .flip-grid { grid-template-columns: 1fr 1fr; }
       .flip-card { height: 260px; }
       .insights-grid { grid-template-columns: 1fr; }
@@ -492,7 +496,6 @@
           <span>›</span>
           <span style="color:var(--neutral-600)">GCC<sup>AI</sup></span>
         </nav>
-        <div class="hero-eyebrow">What We Do</div>
         <h1 class="hero-h1">GCC to the Power of AI</h1>
       </div>
 
@@ -509,31 +512,32 @@
   <div class="container">
     <div class="s-intro-inner rv">
 
-      <!-- Left: heading + body -->
+      <!-- Left: heading only -->
       <div>
         <h2 class="s-intro-h2">From Cost Center to Innovation Engine</h2>
-        <div class="s-intro-body">
-          <p class="s-intro-p">Global Capability Centers to the Power of AI (GCC<sup>AI</sup>) transforms traditional delivery models into autonomous, AI-native operating systems.</p>
-          <p class="s-intro-p"><strong>Same headcount, higher leverage. Better economics. Strategic impact.</strong></p>
-          <p class="s-intro-p">We don't just optimize your GCC. We fundamentally change how work happens—moving from labor arbitrage to outcome arbitrage through agentic AI.</p>
-        </div>
       </div>
 
-      <!-- Right: video -->
-      <div class="video-panel">
-        <div class="video-label">GCC<sup>AI</sup> in Action</div>
-        <div class="video-subhead">GCC<sup>AI</sup> in Action</div>
-        <p class="video-desc">See how AI agents and human oversight transform GCC operations</p>
-        <div class="video-wrap">
-          <iframe src="https://player.vimeo.com/video/1107001979" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="GCC to the Power of AI"></iframe>
-        </div>
-        <a href="https://vimeo.com/1107001979?fl=pl&fe=vl" target="_blank" rel="noopener" class="btn btn-primary" style="align-self:flex-start;">
-          <span class="btn__label">Watch: GCC to the Power of AI</span>
-          <span class="btn__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </a>
+      <!-- Right: body copy -->
+      <div class="s-intro-body">
+        <p class="s-intro-p">Global Capability Centers to the Power of AI (GCC<sup>AI</sup>) transforms traditional delivery models into autonomous, AI-native operating systems.</p>
+        <p class="s-intro-p"><strong>Same headcount, higher leverage. Better economics. Strategic impact.</strong></p>
+        <p class="s-intro-p">We don't just optimize your GCC. We fundamentally change how work happens—moving from labor arbitrage to outcome arbitrage through agentic AI.</p>
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 2b — VIDEO FOLD ═══════════════════════════════════ -->
+<section class="s-video">
+  <div class="container">
+    <div class="s-video-head rv">
+      <div class="video-eyebrow">GCC<sup>AI</sup> in Action</div>
+      <p class="video-desc-center">See how AI agents and human oversight transform GCC operations</p>
+    </div>
+  </div>
+  <div class="s-video-bleed">
+    <iframe src="https://player.vimeo.com/video/1107001979" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="GCC to the Power of AI"></iframe>
   </div>
 </section>
 
@@ -541,42 +545,56 @@
 <section class="s-impact" id="impact">
   <div class="container">
     <div class="s-head rv">
-      <div class="lbl">IMPACT</div>
-      <h2 class="s-h2 s-h2--light">Real Economics. Real Transformation.</h2>
+      <div class="lbl lbl--dark">IMPACT</div>
+      <h2 class="s-h2 s-h2--dark">Real Economics. Real Transformation.</h2>
     </div>
-    <div class="impact-grid rv">
 
-      <div class="impact-card">
-        <div class="impact-stat">50%</div>
-        <div class="impact-title">50% Faster Execution</div>
-        <p class="impact-desc">Accelerate delivery cycles without adding headcount. AI agents eliminate bottlenecks, reduce rework, and smooth throughput.</p>
+    <div class="impact-carousel-wrap rv">
+      <button class="car-btn" id="impactPrev" aria-label="Previous slide" disabled>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="impact-carousel-viewport">
+        <div class="impact-carousel-track" id="impactTrack">
+
+          <div class="impact-card">
+            <div class="impact-stat">50%</div>
+            <div class="impact-title">50% Faster Execution</div>
+            <p class="impact-desc">Accelerate delivery cycles without adding headcount. AI agents eliminate bottlenecks, reduce rework, and smooth throughput.</p>
+          </div>
+
+          <div class="impact-card">
+            <div class="impact-stat">30–40%</div>
+            <div class="impact-title">30-40% Cost Reduction</div>
+            <p class="impact-desc">Redesign unit economics through agentification. Lower cost per outcome—permanently—while maintaining or improving quality.</p>
+          </div>
+
+          <div class="impact-card">
+            <div class="impact-stat">5×</div>
+            <div class="impact-title">5× Decision Velocity</div>
+            <p class="impact-desc">Move from data-blocked to insight-driven. AI-first analytics pipelines compress decision cycles from weeks to days.</p>
+          </div>
+
+          <div class="impact-card">
+            <div class="impact-stat">&gt;98%</div>
+            <div class="impact-title">&gt;98% SLA Achievement</div>
+            <p class="impact-desc">Predictable, audit-ready operations. AI-enabled workflows with human oversight deliver enterprise-grade reliability at scale.</p>
+          </div>
+
+          <div class="impact-card">
+            <div class="impact-stat">10×</div>
+            <div class="impact-title">10× Scale Growth</div>
+            <p class="impact-desc">Proven capacity to grow from 30 to 300+ FTE while maintaining service quality and reducing per-unit costs.</p>
+          </div>
+
+        </div>
       </div>
-
-      <div class="impact-card">
-        <div class="impact-stat">30–40%</div>
-        <div class="impact-title">30-40% Cost Reduction</div>
-        <p class="impact-desc">Redesign unit economics through agentification. Lower cost per outcome—permanently—while maintaining or improving quality.</p>
-      </div>
-
-      <div class="impact-card">
-        <div class="impact-stat">5×</div>
-        <div class="impact-title">5× Decision Velocity</div>
-        <p class="impact-desc">Move from data-blocked to insight-driven. AI-first analytics pipelines compress decision cycles from weeks to days.</p>
-      </div>
-
-      <div class="impact-card">
-        <div class="impact-stat">&gt;98%</div>
-        <div class="impact-title">&gt;98% SLA Achievement</div>
-        <p class="impact-desc">Predictable, audit-ready operations. AI-enabled workflows with human oversight deliver enterprise-grade reliability at scale.</p>
-      </div>
-
-      <div class="impact-card">
-        <div class="impact-stat">10×</div>
-        <div class="impact-title">10× Scale Growth</div>
-        <p class="impact-desc">Proven capacity to grow from 30 to 300+ FTE while maintaining service quality and reducing per-unit costs.</p>
-      </div>
-
+      <button class="car-btn" id="impactNext" aria-label="Next slide">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
+
+    <div class="car-dots" id="impactDots"></div>
+
   </div>
 </section>
 
@@ -1049,6 +1067,55 @@
     card.addEventListener('click', () => card.classList.toggle('flipped'));
     card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('flipped'); } });
   });
+
+  // ── Impact Carousel
+  (function() {
+    const track    = document.getElementById('impactTrack');
+    const dotsWrap = document.getElementById('impactDots');
+    const prevBtn  = document.getElementById('impactPrev');
+    const nextBtn  = document.getElementById('impactNext');
+    const cards    = Array.from(track.children);
+    let idx = 0;
+
+    function getVisible() {
+      return window.innerWidth <= 600 ? 1 : (window.innerWidth <= 900 ? 2 : 3);
+    }
+    function getMax() { return cards.length - getVisible(); }
+
+    function buildDots() {
+      dotsWrap.innerHTML = '';
+      for (let i = 0; i <= getMax(); i++) {
+        const d = document.createElement('button');
+        d.className = 'car-dot' + (i === idx ? ' active' : '');
+        d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        d.dataset.i = i;
+        d.addEventListener('click', () => goTo(+d.dataset.i));
+        dotsWrap.appendChild(d);
+      }
+    }
+
+    function goTo(i) {
+      const max = getMax();
+      idx = Math.max(0, Math.min(i, max));
+      const cardW = cards[0].offsetWidth + 20;
+      track.style.transform = 'translateX(-' + (idx * cardW) + 'px)';
+      dotsWrap.querySelectorAll('.car-dot').forEach((d, j) => d.classList.toggle('active', j === idx));
+      prevBtn.disabled = idx === 0;
+      nextBtn.disabled = idx === max;
+    }
+
+    prevBtn.addEventListener('click', () => goTo(idx - 1));
+    nextBtn.addEventListener('click', () => goTo(idx + 1));
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => { idx = 0; buildDots(); goTo(0); }, 120);
+    });
+
+    buildDots();
+    goTo(0);
+  })();
 </script>
 
 </body>
