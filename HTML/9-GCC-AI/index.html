@@ -183,19 +183,26 @@
     .s-sub { font-size: 17px; line-height: 28px; margin-top: 16px; color: var(--neutral-600); }
 
     /* Carousel */
-    .impact-carousel-wrap { position: relative; display: flex; align-items: center; gap: 20px; }
-    .impact-carousel-viewport { flex: 1; overflow: hidden; }
-    .impact-carousel-track { display: flex; gap: 20px; transition: transform 0.4s ease; will-change: transform; }
-    .impact-card { flex: 0 0 calc((100% - 40px) / 3); background: var(--neutral-100); border: 1px solid var(--neutral-200); border-radius: 2px; padding: 36px 28px; display: flex; flex-direction: column; gap: 10px; }
-    .impact-stat { font-family: var(--font-display); font-size: 48px; line-height: 1; font-weight: 400; color: var(--accent-500); }
-    .impact-title { font-family: var(--font-display); font-size: 18px; line-height: 26px; font-weight: 400; color: #000; }
-    .impact-desc { font-size: 13px; line-height: 21px; color: var(--neutral-600); margin-top: 4px; }
-    .car-btn { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--neutral-200); background: #fff; display: flex; align-items: center; justify-content: center; color: #000; cursor: pointer; transition: background 0.15s, border-color 0.15s; flex-shrink: 0; }
-    .car-btn:hover { background: var(--neutral-100); border-color: var(--neutral-400); }
+    .impact-carousel-wrap { position: relative; }
+    .impact-carousel-viewport { overflow: hidden; }
+    .impact-carousel-track { display: flex; gap: 0; transition: transform 0.4s ease; will-change: transform; }
+    .impact-card {
+      flex: 0 0 calc(100% / 3);
+      background: transparent; border: none;
+      padding: 48px 36px; display: flex; flex-direction: column;
+      align-items: center; text-align: center; gap: 14px;
+    }
+    .impact-stat { font-family: var(--font-display); font-size: 64px; line-height: 1; font-weight: 400; color: var(--accent-500); }
+    .impact-title { font-size: 20px; font-weight: 700; line-height: 28px; color: #000; }
+    .impact-desc { font-size: 15px; line-height: 24px; color: var(--neutral-600); max-width: 280px; }
+    .impact-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+    .impact-nav-btns { display: flex; gap: 10px; }
+    .car-btn { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--neutral-300); background: #fff; display: flex; align-items: center; justify-content: center; color: #000; cursor: pointer; transition: border-color 0.15s; flex-shrink: 0; }
+    .car-btn:hover { border-color: #000; }
     .car-btn:disabled { opacity: 0.3; cursor: default; pointer-events: none; }
-    .car-dots { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 28px; }
-    .car-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--neutral-200); border: none; cursor: pointer; transition: background 0.2s, transform 0.2s; padding: 0; }
-    .car-dot.active { background: var(--accent-500); transform: scale(1.3); }
+    .car-dots { display: flex; align-items: center; gap: 8px; }
+    .car-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--neutral-300); border: none; cursor: pointer; transition: background 0.2s; padding: 0; }
+    .car-dot.active { background: var(--neutral-800); }
 
     /* ════════════════════════════════════════════════════════════
        SECTION 4 — COMPARISON TABLE
@@ -403,7 +410,7 @@
       .hero-img-placeholder { min-height: 280px; }
       .s-intro-inner { grid-template-columns: 1fr; gap: 48px; }
       .s-intro-h2 { font-size: 32px; line-height: 40px; }
-      .impact-card { flex: 0 0 calc((100% - 20px) / 2); }
+      .impact-card { flex: 0 0 calc(100% / 2); }
       .comparison-wrap { grid-template-columns: 1fr; }
       .s-aava-header { grid-template-columns: 1fr; gap: 40px; }
       .aava-cards { grid-template-columns: repeat(2, 1fr); }
@@ -421,6 +428,7 @@
       :root { --px: 24px; --py: 48px; }
       .hero-h1 { font-size: 32px; line-height: 40px; }
       .s-h2 { font-size: 28px; line-height: 36px; }
+      .impact-card { flex: 0 0 100%; }
       .impact-card { flex: 0 0 100%; }
       .oc-card, .ins-card { flex: 0 0 100%; }
       .bold-h2 { font-size: 28px; line-height: 36px; }
@@ -537,9 +545,6 @@
     </div>
 
     <div class="impact-carousel-wrap rv">
-      <button class="car-btn" id="impactPrev" aria-label="Previous slide" disabled>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
       <div class="impact-carousel-viewport">
         <div class="impact-carousel-track" id="impactTrack">
 
@@ -575,12 +580,19 @@
 
         </div>
       </div>
-      <button class="car-btn" id="impactNext" aria-label="Next slide">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
     </div>
 
-    <div class="car-dots" id="impactDots"></div>
+    <div class="impact-controls rv">
+      <div class="car-dots" id="impactDots"></div>
+      <div class="impact-nav-btns">
+        <button class="car-btn" id="impactPrev" aria-label="Previous slide" disabled>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="car-btn" id="impactNext" aria-label="Next slide">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
 
   </div>
 </section>
@@ -1222,7 +1234,7 @@
     function goTo(i) {
       const max = getMax();
       idx = Math.max(0, Math.min(i, max));
-      const cardW = cards[0].offsetWidth + 20;
+      const cardW = cards[0].offsetWidth; // no gap between cards
       track.style.transform = 'translateX(-' + (idx * cardW) + 'px)';
       dotsWrap.querySelectorAll('.car-dot').forEach((d, j) => d.classList.toggle('active', j === idx));
       prevBtn.disabled = idx === 0;
