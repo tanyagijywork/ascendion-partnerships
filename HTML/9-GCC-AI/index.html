@@ -356,9 +356,12 @@
        SECTION 10 — CLOSING CTA
     ════════════════════════════════════════════════════════════ */
     .s-cta { background: #000; padding: var(--py) 0; border-top: 1px solid rgba(255,255,255,0.08); }
-    .cta-inner { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; max-width: 800px; }
+    .cta-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .cta-left { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
     .cta-title { font-family: var(--font-display); font-size: 48px; line-height: 58px; font-weight: 400; color: #fff; }
     .cta-body { font-size: 17px; line-height: 28px; color: rgba(255,255,255,0.6); }
+    .cta-img { width: 100%; aspect-ratio: 4/3; background: linear-gradient(135deg, #0d2b22 0%, #1a3d30 50%, #0d2420 100%); border-radius: 2px; position: relative; overflow: hidden; }
+    .cta-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,150,115,0.15) 0%, rgba(45,220,170,0.06) 100%); }
 
     /* ════════════════════════════════════════════════════════════
        FOOTER
@@ -411,6 +414,7 @@
       .bold-h2 { font-size: 32px; line-height: 42px; }
       .oc-card, .ins-card { flex: 0 0 calc((100% - 20px) / 2); }
       .footer-cols { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .cta-inner { grid-template-columns: 1fr; gap: 48px; }
       .cta-title { font-size: 36px; line-height: 44px; }
     }
     @media (max-width: 600px) {
@@ -990,13 +994,16 @@
 <section class="s-cta" id="cta">
   <div class="container">
     <div class="cta-inner rv">
-      <h2 class="cta-title">Global Capability Centers (GCCs) are at a Crossroads</h2>
-      <p class="cta-body">More people isn't the answer. A different model is.</p>
-      <p class="cta-body">The GCC is one of the best places to start mining for value from agent-powered work.</p>
-      <a href="https://ascendion.com/contact-us/" target="_blank" rel="noopener" class="btn btn-inverse">
-        <span class="btn__label">Let's Discuss Your GCC<sup>AI</sup> Transformation</span>
-        <span class="btn__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </a>
+      <div class="cta-left">
+        <h2 class="cta-title">Global Capability Centers (GCCs) are at a Crossroads</h2>
+        <p class="cta-body">More people isn't the answer. A different model is.</p>
+        <p class="cta-body">The GCC is one of the best places to start mining for value from agent-powered work.</p>
+        <a href="https://ascendion.com/contact-us/" target="_blank" rel="noopener" class="btn btn-inverse">
+          <span class="btn__label">Let's Discuss Your GCC<sup>AI</sup> Transformation</span>
+          <span class="btn__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </div>
+      <div class="cta-img"></div>
     </div>
   </div>
 </section>
