@@ -354,8 +354,8 @@
     .s-outcomes .s-head { text-align: center; margin-bottom: 48px; }
 
     /* Shared card carousel */
-    .sec-carousel-wrap { position: relative; display: flex; align-items: center; gap: 20px; }
-    .sec-carousel-viewport { flex: 1; overflow: hidden; }
+    .sec-carousel-wrap { position: relative; }
+    .sec-carousel-viewport { width: 100%; overflow: hidden; }
     .sec-carousel-track { display: flex; gap: 20px; transition: transform 0.4s ease; will-change: transform; }
 
     /* Outcome cards */
@@ -907,9 +907,6 @@
     </div>
 
     <div class="sec-carousel-wrap rv">
-      <button class="sec-nav-btn" id="ocPrev" aria-label="Previous" disabled>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
       <div class="sec-carousel-viewport">
         <div class="sec-carousel-track" id="ocTrack">
 
@@ -985,14 +982,18 @@
 
         </div>
       </div>
-      <button class="sec-nav-btn" id="ocNext" aria-label="Next">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
     </div>
 
     <div class="sec-controls rv">
       <div class="sec-dots" id="ocDots"></div>
-      <div class="sec-nav-btns" style="display:none"></div>
+      <div class="sec-nav-btns">
+        <button class="sec-nav-btn" id="ocPrev" aria-label="Previous" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="sec-nav-btn" id="ocNext" aria-label="Next">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
     </div>
     <div class="sec-cta rv">
       <a href="#" class="sec-cta-btn">Explore all client outcomes <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -1020,9 +1021,6 @@
     </div>
 
     <div class="sec-carousel-wrap rv">
-      <button class="sec-nav-btn" id="insPrev" aria-label="Previous" disabled>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
       <div class="sec-carousel-viewport">
         <div class="sec-carousel-track" id="insTrack">
 
@@ -1052,14 +1050,18 @@
 
         </div>
       </div>
-      <button class="sec-nav-btn" id="insNext" aria-label="Next" disabled>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
     </div>
 
     <div class="sec-controls rv">
       <div class="sec-dots" id="insDots"></div>
-      <div class="sec-nav-btns" style="display:none"></div>
+      <div class="sec-nav-btns">
+        <button class="sec-nav-btn" id="insPrev" aria-label="Previous" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="sec-nav-btn" id="insNext" aria-label="Next" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
     </div>
     <div class="sec-cta rv">
       <a href="#" class="sec-cta-btn">Explore all insights <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
