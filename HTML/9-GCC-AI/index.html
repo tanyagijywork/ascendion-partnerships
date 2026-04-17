@@ -207,30 +207,63 @@
     /* ════════════════════════════════════════════════════════════
        SECTION 4 — COMPARISON TABLE
     ════════════════════════════════════════════════════════════ */
-    .s-comparison { background: #fff; padding: var(--py) 0; }
+    .s-comparison { background: #f4f4f0; padding: var(--py) 0; }
     .s-comparison .s-head { text-align: center; margin-bottom: 16px; }
     .s-comparison .s-sub--dark { color: var(--neutral-600); margin-top: 16px; font-size: 17px; line-height: 28px; }
-    .comparison-wrap { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; border-radius: 2px; overflow: hidden; border: 1px solid var(--neutral-200); }
-    .comparison-col { display: flex; flex-direction: column; }
+    .comparison-wrap {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .comparison-col {
+      display: flex; flex-direction: column;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+    /* vertical divider between columns */
+    .comparison-col--humans { border-right: 1px solid var(--neutral-200); }
+
+    /* Column headers */
     .comparison-col-head {
-      padding: 24px 36px;
-      font-family: var(--font-display); font-size: 22px; line-height: 30px;
+      padding: 32px 40px 28px;
+      font-family: var(--font-display);
+      font-size: 38px; line-height: 46px;
       font-weight: 400;
+      border-top: 3px solid transparent;
+      transition: border-color 0.3s ease;
     }
-    .comparison-col--humans .comparison-col-head { background: #000; color: #fff; }
-    .comparison-col--ai .comparison-col-head { background: var(--accent-500); color: #fff; }
-    .comparison-items { display: flex; flex-direction: column; padding: 8px 0; flex: 1; }
+    .comparison-col--humans .comparison-col-head {
+      color: var(--neutral-900);
+      border-top-color: var(--neutral-900);
+    }
+    .comparison-col--ai .comparison-col-head {
+      color: var(--accent-500);
+      border-top-color: var(--accent-500);
+    }
+
+    /* Items */
+    .comparison-items { display: flex; flex-direction: column; flex: 1; }
     .comparison-item {
-      display: flex; align-items: center; gap: 16px;
-      padding: 16px 36px;
-      font-size: 15px; line-height: 22px;
-      border-bottom: 1px solid var(--neutral-200);
+      display: flex; align-items: baseline; gap: 14px;
+      padding: 18px 40px;
+      font-size: 15px; line-height: 24px;
+      color: var(--neutral-700);
+      border-top: 1px solid var(--neutral-200);
     }
-    .comparison-item:last-child { border-bottom: none; }
-    .comparison-col--humans .comparison-item { color: var(--neutral-700); background: #fff; }
-    .comparison-col--humans .comparison-item::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #000; flex-shrink: 0; }
-    .comparison-col--ai .comparison-item { color: var(--neutral-700); background: var(--neutral-100); }
-    .comparison-col--ai .comparison-item::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-500); flex-shrink: 0; }
+    .comparison-item::before {
+      content: '—';
+      font-size: 14px;
+      line-height: 24px;
+      color: var(--accent-500);
+      flex-shrink: 0;
+      font-family: var(--font-primary);
+    }
+
+    /* Hover: AI column gets light green gradient */
+    .comparison-col--ai:hover {
+      background: linear-gradient(180deg, rgba(0,150,115,0.07) 0%, rgba(0,150,115,0.02) 60%, transparent 100%);
+    }
 
     /* ════════════════════════════════════════════════════════════
        SECTION 5 — AAVA ADVANTAGE
@@ -412,6 +445,8 @@
       .s-intro-h2 { font-size: 32px; line-height: 40px; }
       .impact-card { flex: 0 0 calc(100% / 2); }
       .comparison-wrap { grid-template-columns: 1fr; }
+      .comparison-col--humans { border-right: none; border-bottom: 1px solid var(--neutral-200); }
+      .comparison-col-head { font-size: 28px; line-height: 36px; }
       .s-aava-header { grid-template-columns: 1fr; gap: 40px; }
       .aava-cards { grid-template-columns: repeat(2, 1fr); }
       .cap-row { grid-template-columns: 1fr; gap: 20px; padding: 32px 0 32px 20px; }
