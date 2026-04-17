@@ -228,17 +228,18 @@
     /* ════════════════════════════════════════════════════════════
        SECTION 5 — AAVA ADVANTAGE
     ════════════════════════════════════════════════════════════ */
-    .s-aava { background: var(--neutral-800); padding: var(--py) 0; }
-    .s-aava-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-    .aava-h2 { font-family: var(--font-display); font-size: 40px; line-height: 48px; font-weight: 400; color: #fff; margin-bottom: 24px; }
-    .aava-body { font-size: 17px; line-height: 28px; color: rgba(255,255,255,0.65); margin-bottom: 20px; }
-    .aava-lead { font-size: 17px; line-height: 28px; color: #fff; font-weight: 600; margin-bottom: 20px; }
-    .aava-features { display: flex; flex-direction: column; gap: 0; }
-    .aava-feature { display: flex; align-items: flex-start; gap: 16px; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .aava-feature:first-child { border-top: 1px solid rgba(255,255,255,0.1); }
-    .aava-feature-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-100); flex-shrink: 0; margin-top: 6px; }
-    .aava-feature-text { font-size: 15px; line-height: 24px; color: rgba(255,255,255,0.65); }
-    .aava-feature-text strong { color: #fff; font-weight: 600; }
+    .s-aava { background: #fff; padding: var(--py) 0; border-top: 1px solid var(--neutral-200); }
+    .s-aava-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-bottom: 56px; }
+    .aava-h2 { font-family: var(--font-display); font-size: 40px; line-height: 48px; font-weight: 400; color: #000; }
+    .aava-body { font-size: 17px; line-height: 28px; color: var(--neutral-600); }
+    .aava-lead { font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--neutral-600); margin-bottom: 0; }
+    .aava-cards { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--neutral-200); }
+    .aava-card { padding: 36px 28px; border-right: 1px solid var(--neutral-200); border-top: 3px solid transparent; transition: border-top-color 0.25s ease, background 0.25s ease; }
+    .aava-card:last-child { border-right: none; }
+    .aava-card:hover { border-top-color: var(--accent-500); background: #f4f4f0; }
+    .aava-card-icon { width: 52px; height: 52px; margin-bottom: 24px; color: #000; }
+    .aava-card-title { font-size: 17px; font-weight: 700; color: #000; margin-bottom: 8px; line-height: 1.3; }
+    .aava-card-desc { font-size: 14px; line-height: 22px; color: var(--neutral-600); }
 
     /* ════════════════════════════════════════════════════════════
        SECTION 6 — BOLD STATEMENT
@@ -408,7 +409,7 @@
       .hero-inner { grid-template-columns: 1fr 420px; gap: 60px; }
       .flip-grid { grid-template-columns: repeat(3, 1fr); }
       .s-intro-inner { gap: 56px; }
-      .s-aava-inner { gap: 56px; }
+      .s-aava-header { gap: 56px; }
     }
     @media (max-width: 900px) {
       :root { --px: 32px; --py: 60px; }
@@ -421,7 +422,10 @@
       .s-intro-h2 { font-size: 32px; line-height: 40px; }
       .impact-card { flex: 0 0 calc((100% - 20px) / 2); }
       .comparison-wrap { grid-template-columns: 1fr; }
-      .s-aava-inner { grid-template-columns: 1fr; gap: 40px; }
+      .s-aava-header { grid-template-columns: 1fr; gap: 40px; }
+      .aava-cards { grid-template-columns: repeat(2, 1fr); }
+      .aava-card:nth-child(2) { border-right: none; }
+      .aava-card:nth-child(3), .aava-card:nth-child(4) { border-top: 1px solid var(--neutral-200); }
       .bold-h2 { font-size: 36px; line-height: 44px; }
       .flip-grid { grid-template-columns: repeat(2, 1fr); }
       .insights-grid { grid-template-columns: repeat(2, 1fr); }
@@ -641,34 +645,74 @@
 <!-- ══ SECTION 5 — AAVA ADVANTAGE ════════════════════════════════ -->
 <section class="s-aava" id="aava">
   <div class="container">
-    <div class="s-aava-inner rv">
 
-      <div>
-        <h2 class="aava-h2">The AAVA Advantage:</h2>
-        <p class="aava-body">Our proprietary agentic AI platform orchestrates automation across the entire SDLC—from ideation through operations—while maintaining full auditability and human control.</p>
-        <p class="aava-lead">Leading in real-world AI Impact (but don't just take our word for it)</p>
+    <div class="s-head rv" style="margin-bottom:40px;">
+      <div class="lbl lbl--dark">AAVA ADVANTAGE</div>
+    </div>
+
+    <div class="s-aava-header rv">
+      <h2 class="aava-h2">The AAVA Advantage:</h2>
+      <p class="aava-body">Our proprietary agentic AI platform orchestrates automation across the entire SDLC—from ideation through operations—while maintaining full auditability and human control.</p>
+    </div>
+
+    <p class="aava-lead rv" style="margin-bottom:32px;">Leading in real-world AI Impact <span style="text-transform:none;font-weight:400;">(but don't just take our word for it)</span></p>
+
+    <div class="aava-cards rv">
+
+      <!-- Card 1: HFS Research -->
+      <div class="aava-card">
+        <div class="aava-card-icon">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="8" width="36" height="36" rx="3" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M18 36V28M26 36V20M34 36V14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="aava-card-title">HFS Research</div>
+        <p class="aava-card-desc">Named a Leader in Services-as-Software (January 2026)</p>
       </div>
 
-      <div class="aava-features">
-        <div class="aava-feature">
-          <div class="aava-feature-dot"></div>
-          <p class="aava-feature-text"><strong>HFS Research:</strong> Named a Leader in Services-as-Software (January 2026)</p>
+      <!-- Card 2: ISG Provider Lens -->
+      <div class="aava-card">
+        <div class="aava-card-icon">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="26" cy="26" r="18" stroke="currentColor" stroke-width="1.5"/>
+            <ellipse cx="26" cy="26" rx="7" ry="18" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M8 26h36" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M11 18h30M11 34h30" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
         </div>
-        <div class="aava-feature">
-          <div class="aava-feature-dot"></div>
-          <p class="aava-feature-text"><strong>ISG Provider Lens™:</strong> Global Leader in Generative AI Services (2025)</p>
+        <div class="aava-card-title">ISG Provider Lens™</div>
+        <p class="aava-card-desc">Global Leader in Generative AI Services (2025)</p>
+      </div>
+
+      <!-- Card 3: Gartner -->
+      <div class="aava-card">
+        <div class="aava-card-icon">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 8h18l10 10v26H14V8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M32 8v10h10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M26 22l2 5h5l-4 3 1.5 5L26 32l-4.5 3 1.5-5-4-3h5L26 22z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
         </div>
-        <div class="aava-feature">
-          <div class="aava-feature-dot"></div>
-          <p class="aava-feature-text"><strong>Gartner:</strong> AAVA™ platform featured in "Generative AI in Outsourced Software Development"</p>
+        <div class="aava-card-title">Gartner</div>
+        <p class="aava-card-desc">AAVA™ platform featured in "Generative AI in Outsourced Software Development"</p>
+      </div>
+
+      <!-- Card 4: Zinnov Zones -->
+      <div class="aava-card">
+        <div class="aava-card-icon">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 10h20v14a10 10 0 01-20 0V10z" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 13H8a5 5 0 005 5M40 13h4a5 5 0 01-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M26 34v6M20 40h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
         </div>
-        <div class="aava-feature">
-          <div class="aava-feature-dot"></div>
-          <p class="aava-feature-text"><strong>Zinnov Zones 2023:</strong> Leader in Overall ER&amp;D and Digital Engineering Services (2023)</p>
-        </div>
+        <div class="aava-card-title">Zinnov Zones 2023</div>
+        <p class="aava-card-desc">Leader in Overall ER&amp;D and Digital Engineering Services (2023)</p>
       </div>
 
     </div>
+
   </div>
 </section>
 
