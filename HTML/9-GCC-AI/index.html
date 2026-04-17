@@ -336,7 +336,8 @@
 
     /* Left column */
     .cap-row-left { display: flex; flex-direction: column; gap: 8px; width: 278px; flex-shrink: 0; }
-    .cap-row-icon { color: var(--accent-500); display: flex; align-items: center; }
+    .cap-row-name { display: flex; align-items: center; gap: 12px; }
+    .cap-row-icon { color: var(--accent-500); display: flex; align-items: center; flex-shrink: 0; }
     .cap-row-title { font-size: 24px; line-height: 29px; font-weight: 400; color: #000; font-family: var(--font-primary); }
     .cap-row-subtitle { font-size: 20px; line-height: 26px; font-weight: 400; color: var(--neutral-600); font-family: var(--font-primary); }
 
@@ -828,16 +829,18 @@
       <!-- Row 1: Accelerate -->
       <div class="cap-row">
         <div class="cap-row-left">
-          <div class="cap-row-icon">
-            <!-- lucide/circle-gauge -->
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M7 12a5 5 0 0 1 9.9-1"/>
-              <path d="M12 12 9.5 9.5"/>
-              <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>
-            </svg>
+          <div class="cap-row-name">
+            <div class="cap-row-icon">
+              <!-- lucide/circle-gauge -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M7 12a5 5 0 0 1 9.9-1"/>
+                <path d="M12 12 9.5 9.5"/>
+                <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <div class="cap-row-title">Accelerate</div>
           </div>
-          <div class="cap-row-title">Accelerate</div>
           <div class="cap-row-subtitle">Do More with the Same</div>
         </div>
         <div class="cap-row-right">
@@ -850,15 +853,17 @@
       <!-- Row 2: Amplify -->
       <div class="cap-row">
         <div class="cap-row-left">
-          <div class="cap-row-icon">
-            <!-- lucide/megaphone -->
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M11 5v14l-4-4H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h4l4-3z"/>
-              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-            </svg>
+          <div class="cap-row-name">
+            <div class="cap-row-icon">
+              <!-- lucide/megaphone -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 5v14l-4-4H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h4l4-3z"/>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+              </svg>
+            </div>
+            <div class="cap-row-title">Amplify</div>
           </div>
-          <div class="cap-row-title">Amplify</div>
           <div class="cap-row-subtitle">Do More with Less</div>
         </div>
         <div class="cap-row-right">
@@ -871,13 +876,15 @@
       <!-- Row 3: Ascend -->
       <div class="cap-row">
         <div class="cap-row-left">
-          <div class="cap-row-icon">
-            <!-- lucide/mountain -->
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m8 3 4 8 5-5 5 15H2L8 3z"/>
-            </svg>
+          <div class="cap-row-name">
+            <div class="cap-row-icon">
+              <!-- lucide/mountain -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m8 3 4 8 5-5 5 15H2L8 3z"/>
+              </svg>
+            </div>
+            <div class="cap-row-title">Ascend</div>
           </div>
-          <div class="cap-row-title">Ascend</div>
           <div class="cap-row-subtitle">Less is More</div>
         </div>
         <div class="cap-row-right">
