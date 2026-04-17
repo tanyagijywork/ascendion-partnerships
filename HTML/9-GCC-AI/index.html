@@ -242,12 +242,30 @@
     .aava-card-desc { font-size: 14px; line-height: 22px; color: var(--neutral-600); }
 
     /* ════════════════════════════════════════════════════════════
-       SECTION 6 — BOLD STATEMENT
+       SECTION 6 — VIDEO TABS
     ════════════════════════════════════════════════════════════ */
     .s-bold { background: #000; padding: var(--py) 0; border-top: 1px solid rgba(255,255,255,0.08); }
-    .s-bold-inner { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 40px; }
-    .bold-h2 { font-family: var(--font-display); font-size: 48px; line-height: 58px; font-weight: 400; color: #fff; max-width: 900px; }
-    .bold-btns { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .bold-layout { display: grid; grid-template-columns: 360px 1fr; gap: 80px; align-items: start; }
+    .bold-left { display: flex; flex-direction: column; padding-top: 8px; }
+    .bold-accent { width: 32px; height: 2px; background: var(--accent-100); margin-bottom: 28px; }
+    .bold-h2 { font-family: var(--font-display); font-size: 40px; line-height: 50px; font-weight: 400; color: #fff; margin-bottom: 36px; }
+    .bold-tabs { display: flex; flex-direction: column; gap: 0; margin-bottom: 32px; }
+    .bold-tab { display: flex; align-items: center; gap: 16px; padding: 16px 20px; border-left: 2px solid transparent; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+    .bold-tab:hover { background: rgba(255,255,255,0.04); }
+    .bold-tab.active { background: rgba(255,255,255,0.07); border-left-color: var(--accent-100); }
+    .bold-tab-num { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; color: rgba(255,255,255,0.3); flex-shrink: 0; }
+    .bold-tab.active .bold-tab-num { color: var(--accent-100); }
+    .bold-tab-label { font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.4); line-height: 1.4; }
+    .bold-tab.active .bold-tab-label { color: #fff; font-weight: 600; }
+    .bold-dots { display: flex; gap: 8px; }
+    .bold-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); border: none; cursor: pointer; padding: 0; transition: background 0.2s; }
+    .bold-dot.active { background: var(--accent-100); }
+    .bold-right { display: flex; flex-direction: column; }
+    .bold-video-wrap { position: relative; aspect-ratio: 16/9; background: #111; border-radius: 2px; overflow: hidden; }
+    .bold-video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    .bold-nav { display: flex; justify-content: flex-end; gap: 12px; margin-top: 20px; }
+    .bold-nav-btn { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.25); background: transparent; color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.15s, border-color 0.15s; }
+    .bold-nav-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.6); }
 
     /* ════════════════════════════════════════════════════════════
        SECTION 7 — CAPABILITIES (ACCORDION)
@@ -426,7 +444,8 @@
       .aava-cards { grid-template-columns: repeat(2, 1fr); }
       .aava-card:nth-child(2) { border-right: none; }
       .aava-card:nth-child(3), .aava-card:nth-child(4) { border-top: 1px solid var(--neutral-200); }
-      .bold-h2 { font-size: 36px; line-height: 44px; }
+      .bold-layout { grid-template-columns: 1fr; gap: 48px; }
+      .bold-h2 { font-size: 32px; line-height: 42px; }
       .flip-grid { grid-template-columns: repeat(2, 1fr); }
       .insights-grid { grid-template-columns: repeat(2, 1fr); }
       .footer-cols { grid-template-columns: 1fr 1fr; gap: 40px; }
@@ -440,7 +459,7 @@
       .flip-grid { grid-template-columns: 1fr 1fr; }
       .flip-card { height: 260px; }
       .insights-grid { grid-template-columns: 1fr; }
-      .bold-btns { flex-direction: column; align-items: stretch; }
+      .bold-h2 { font-size: 28px; line-height: 36px; }
       .footer-cols { grid-template-columns: 1fr; gap: 32px; }
     }
   </style>
@@ -716,21 +735,52 @@
   </div>
 </section>
 
-<!-- ══ SECTION 6 — BOLD STATEMENT ════════════════════════════════ -->
+<!-- ══ SECTION 6 — VIDEO TABS ═════════════════════════════════════ -->
 <section class="s-bold" id="bold">
   <div class="container">
-    <div class="s-bold-inner rv">
-      <h2 class="bold-h2">GCC<sup>AI</sup> Runs with the Power of agents, plus Human Talent.</h2>
-      <div class="bold-btns">
-        <a href="https://www.youtube.com/watch?v=tVzpn2dKEQk" target="_blank" rel="noopener" class="btn btn-inverse">
-          <span class="btn__label">Envision AAVA in Action</span>
-          <span class="btn__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </a>
-        <a href="https://www.youtube.com/watch?v=cwmEASTNPlM" target="_blank" rel="noopener" class="btn btn-ghost-inv">
-          <span class="btn__label">Humans and Agents Deliver Together</span>
-          <span class="btn__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </a>
+    <div class="bold-layout rv">
+
+      <!-- Left: heading + tab list -->
+      <div class="bold-left">
+        <div class="bold-accent"></div>
+        <h2 class="bold-h2">GCC<sup>AI</sup> Runs with the Power of agents, plus Human Talent.</h2>
+
+        <div class="bold-tabs">
+          <div class="bold-tab active" data-tab="0">
+            <span class="bold-tab-num">01</span>
+            <span class="bold-tab-label">Envision AAVA in Action</span>
+          </div>
+          <div class="bold-tab" data-tab="1">
+            <span class="bold-tab-num">02</span>
+            <span class="bold-tab-label">Humans and Agents Deliver Together</span>
+          </div>
+        </div>
+
+        <div class="bold-dots">
+          <button class="bold-dot active" aria-label="Tab 1"></button>
+          <button class="bold-dot" aria-label="Tab 2"></button>
+        </div>
       </div>
+
+      <!-- Right: video + nav -->
+      <div class="bold-right">
+        <div class="bold-video-wrap">
+          <iframe id="boldVideoFrame"
+            src="https://www.youtube.com/embed/tVzpn2dKEQk?rel=0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            title="Envision AAVA in Action"></iframe>
+        </div>
+        <div class="bold-nav">
+          <button class="bold-nav-btn" id="boldPrev" aria-label="Previous">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="bold-nav-btn" id="boldNext" aria-label="Next">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1111,6 +1161,32 @@
     card.addEventListener('click', () => card.classList.toggle('flipped'));
     card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('flipped'); } });
   });
+
+  // ── Bold video tabs
+  (function() {
+    const tabs    = document.querySelectorAll('.bold-tab');
+    const dots    = document.querySelectorAll('.bold-dot');
+    const frame   = document.getElementById('boldVideoFrame');
+    const prevBtn = document.getElementById('boldPrev');
+    const nextBtn = document.getElementById('boldNext');
+    const videos  = [
+      'https://www.youtube.com/embed/tVzpn2dKEQk?rel=0',
+      'https://www.youtube.com/embed/cwmEASTNPlM?rel=0'
+    ];
+    let current = 0;
+
+    function goTo(idx) {
+      current = ((idx % videos.length) + videos.length) % videos.length;
+      tabs.forEach((t, i) => t.classList.toggle('active', i === current));
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      frame.src = videos[current];
+    }
+
+    tabs.forEach((tab, i) => tab.addEventListener('click', () => goTo(i)));
+    dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+  })();
 
   // ── Impact Carousel
   (function() {
