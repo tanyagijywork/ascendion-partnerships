@@ -268,33 +268,31 @@
     .bold-nav-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.6); }
 
     /* ════════════════════════════════════════════════════════════
-       SECTION 7 — CAPABILITIES (ACCORDION)
+       SECTION 7 — CAPABILITIES
     ════════════════════════════════════════════════════════════ */
     .s-cap { background: var(--neutral-100); padding: var(--py) 0; }
     .s-cap .s-head { text-align: center; margin-bottom: 16px; }
     .cap-subhead { font-size: 17px; line-height: 28px; color: var(--neutral-600); text-align: center; max-width: 680px; margin: 16px auto 56px; }
 
-    .accordion { display: flex; flex-direction: column; border-top: 1px solid var(--neutral-200); }
-    .acc-item { border-bottom: 1px solid var(--neutral-200); }
-    .acc-trigger {
-      width: 100%; display: flex; align-items: center; justify-content: space-between;
-      padding: 28px 0; background: none; cursor: pointer;
-      font-family: var(--font-display); font-size: 22px; line-height: 30px; font-weight: 400;
-      color: #000; text-align: left; gap: 16px; transition: color 0.15s;
+    .cap-list { border-top: 1px solid var(--neutral-200); }
+    .cap-row {
+      display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: start;
+      padding: 40px 0 40px 28px;
+      border-bottom: 1px solid var(--neutral-200);
+      position: relative; transition: background 0.2s ease;
     }
-    .acc-trigger:hover { color: var(--accent-500); }
-    .acc-trigger.open { color: var(--accent-500); }
-    .acc-icon {
-      width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--neutral-200);
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-      color: var(--neutral-400); transition: border-color 0.15s, background 0.15s, transform 0.3s;
+    .cap-row::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: transparent; transition: background 0.25s ease;
     }
-    .acc-trigger.open .acc-icon { background: var(--accent-500); border-color: var(--accent-500); color: #fff; transform: rotate(45deg); }
-    .acc-body { overflow: hidden; max-height: 0; transition: max-height 0.35s ease; }
-    .acc-body-inner { padding: 0 0 32px; max-width: 860px; }
-    .acc-stat { font-family: var(--font-display); font-size: 32px; line-height: 40px; font-weight: 400; color: var(--accent-500); margin-bottom: 16px; }
-    .acc-text { font-size: 16px; line-height: 26px; color: var(--neutral-600); margin-bottom: 12px; }
-    .acc-example { font-size: 15px; line-height: 24px; color: var(--neutral-700); padding: 16px 20px; background: #fff; border-left: 3px solid var(--accent-500); margin-top: 8px; }
+    .cap-row:hover::before { background: var(--accent-500); }
+    .cap-row-left { display: flex; flex-direction: column; gap: 14px; }
+    .cap-row-icon { color: var(--accent-500); display: flex; }
+    .cap-row-title { font-size: 22px; font-weight: 700; color: #000; line-height: 1.3; }
+    .cap-row-stat { font-family: var(--font-display); font-size: 18px; line-height: 26px; font-weight: 400; color: var(--accent-500); }
+    .cap-row-right { display: flex; flex-direction: column; gap: 16px; padding-top: 4px; }
+    .cap-row-desc { font-size: 16px; line-height: 26px; color: var(--neutral-600); }
+    .cap-row-example { font-size: 14px; line-height: 22px; color: var(--neutral-700); padding: 14px 18px; background: #fff; border-left: 3px solid var(--accent-500); }
 
     /* ════════════════════════════════════════════════════════════
        SECTION 8 — CLIENT OUTCOMES (FLIP CARDS)
@@ -442,6 +440,7 @@
       .comparison-wrap { grid-template-columns: 1fr; }
       .s-aava-header { grid-template-columns: 1fr; gap: 40px; }
       .aava-cards { grid-template-columns: repeat(2, 1fr); }
+      .cap-row { grid-template-columns: 1fr; gap: 20px; padding: 32px 0 32px 20px; }
       .aava-card:nth-child(2) { border-right: none; }
       .aava-card:nth-child(3), .aava-card:nth-child(4) { border-top: 1px solid var(--neutral-200); }
       .bold-layout { grid-template-columns: 1fr; gap: 48px; }
@@ -794,47 +793,61 @@
     </div>
     <p class="cap-subhead rv">Every GCC reaches a moment where more people can't create more capacity. What you need next is a different model.</p>
 
-    <div class="accordion rv" id="accordion">
+    <div class="cap-list rv">
 
-      <div class="acc-item">
-        <button class="acc-trigger open" aria-expanded="true" data-acc="acc-1">
-          Capability 1: Accelerate — Do More with the Same
-          <span class="acc-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="acc-body" id="acc-1" style="max-height:400px;">
-          <div class="acc-body-inner">
-            <div class="acc-stat">200 HC → 200 HC</div>
-            <p class="acc-text">Unlock hidden capacity without changing your GCC or your cost base. Same headcount, higher leverage through skill arbitrage, process efficiency, and AI-skilled talent. Humans focus on judgment, not repetition. Global coverage smooths throughput without heroics.</p>
-            <div class="acc-example">Relatable example: 200 HC → 200 HC. Same people. Same budget. More output. More stability. Less pressure.</div>
+      <!-- Row 1: Accelerate -->
+      <div class="cap-row">
+        <div class="cap-row-left">
+          <div class="cap-row-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 8h20M4 14h20M4 20h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M19 17l4 3-4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
+          <div class="cap-row-title">Accelerate — Do More with the Same</div>
+          <div class="cap-row-stat">200 HC → 200 HC</div>
+        </div>
+        <div class="cap-row-right">
+          <p class="cap-row-desc">Unlock hidden capacity without changing your GCC or your cost base. Same headcount, higher leverage through skill arbitrage, process efficiency, and AI-skilled talent. Humans focus on judgment, not repetition. Global coverage smooths throughput without heroics.</p>
+          <div class="cap-row-example">Relatable example: 200 HC → 200 HC. Same people. Same budget. More output. More stability. Less pressure.</div>
         </div>
       </div>
 
-      <div class="acc-item">
-        <button class="acc-trigger" aria-expanded="false" data-acc="acc-2">
-          Capability 2: Amplify — Do More with Less
-          <span class="acc-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="acc-body" id="acc-2">
-          <div class="acc-body-inner">
-            <div class="acc-stat">200 HC → 100 HC + 100</div>
-            <p class="acc-text">Reset unit economics by redesigning how work happens. Value arbitrage replaces role arbitrage—outcomes delivered by humans + agents, not headcount. AAVA orchestrates work across the SDLC. Process-led delivery pods replace experience-heavy pyramids. Humans move from execution to leverage.</p>
-            <div class="acc-example">Relatable example: 200 HC → 100 HC + 100 agents. Fewer people. Higher output. Lower cost per outcome—permanently.</div>
+      <!-- Row 2: Amplify -->
+      <div class="cap-row">
+        <div class="cap-row-left">
+          <div class="cap-row-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="5" cy="14" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="23" cy="7" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="23" cy="21" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M7.5 13L20.5 8M7.5 15L20.5 20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
           </div>
+          <div class="cap-row-title">Amplify — Do More with Less</div>
+          <div class="cap-row-stat">200 HC → 100 HC + 100</div>
+        </div>
+        <div class="cap-row-right">
+          <p class="cap-row-desc">Reset unit economics by redesigning how work happens. Value arbitrage replaces role arbitrage—outcomes delivered by humans + agents, not headcount. AAVA orchestrates work across the SDLC. Process-led delivery pods replace experience-heavy pyramids. Humans move from execution to leverage.</p>
+          <div class="cap-row-example">Relatable example: 200 HC → 100 HC + 100 agents. Fewer people. Higher output. Lower cost per outcome—permanently.</div>
         </div>
       </div>
 
-      <div class="acc-item">
-        <button class="acc-trigger" aria-expanded="false" data-acc="acc-3">
-          Capability 3: Ascend — Less is More
-          <span class="acc-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="acc-body" id="acc-3">
-          <div class="acc-body-inner">
-            <div class="acc-stat">200 HC → 50 HC + 150</div>
-            <p class="acc-text">Move from funding capacity to purchasing outcomes. Agents absorb the bulk of volume work. AAVA runs predictable flows end-to-end with autonomous execution. Savings generated offset GCC run costs. Human oversight governs value, risk, and exceptions. Near-zero marginal cost for growth.</p>
-            <div class="acc-example">Relatable example: 200 HC → 50 HC + 150 agents. Less labor. More capability. Outcome funding model unlocks strategic value.</div>
+      <!-- Row 3: Ascend -->
+      <div class="cap-row">
+        <div class="cap-row-left">
+          <div class="cap-row-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 22h4v-6H3v6zM10 22h4V10h-4v12zM17 22h4V6h-4v16z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M4 16l6-6 4 4 7-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
+          <div class="cap-row-title">Ascend — Less is More</div>
+          <div class="cap-row-stat">200 HC → 50 HC + 150</div>
+        </div>
+        <div class="cap-row-right">
+          <p class="cap-row-desc">Move from funding capacity to purchasing outcomes. Agents absorb the bulk of volume work. AAVA runs predictable flows end-to-end with autonomous execution. Savings generated offset GCC run costs. Human oversight governs value, risk, and exceptions. Near-zero marginal cost for growth.</p>
+          <div class="cap-row-example">Relatable example: 200 HC → 50 HC + 150 agents. Less labor. More capability. Outcome funding model unlocks strategic value.</div>
         </div>
       </div>
 
@@ -1139,22 +1152,6 @@
   }
   window.addEventListener('scroll', updateSubnav, { passive: true });
   updateSubnav();
-
-  // ── Accordion
-  document.querySelectorAll('.acc-trigger').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const isOpen = btn.classList.contains('open');
-      document.querySelectorAll('.acc-trigger').forEach(b => {
-        b.classList.remove('open'); b.setAttribute('aria-expanded','false');
-        document.getElementById(b.dataset.acc).style.maxHeight = '0';
-      });
-      if (!isOpen) {
-        btn.classList.add('open'); btn.setAttribute('aria-expanded','true');
-        const body = document.getElementById(btn.dataset.acc);
-        body.style.maxHeight = body.scrollHeight + 'px';
-      }
-    });
-  });
 
   // ── Flip cards: tap/click toggle for touch devices
   document.querySelectorAll('.flip-card').forEach(card => {
